@@ -5,6 +5,8 @@ date:   2016-12-15 12:22:22 +0800
 categories: java
 ---
 
+This is a short article introducing the naming history about Java.
+
 ##Description
 本文介绍Java的历史版本名称
 
