@@ -7,10 +7,11 @@ categories: java
 
 This is a short article introducing the naming history about Java.
 
-##Description
+
+## Description
 本文介绍Java的历史版本名称
 
-##Introduction
+## Introduction
 ### Java Creator
 James Gosling
 ### What is Java
