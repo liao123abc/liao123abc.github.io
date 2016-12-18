@@ -11,18 +11,20 @@ This is a short article introducing the naming history about Java.
 ## Description
 本文介绍Java的历史版本名称
 
-## Introduction
-### Java Creator
+#### Introduction
+
+- Java Creator
 James Gosling
-### What is Java
-#### high-level programming language
-- concurrent
-- class-based
-- object-oriented
-#### WORA
-- Write once, run anywhere
+
+- What is Java：high-level programming language
+1. concurrent
+2. class-based
+3. object-oriented
+- WORA ： Write once, run anywhere
 
 #### Java History
+This gives a brief description to all Java versions naming.
+
 ##### JDK Version 1.0  (January 23, 1996):  Oak(橡木)
 ![](http://i.imgur.com/ndBOLcf.jpg)
 
