@@ -27,10 +27,10 @@ categories: Linux
 
 ### 区分module和microkernel operating systems
 - module [monolithic operating Systems]:
-- does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function
+    - does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function
 
 - microkernel operating Systems:
-- demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.
+    - demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.
 
 ### File
 A Unix file is an information container structured as a sequence of bytes; the kernel does not interpret the contents of a file.
@@ -40,11 +40,11 @@ A Unix file is an information container structured as a sequence of bytes; the k
 - Directory
 - Symbolic link
 - Device file
-- Block-oriented device file
-- Character-oriented device file
-- Device files are related to I/O devices and device drivers integrated into the kernel
+    - Block-oriented device file
+    - Character-oriented device file
+    - Device files are related to I/O devices and device drivers integrated into the kernel
 - Pipe and named pipe (also called FIFO)
-- Pipes and sockets are special files used for interprocess communication
+    - Pipes and sockets are special files used for interprocess communication
 - Socket
 
 #### Inode, consist the information:
@@ -56,7 +56,7 @@ A Unix file is an information container structured as a sequence of bytes; the k
 - User ID of the file owner
 - Group ID of the file
 - Several timestamps that specify the inode status change time, the last access time, and
-the last modify time
+  the last modify time
 - Access rights and file mode (see next section)
 
 
@@ -64,18 +64,47 @@ the last modify time
 - each file consists of a sequence of characters
 - Information needed included in a data structure-inode
 
+### 1.6.1 The Process/Kernel Model
+
+he kernel itself is not a process but a process manager. 
+
+Besides user processes, Unix systems include a few privileged processes called kernel threads:
+- They run in Kernel Mode in the kernel address space.
+- They do not interact with users, and thus do not require terminal devices.
+- They are usually created during system startup and remain alive until the system is
+  shut down.
+
+
+Kernel routine invoded:
+- process itself invokes a system call 
+- process sinals an exception, cause the kernel invoke to handle  the exception
+- device issues an interrupt signal
+- kernel thread is executed
+
+### 1.6.2 Process Implementation
+#### Process Descriptor
+- program counter and stack pointer
+- general-purpose registers
+- floating point registers
+- processor control registers(Process Status Word-cpu state)
+- memory manager registers keep track of RAM
+
+### 1.6.3 Reentrant Kernels
+- All Unix Kernels are reentrant
+
+
 ## Chapter 2.Memory Addressing
 ### 2.1 Memory address
 - Logical address:
-- Included in the machine language instructions to specify the address of an operand or of an instruction.
-- segment + offset
+    - Included in the machine language instructions to specify the address of an operand or of an instruction.
+    - segment + offset
 
 - Linear addrss:
-- A single 32-bit unsigned integer that can be used to address up to 4 GB
-- range from 0x00000000 to 0xffffffff.
+    - A single 32-bit unsigned integer that can be used to address up to 4 GB
+    - range from 0x00000000 to 0xffffffff.
 
 - Physical address:
-- Used to address memory cells included in memory chips.
+    - Used to address memory cells included in memory chips.
 
 
 
@@ -84,13 +113,13 @@ the last modify time
 - logical address = a segment identifier[16-bit field called Segment Selector]  + an offset[32-bit field]
 
 - processor provides segmentation registers to hold Segment Selectors
-- CS:code segment register, points to a segment containing program instructions
+    - CS:code segment register, points to a segment containing program instructions
 
-- SS:stack segment register, points to a segment containing the current program stack
+    - SS:stack segment register, points to a segment containing the current program stack
 
-- DS:data segment register, points to a segment containing static and external data
+    - DS:data segment register, points to a segment containing static and external data
 
-- ES,FS,GS:->three segmentation registers are general purpose and may refer to arbitrary segments.
+    - ES,FS,GS:->three segmentation registers are general purpose and may refer to arbitrary segments.
 
 
 ### 2.5 paging in Linux
