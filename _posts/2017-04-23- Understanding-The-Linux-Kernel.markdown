@@ -27,10 +27,10 @@ categories: Linux
 
 ### 区分module和microkernel operating systems
 - module [monolithic operating Systems]:
-    - does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function
+- does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function
 
 - microkernel operating Systems:
-    - demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.
+- demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.
 
 ### File
 A Unix file is an information container structured as a sequence of bytes; the kernel does not interpret the contents of a file.
@@ -40,11 +40,11 @@ A Unix file is an information container structured as a sequence of bytes; the k
 - Directory
 - Symbolic link
 - Device file
-    - Block-oriented device file
-    - Character-oriented device file
-    - Device files are related to I/O devices and device drivers integrated into the kernel
+- Block-oriented device file
+- Character-oriented device file
+- Device files are related to I/O devices and device drivers integrated into the kernel
 - Pipe and named pipe (also called FIFO)
-    - Pipes and sockets are special files used for interprocess communication
+- Pipes and sockets are special files used for interprocess communication
 - Socket
 
 #### Inode, consist the information:
@@ -96,15 +96,28 @@ Kernel routine invoded:
 ## Chapter 2.Memory Addressing
 ### 2.1 Memory address
 - Logical address:
-    - Included in the machine language instructions to specify the address of an operand or of an instruction.
-    - segment + offset
+- Included in the machine language instructions to specify the address of an operand or of an instruction.
+- segment + offset
 
 - Linear addrss:
-    - A single 32-bit unsigned integer that can be used to address up to 4 GB
-    - range from 0x00000000 to 0xffffffff.
+- A single 32-bit unsigned integer that can be used to address up to 4 GB
+- range from 0x00000000 to 0xffffffff.
 
 - Physical address:
-    - Used to address memory cells included in memory chips.
+- Used to address memory cells included in memory chips.
+
+
+- sample:
+  我们写个最简单的hello world程序，用gccs编译，再反编译后会看到以下指令：
+
+···
+mov    0x80495b0, %eax
+···
+
+这里的内存地址0x80495b0 就是一个逻辑地址，必须加上隐含的DS 数据段的基地址，才能构成线性地址。也就是说 0x80495b0 是当前任务的DS数据段内的偏移。
+
+
+
 
 
 
@@ -113,14 +126,70 @@ Kernel routine invoded:
 - logical address = a segment identifier[16-bit field called Segment Selector]  + an offset[32-bit field]
 
 - processor provides segmentation registers to hold Segment Selectors
-    - CS:code segment register, points to a segment containing program instructions
+- CS:code segment register, points to a segment containing program instructions
 
-    - SS:stack segment register, points to a segment containing the current program stack
+- SS:stack segment register, points to a segment containing the current program stack
 
-    - DS:data segment register, points to a segment containing static and external data
+- DS:data segment register, points to a segment containing static and external data
 
-    - ES,FS,GS:->three segmentation registers are general purpose and may refer to arbitrary segments.
+- ES,FS,GS:->three segmentation registers are general purpose and may refer to arbitrary segments.
 
 
 ### 2.5 paging in Linux
 Linux handling of processes relyis heavily on paging.
+
+
+
+
+####  Signals and Interprocess Communication
+- Asynchronous notifications
+- Synchronous errors or exceptions
+
+The kernel implements these constructs as IPC resources: a process acquires a resource by
+invoking a shmget( ), semget( ), or msgget( ) system call. Just like files, IPC resources
+are persistent: they must be explicitly deallocated by the creator process, by the current
+owner, or by a superuser process.
+
+Shared memory provides the fastest way for processes to exchange and share data. 
+
+
+
+1.6.7.1 Zombie processes
+a process
+remains in that state until its parent process executes a wait( ) system call on it. 
+
+
+
+### Memory Management
+#### virtual memory
+- Several processes can be executed concurrently.
+- It is possible to run applications whose memory needs are larger than the available
+  physical memory.
+- Processes can execute a program whose code is only partially loaded in memory.
+- Each process is allowed to access a subset of the available physical memory.
+- Processes can share a single memory image of a library or program.
+- Programs can be relocatable, that is, they can be placed anywhere in physical memory.
+- Programmers can write machine-independent code, since they do not need to be
+  concerned about physical memory organization.
+
+#### Random access memory usage
+two portions of the random access memory(RAM).
+- A few megabytes are dedicated to storing the kernel image (i.e., the kernel code and
+  the kernel static data structures). 
+- The remaining portion of RAM is used in three possible ways:
+  • To satisfy kernel requests for buffers, descriptors, and other dynamic kernel data
+  structures
+  • To satisfy process requests for generic memory areas and for memory mapping of files
+  • To get better performance from disks and other buffered devices by means of caches
+
+
+
+
+
+
+
+
+
+
+
+
