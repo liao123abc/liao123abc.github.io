@@ -9,7 +9,7 @@ categories: Linux
 ―Morihei Ueshiba
 
 ## Description
-这个是对<Understanding the linux kernel>的读书笔记,记录下了要点.
+这个是对<<Understanding the linux kernel>>的读书笔记,记录下了要点.持续更新
 
 
 ## Chapter 1
