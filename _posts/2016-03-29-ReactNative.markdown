@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "React Native环境搭建!"
-date:   2016-3-29 11:41:22 +0800
-categories: Android
+Description: "React Native预言"
+modified: 2016-3-29
+tags: Android
 ---
 
 
@@ -18,14 +19,14 @@ categories: Android
 
 ### 安装node.js
 - https://nodejs.org/en/
-![](http://i.imgur.com/f5ZbbXf.png)
+  ![](http://i.imgur.com/f5ZbbXf.png)
 
 ### 安装nrm模块
 - 为了方便切换npm源，需要先安装nrm模块
 - cmd:     
 
     `npm install –g nrm`
-             
+    ​         
 ### 切换npm源
 - 为了方便切换npm源，切换npm源到taobao—比较快
 
@@ -34,7 +35,7 @@ categories: Android
 ### 安装RN cmd tools
 - Install the React Native command line tools:
 - Cmd:     
-             `npm install –g react-native-cli`
+         `npm install –g react-native-cli`
 
 ### 建立project
 - 1 Init：
@@ -89,7 +90,7 @@ categories: Android
 ### Data flow
 - solutions for data flow—flux
 - React Native 的亮点是解决了在 Native 中使用声明式来开发 UI 的渲染效率问题，而不是软件架构和工程模型的问题
-![](http://i.imgur.com/xYgjaMj.png)
+  ![](http://i.imgur.com/xYgjaMj.png)
 
 ### summary
 

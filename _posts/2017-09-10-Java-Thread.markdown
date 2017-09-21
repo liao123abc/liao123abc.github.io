@@ -132,25 +132,18 @@ nofityAll()方法能够唤醒所有正在等待该对象的monitor的线程，�
 
 ```java
 public class UseBlockQueue {
-
     private static final String TAG = UseBlockQueue.class.getSimpleName();
-
     private LinkedBlockingQueue<Object> queue = new LinkedBlockingQueue<Object> (10);
-
     public UseBlockQueue() {
-
     }
-
     public void start() {
         new Producer().start();
         new Consumer().start();
     }
-
     public static void main(String[] args) throws Exception {
         UseBlockQueue test = new UseBlockQueue();
         test.start();
     }
-
     class Producer extends Thread {
         public void run() {
             while(true ) {
@@ -164,7 +157,6 @@ public class UseBlockQueue {
             }
         }
     }
-
     class Consumer extends Thread {
         public void run() {
             while (true ) {
@@ -184,29 +176,22 @@ public class UseBlockQueue {
 
 ```java
 public class UseReentrantLock {
-
     private static final String TAG = UseReentrantLock.class.getSimpleName();
-
     private LinkedList<Object> myList = new LinkedList<Object>();
     private int MAX = 10;
     private final Lock lock = new ReentrantLock();
     private final Condition full = lock.newCondition();
     private final Condition empty = lock.newCondition();
-
     public UseReentrantLock() {
-
     }
-
     public void start() {
         new Producer().start();
         new Consumer().start();
     }
-
     public void test() {
         UseReentrantLock test = new UseReentrantLock();
         test.start();
     }
-
     class Producer extends Thread {
         public void run() {
             while(true) {
@@ -229,7 +214,6 @@ public class UseReentrantLock {
             }
         }
     }
-
     class Consumer extends Thread {
         public void run() {
             while (true) {
@@ -257,20 +241,15 @@ public class UseReentrantLock {
 
 ```java
 public class UseWaitNotify {
-
     private static final String TAG = UseWaitNotify.class.getSimpleName();
-
     private LinkedList<Object> storeHouse = new LinkedList<Object>();
     private final static int MAX = 10;
-
     public UseWaitNotify() {
     }
-
     public void start() {
         new Producer().start();
         new Consumer().start();
     }
-
     class Producer extends Thread {
         @Override
         public void run() {
@@ -281,14 +260,12 @@ public class UseWaitNotify {
                             Log.d(TAG, "storeHouse is full , plz wait");
                             storeHouse.wait();
                         }
-
                         Object newObject = new Object();
                         if (storeHouse.add(newObject)) {
                             Log.d(TAG, "Producer put a Object to storeHouse");
                             Thread.sleep((long) (Math.random()*3000));
                             storeHouse.notify();
                         }
-
                     } catch (InterruptedException e) {
                         Log.d(TAG, "Producer is interrupted");
                     }
@@ -296,7 +273,6 @@ public class UseWaitNotify {
             }
         }
     }
-
     class Consumer extends Thread {
         @Override
         public void run() {
@@ -319,7 +295,6 @@ public class UseWaitNotify {
             }
         }
     }
-
     public static void test() {
         UseWaitNotify use = new UseWaitNotify();
         use.start();

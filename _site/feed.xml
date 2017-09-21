@@ -1,42 +1,2009 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>This is my blog.</title>
-    <description>I&#39;m an android developer. Welcome to my blog
-</description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 14 Dec 2016 21:43:40 +0800</pubDate>
-    <lastBuildDate>Wed, 14 Dec 2016 21:43:40 +0800</lastBuildDate>
-    <generator>Jekyll v3.1.6</generator>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-21T11:01:50-04:00</updated><id>http://localhost:4000/</id><title>Thomas Android Blog</title><subtitle>Welcome to my blog.</subtitle><entry><title>Thread</title><link href="http://localhost:4000/java/Java-Thread/" rel="alternate" type="text/html" title="Thread" /><published>2017-09-10T10:18:38-04:00</published><updated>2017-09-10T10:18:38-04:00</updated><id>http://localhost:4000/java/Java-Thread</id><content type="html" xml:base="http://localhost:4000/java/Java-Thread/">&lt;p&gt;“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;h1 id=&quot;thread&quot;&gt;Thread&lt;/h1&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;h3 id=&quot;creation&quot;&gt;Creation&lt;/h3&gt;
+&lt;p&gt;There is 1 way to create a Thread but task can be assigned to Thread using 3 different ways either by using.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Runnable interface (run() method will be invoked)&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadDemo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Lets create Task first to assign it to the Thread&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ThreadTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ThreadTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Lets create a Thread and assign task to it.&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Way to assign task to a Thread is by passing task object(Runnable) to Thread's constructor.&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Start a thread&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;thread1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadTask&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//Code present here will be executed in separate independent path.&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Thread class (run() method will be invoked)&lt;/li&gt;
+&lt;/ul&gt;
 
-</description>
-        <pubDate>Sat, 26 Nov 2016 22:08:22 +0800</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2016/11/26/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/11/26/welcome-to-jekyll.html</guid>
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadDemo2&lt;/span&gt;  &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Code present here will be executed in separate independent path.&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Lets create Task first to assign it to the Thread&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ThreadDemo2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ThreadDemo2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Lets create a Thread and assign task to it.&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Way to assign task to a Thread is by passing task object(Runnable) to Thread's constructor.&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Start a thread&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;thread1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Callable interface (call() method will be invoked)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadDemo3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ExecutorService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Executors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newFixedThreadPool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ThreadTask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ThreadTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Future&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;threadTask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ExecutionException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;shutdown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadTask&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Callable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SUCCESS&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;synchronized&quot;&gt;synchronized&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方法声明时使用,放在范围操作符(public等)之后,返回类型声明(void等)之前.即一次只能有一个线程进入该方法,
+其他线程要想在此时调用该方法,只能排队等候,当前线程(就是在synchronized方法内部的线程)执行完该方法后,别的线程才能进入.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对某一代码块使用,synchronized后跟括号,括号里是变量,这样,一次只有一个线程进入该代码块&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;synchronized后面括号里是一对象,此时,线程获得的是对象锁.如果线程进入,则得到对象锁,那么别的线程在该类所有对象上
+的任何操作都不能进行.在对象级使用锁通常是一种比较粗糙的方法&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;synchronized后面括号里是类, 如，synchronized(ArrayWithLockOrder.class)。 如果线程进入,则线程在该类中
+所有操作不能进行,包括静态变量和静态方法&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;锁是和对象相关联的，每个对象有一把锁，为了执行synchronized语句，线程必须能够获得synchronized语句中表达式指定的对象的锁，一个对象只有一把锁，被一个线程获得之后它就不再拥有这把锁，线程在执行完synchronized语句后，将获得锁交还给对象。在方法前面加上synchronized修饰符即可以将一个方法声明为同步化方法。同步化方法在执行之前获得一个锁。如果这是一个类方法，那么获得的锁是和声明方法的类相关的Class类对象的锁。如果这是一个实例方法，那么此锁是this对象的锁。&lt;/p&gt;
+
+&lt;h3 id=&quot;notify-notifyall&quot;&gt;notify, notifyAll&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;wait()、notify()和notifyAll()方法是本地方法，并且为final方法，无法被重写。&lt;/li&gt;
+  &lt;li&gt;调用某个对象的wait()方法能让当前线程阻塞，并且当前线程必须拥有此对象的monitor（即锁）&lt;/li&gt;
+  &lt;li&gt;调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；&lt;/li&gt;
+  &lt;li&gt;调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Warning:
+单个生产者和消费者使用notify没有关系，但是多个的时候都要使用notifyAll
+Clearly, notify wakes (any) one thread in the wait set, notifyAll wakes all threads in the waiting set.极端情况下， 仅仅调用notify()会导致死锁&lt;/p&gt;
+
+&lt;h3 id=&quot;为何这三个不是thread类声明中的方法而是object类中声明的方法当然由于thread类继承了object类所以thread也可以调用者三个方法&quot;&gt;为何这三个不是Thread类声明中的方法，而是Object类中声明的方法（当然由于Thread类继承了Object类，所以Thread也可以调用者三个方法）？&lt;/h3&gt;
+&lt;p&gt;其实这个问题很简单，由于每个对象都拥有monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。
+而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
+上面已经提到，如果调用某个对象的wait()方法，当前线程必须拥有这个对象的monitor（即锁），因此调用wait()方法必须在同步块或者同步方法中进行（synchronized块或者synchronized方法）。
+调用某个对象的wait()方法，相当于让当前线程交出此对象的monitor，然后进入等待状态，等待后续再次获得此对象的锁（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）；
+notify()方法能够唤醒一个正在等待该对象的monitor的线程，当有多个线程都在等待该对象的monitor的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。
+同样地，调用某个对象的notify()方法，当前线程也必须拥有这个对象的monitor，因此调用notify()方法必须在同步块或者同步方法中进行（synchronized块或者synchronized方法）。
+nofityAll()方法能够唤醒所有正在等待该对象的monitor的线程，这一点与notify()方法是不同的。
+这里要注意一点：notify()和notifyAll()方法只是唤醒等待该对象的monitor的线程，并不决定哪个线程能够获取到monitor。
+一个线程被唤醒不代表立即获取了对象的monitor，只有等调用完notify()或者notifyAll()并退出synchronized块，释放对象锁后，其余线程才可获得锁执行。&lt;/p&gt;
+
+&lt;h3 id=&quot;生产者消费者问题&quot;&gt;生产者消费者问题&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use BlockQueue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UseBlockQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseBlockQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getSimpleName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedBlockingQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedBlockingQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UseBlockQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;UseBlockQueue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseBlockQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Producer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Producer: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;producer is interrupted!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Consumer: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;consumer is interrupted!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use ReEntrantLock&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UseReentrantLock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseReentrantLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getSimpleName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lock&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReentrantLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Condition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;full&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newCondition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Condition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newCondition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UseReentrantLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;UseReentrantLock&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseReentrantLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Producer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;warning: list is full&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;full&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Producer: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;producer is interrupted!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;unlock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;warning: it's empty!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;removeLast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Consumer: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;full&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;consumer is interrpted!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;unlock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use wait notify&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UseWaitNotify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseWaitNotify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getSimpleName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UseWaitNotify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Producer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;storeHouse is full , plz wait&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Producer put a Object to storeHouse&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Producer is interrupted&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;storehouse is empty, plz wait&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;removeLast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;consumer get a object from storehouse&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;storeHouse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;Log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Producer is interrupted&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;UseWaitNotify&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseWaitNotify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><summary>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</summary></entry><entry><title>Rxjava Guide By Jake Wharton</title><link href="http://localhost:4000/rxjava/Rxjava-guide-by-Jake-Wharton/" rel="alternate" type="text/html" title="Rxjava Guide By Jake Wharton" /><published>2017-09-01T00:47:08-04:00</published><updated>2017-09-01T00:47:08-04:00</updated><id>http://localhost:4000/rxjava/Rxjava-guide-by-Jake-Wharton</id><content type="html" xml:base="http://localhost:4000/rxjava/Rxjava-guide-by-Jake-Wharton/">&lt;p&gt;“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba&lt;/p&gt;
+
+&lt;h1 id=&quot;from-jake-wharton&quot;&gt;from Jake Wharton&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;usually do work when you start or stop listening.&lt;/li&gt;
+  &lt;li&gt;Sysnchronous or asynchronous.&lt;/li&gt;
+  &lt;li&gt;Single item, many items, or empty
+    &lt;ul&gt;
+      &lt;li&gt;single - network request&lt;/li&gt;
+      &lt;li&gt;many - button click&lt;/li&gt;
+      &lt;li&gt;empty - save file or database&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;terminates with an error or succeeds to completion&lt;/li&gt;
+  &lt;li&gt;may never terminate&lt;/li&gt;
+  &lt;li&gt;just an implementation of the Observer pattern&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;rxjava&quot;&gt;Rxjava&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;a set of classes for representing sources of data&lt;/li&gt;
+  &lt;li&gt;a set of classes for listening to data sources&lt;/li&gt;
+  &lt;li&gt;A set of methods for modifying and composing the data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;source&quot;&gt;Source&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Usually do work when you start or stop listening.&lt;/li&gt;
+  &lt;li&gt;Synchronous or asynchronous.&lt;/li&gt;
+  &lt;li&gt;Single item, many items, or empty.&lt;/li&gt;
+  &lt;li&gt;Terminates with an error or succeeds to completion.&lt;/li&gt;
+  &lt;li&gt;May never terminate!&lt;/li&gt;
+  &lt;li&gt;just an implementation of the Observer pattern&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sources&quot;&gt;sources&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Observable&lt;T&gt;
+&lt;/T&gt;    &lt;ul&gt;
+      &lt;li&gt;Emits 0 to n items&lt;/li&gt;
+      &lt;li&gt;Terminates with complete or error.&lt;/li&gt;
+      &lt;li&gt;Does not have backpressure.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Flowable&lt;T&gt;
+&lt;/T&gt;    &lt;ul&gt;
+      &lt;li&gt;Emits 0 to n items&lt;/li&gt;
+      &lt;li&gt;Terminates with complete or error.&lt;/li&gt;
+      &lt;li&gt;Has backpressure&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;flowable-vs-observable&quot;&gt;Flowable vs Observable&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;backpressure allows you to control how fast a source emits items.&lt;/li&gt;
+  &lt;li&gt;Rxjava 1.x added backpressure late in the design process&lt;/li&gt;
+  &lt;li&gt;All types exposed backupressure but not all sources respected it&lt;/li&gt;
+  &lt;li&gt;Backpressure, like interitance, must be designed for.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;single&quot;&gt;Single&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Either succeeds with an item or errors.&lt;/li&gt;
+  &lt;li&gt;No backpressure support.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;completable&quot;&gt;Completable&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Either completes or errors. Has no items!&lt;/li&gt;
+  &lt;li&gt;No backpressure support.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;maybe&quot;&gt;Maybe&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Either succeeds with an item, completes with no items, or errors. - No backpressure support.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;flowable-vs-observable-1&quot;&gt;Flowable vs Observable&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;—&lt;/th&gt;
+      &lt;th&gt;Backpressure&lt;/th&gt;
+      &lt;th&gt;No Backpressure&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0…n items, complete / error&lt;/td&gt;
+      &lt;td&gt;Flowable&lt;/td&gt;
+      &lt;td&gt;Observable&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;item / complete/error&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Maybe&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;item / error&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Single&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;complete / error&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Completable&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;source-specializations&quot;&gt;Source Specializations&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Encoding subsets of Observable into the type system
+    &lt;ul&gt;
+      &lt;li&gt;Single -item or error. think “scalar”&lt;/li&gt;
+      &lt;li&gt;Completable - Complete or error, think “runnable”.&lt;/li&gt;
+      &lt;li&gt;Maybe - Item, complete, or error. think “optional”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;points-&quot;&gt;points ?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;create&lt;/li&gt;
+  &lt;li&gt;dispose&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;operators&quot;&gt;Operators&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Manipulate or combine data in some way&lt;/li&gt;
+  &lt;li&gt;Manipulate threading in some way.&lt;/li&gt;
+  &lt;li&gt;Manipulate emissions in some way.&lt;/li&gt;
+&lt;/ul&gt;</content><summary>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</summary></entry><entry><title>Git Commands</title><link href="http://localhost:4000/linux/git-commands/" rel="alternate" type="text/html" title="Git Commands" /><published>2017-08-31T00:53:34-04:00</published><updated>2017-08-31T00:53:34-04:00</updated><id>http://localhost:4000/linux/git-commands</id><content type="html" xml:base="http://localhost:4000/linux/git-commands/">&lt;p&gt;“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba&lt;/p&gt;
+
+&lt;h1 id=&quot;git-usage&quot;&gt;git usage&lt;/h1&gt;
+
+&lt;h2 id=&quot;git-terms&quot;&gt;git terms&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;state&lt;/th&gt;
+      &lt;th&gt;description&lt;/th&gt;
+      &lt;th&gt;section&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;committed&lt;/td&gt;
+      &lt;td&gt;data is safely stored in your local database&lt;/td&gt;
+      &lt;td&gt;Git directory-stores the metadata and object database for your project.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;modified&lt;/td&gt;
+      &lt;td&gt;have changed the file but have not committed it to your database yet&lt;/td&gt;
+      &lt;td&gt;working directory-a single checkout of one version of the project.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Staged&lt;/td&gt;
+      &lt;td&gt;have marked a modified file in its current version to go into your next commit snapshot.&lt;/td&gt;
+      &lt;td&gt;staging area&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;git-commands&quot;&gt;git commands&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;command&lt;/th&gt;
+      &lt;th&gt;des&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git checkout -b [name_of_your_new_branch]&lt;/td&gt;
+      &lt;td&gt;Create the branch on your local machine and switch in this branch&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git push -u origin [name_of_your_new_branch]&lt;/td&gt;
+      &lt;td&gt;push new branch to remote origin&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(on branch development)$git merge master, git checkout master, git merge development&lt;/td&gt;
+      &lt;td&gt;Merge development branch with master&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch -d the_local_branch&lt;/td&gt;
+      &lt;td&gt;delete local branch&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;新建代码库&quot;&gt;新建代码库&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在当前目录新建一个Git代码库
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git init
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个目录，将其初始化为Git代码库
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git init [project-name]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;下载一个项目和它的整个代码历史
+$ git clone [url]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;配置&quot;&gt;配置&lt;/h3&gt;
+
+&lt;p&gt;Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;显示当前的Git配置
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git config --list
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;编辑Git配置文件
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git config -e [--global]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;设置提交代码时的用户信息
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git config [--global] user.name &quot;[name]&quot;
+$ git config [--global] user.email &quot;[email address]&quot;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;增加删除文件&quot;&gt;增加/删除文件&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;添加指定文件到暂存区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git add [file1] [file2] ...
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;添加指定目录到暂存区，包括子目录
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git add [dir]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;添加当前目录的所有文件到暂存区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git add .
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除工作区文件，并且将这次删除放入暂存区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git rm [file1] [file2] ...
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;停止追踪指定文件，但该文件会保留在工作区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git rm --cached [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;改名文件，并且将这个改名放入暂存区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git mv [file-original] [file-renamed]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;代码提交&quot;&gt;代码提交&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交暂存区到仓库区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -m [message]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交暂存区的指定文件到仓库区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit [file1] [file2] ... -m [message]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交工作区自上次commit之后的变化，直接到仓库区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -a
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交时显示所有diff信息
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -v
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;使用一次新的commit，替代上一次提交&lt;/li&gt;
+  &lt;li&gt;如果代码没有任何新变化，则用来改写上一次commit的提交信息
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit --amend -m [message]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重做上一次commit，并包括指定文件的新变化
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit --amend [file1] [file2] ...
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;分支&quot;&gt;分支&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出所有本地分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出所有远程分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch -r
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出所有本地分支和远程分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch -a
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个分支，但依然停留在当前分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch [branch-name]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个分支，并切换到该分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout -b [branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个分支，指向指定commit
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch [branch] [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个分支，与指定的远程分支建立追踪关系
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch --track [branch] [remote-branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;切换到指定分支，并更新工作区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout [branch-name]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;建立追踪关系，在现有分支与指定的远程分支之间
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch --set-upstream [branch] [remote-branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;合并指定分支到当前分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git merge [branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;选择一个commit，合并进当前分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git cherry-pick [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git branch -d [branch-name]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除远程分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;标签&quot;&gt;标签&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出所有tag
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个tag在当前commit
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag [tag]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个tag在指定commit
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag [tag] [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看tag信息
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git show [tag]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交指定tag
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push [remote] [tag]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;提交所有tag
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push [remote] --tags
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个分支，指向某个tag
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout -b [branch] [tag]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;查看信息&quot;&gt;查看信息&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示有变更的文件
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git status
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示当前分支的版本历史
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git log
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示commit历史，以及每次commit发生变更的文件
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git log --stat
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示某个文件的版本历史，包括文件改名
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git log --follow [file]
+$ git whatchanged [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示指定文件相关的每一次diff
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git log -p [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示指定文件是什么人在什么时间修改过
+$ git blame [file]
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 显示暂存区和工作区的差异
+$ git diff
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示暂存区和上一个commit的差异
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git diff --cached [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示工作区与当前分支最新commit之间的差异
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git diff HEAD
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示两次提交之间的差异
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git diff [first-branch]...[second-branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示某次提交的元数据和内容变化
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git show [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示某次提交发生变化的文件
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git show --name-only [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示某次提交时，某个文件的内容
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git show [commit]:[filename]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示当前分支的最近几次提交
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reflog
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;远程同步&quot;&gt;远程同步&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;下载远程仓库的所有变动
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git fetch [remote]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示所有远程仓库
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote -v
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示某个远程仓库的信息
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote show [remote]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;增加一个新的远程仓库，并命名
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote add [shortname] [url]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;取回远程仓库的变化，并与本地分支合并
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git pull [remote] [branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;上传本地指定分支到远程仓库
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push [remote] [branch]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;强行推送当前分支到远程仓库，即使有冲突
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push [remote] --force
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;推送所有分支到远程仓库
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push [remote] --all
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;撤销&quot;&gt;撤销&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;恢复暂存区的指定文件到工作区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;恢复某个commit的指定文件到工作区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout [commit] [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;恢复上一个commit的所有文件到工作区
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git checkout .
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reset [file]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重置暂存区与工作区，与上一次commit保持一致
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reset --hard
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reset [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reset --hard [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重置当前HEAD为指定commit，但保持暂存区和工作区不变
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git reset --keep [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建一个commit，用来撤销指定commit&lt;/li&gt;
+  &lt;li&gt;后者的所有变化都将被前者抵消，并且应用到当前分支
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git revert [commit]
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;h3 id=&quot;其他&quot;&gt;其他&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;生成一个可供发布的压缩包
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git archive
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><summary>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</summary></entry><entry><title>Understanding the linux kernel!</title><link href="http://localhost:4000/linux/Understanding-The-Linux-Kernel/" rel="alternate" type="text/html" title="Understanding the linux kernel!" /><published>2017-04-23T08:41:22-04:00</published><updated>2017-04-23T08:41:22-04:00</updated><id>http://localhost:4000/linux/ Understanding-The-Linux-Kernel</id><content type="html" xml:base="http://localhost:4000/linux/Understanding-The-Linux-Kernel/">&lt;p&gt;“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba&lt;/p&gt;
+
+&lt;h2 id=&quot;description&quot;&gt;Description&lt;/h2&gt;
+&lt;p&gt;这个是对«Understanding the linux kernel»的读书笔记,记录下了要点.持续更新&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-1&quot;&gt;Chapter 1&lt;/h2&gt;
+&lt;h3 id=&quot;terms&quot;&gt;terms&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;symmetric multiprocessing (SMP)&lt;/li&gt;
+  &lt;li&gt;Journaling file system 日志型文件系统&lt;/li&gt;
+  &lt;li&gt;General Public License (GPL)&lt;/li&gt;
+  &lt;li&gt;Fiber Distributed Data Interface (FDDI)光纤分布式数据接口&lt;/li&gt;
+  &lt;li&gt;High Performance Parallel Interface (HIPPI)高性能并行接口&lt;/li&gt;
+  &lt;li&gt;cpu nonprivileged mode:User Mode&lt;/li&gt;
+  &lt;li&gt;cpu privileged mode:Kernel Mode&lt;/li&gt;
+  &lt;li&gt;TSS:Task State Segment&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;区分module和microkernel-operating-systems&quot;&gt;区分module和microkernel operating systems&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;module [monolithic operating Systems]:&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;microkernel operating Systems:&lt;/li&gt;
+  &lt;li&gt;demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;file&quot;&gt;File&lt;/h3&gt;
+&lt;p&gt;A Unix file is an information container structured as a sequence of bytes; the kernel does not interpret the contents of a file.&lt;/p&gt;
+
+&lt;h4 id=&quot;files-types&quot;&gt;Files Types&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Regular file&lt;/li&gt;
+  &lt;li&gt;Directory&lt;/li&gt;
+  &lt;li&gt;Symbolic link&lt;/li&gt;
+  &lt;li&gt;Device file&lt;/li&gt;
+  &lt;li&gt;Block-oriented device file&lt;/li&gt;
+  &lt;li&gt;Character-oriented device file&lt;/li&gt;
+  &lt;li&gt;Device files are related to I/O devices and device drivers integrated into the kernel&lt;/li&gt;
+  &lt;li&gt;Pipe and named pipe (also called FIFO)&lt;/li&gt;
+  &lt;li&gt;Pipes and sockets are special files used for interprocess communication&lt;/li&gt;
+  &lt;li&gt;Socket&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;inode-consist-the-information&quot;&gt;Inode, consist the information:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;File type (see previous section)&lt;/li&gt;
+  &lt;li&gt;Number of hard links associated with the file&lt;/li&gt;
+  &lt;li&gt;File length in bytes&lt;/li&gt;
+  &lt;li&gt;Device ID (i.e., an identifier of the device containing the file)&lt;/li&gt;
+  &lt;li&gt;Inode number that identifies the file within the filesystem&lt;/li&gt;
+  &lt;li&gt;User ID of the file owner&lt;/li&gt;
+  &lt;li&gt;Group ID of the file&lt;/li&gt;
+  &lt;li&gt;Several timestamps that specify the inode status change time, the last access time, and
+the last modify time&lt;/li&gt;
+  &lt;li&gt;Access rights and file mode (see next section)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;file-descriptor-and-inode&quot;&gt;File Descriptor and Inode&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;each file consists of a sequence of characters&lt;/li&gt;
+  &lt;li&gt;Information needed included in a data structure-inode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;161-the-processkernel-model&quot;&gt;1.6.1 The Process/Kernel Model&lt;/h3&gt;
+
+&lt;p&gt;he kernel itself is not a process but a process manager.&lt;/p&gt;
+
+&lt;p&gt;Besides user processes, Unix systems include a few privileged processes called kernel threads:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;They run in Kernel Mode in the kernel address space.&lt;/li&gt;
+  &lt;li&gt;They do not interact with users, and thus do not require terminal devices.&lt;/li&gt;
+  &lt;li&gt;They are usually created during system startup and remain alive until the system is
+shut down.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Kernel routine invoded:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;process itself invokes a system call&lt;/li&gt;
+  &lt;li&gt;process sinals an exception, cause the kernel invoke to handle  the exception&lt;/li&gt;
+  &lt;li&gt;device issues an interrupt signal&lt;/li&gt;
+  &lt;li&gt;kernel thread is executed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;162-process-implementation&quot;&gt;1.6.2 Process Implementation&lt;/h3&gt;
+&lt;h4 id=&quot;process-descriptor&quot;&gt;Process Descriptor&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;program counter and stack pointer&lt;/li&gt;
+  &lt;li&gt;general-purpose registers&lt;/li&gt;
+  &lt;li&gt;floating point registers&lt;/li&gt;
+  &lt;li&gt;processor control registers(Process Status Word-cpu state)&lt;/li&gt;
+  &lt;li&gt;memory manager registers keep track of RAM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;163-reentrant-kernels&quot;&gt;1.6.3 Reentrant Kernels&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;All Unix Kernels are reentrant&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;chapter-2memory-addressing&quot;&gt;Chapter 2.Memory Addressing&lt;/h2&gt;
+&lt;h3 id=&quot;21-memory-address&quot;&gt;2.1 Memory address&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Logical address:&lt;/li&gt;
+  &lt;li&gt;Included in the machine language instructions to specify the address of an operand or of an instruction.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;segment + offset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Linear addrss:&lt;/li&gt;
+  &lt;li&gt;A single 32-bit unsigned integer that can be used to address up to 4 GB&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;range from 0x00000000 to 0xffffffff.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Physical address:&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Used to address memory cells included in memory chips.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sample:
+我们写个最简单的hello world程序，用gccs编译，再反编译后会看到以下指令：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;···
+mov    0x80495b0, %eax
+···&lt;/p&gt;
+
+&lt;p&gt;这里的内存地址0x80495b0 就是一个逻辑地址，必须加上隐含的DS 数据段的基地址，才能构成线性地址。也就是说 0x80495b0 是当前任务的DS数据段内的偏移。&lt;/p&gt;
+
+&lt;h3 id=&quot;22-segmentation-in-hardware&quot;&gt;2.2 Segmentation in Hardware&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;logical address = a segment identifier[16-bit field called Segment Selector]  + an offset[32-bit field]&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;processor provides segmentation registers to hold Segment Selectors&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CS:code segment register, points to a segment containing program instructions&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SS:stack segment register, points to a segment containing the current program stack&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DS:data segment register, points to a segment containing static and external data&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ES,FS,GS:-&amp;gt;three segmentation registers are general purpose and may refer to arbitrary segments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;25-paging-in-linux&quot;&gt;2.5 paging in Linux&lt;/h3&gt;
+&lt;p&gt;Linux handling of processes relyis heavily on paging.&lt;/p&gt;
+
+&lt;h4 id=&quot;signals-and-interprocess-communication&quot;&gt;Signals and Interprocess Communication&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Asynchronous notifications&lt;/li&gt;
+  &lt;li&gt;Synchronous errors or exceptions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The kernel implements these constructs as IPC resources: a process acquires a resource by
+invoking a shmget( ), semget( ), or msgget( ) system call. Just like files, IPC resources
+are persistent: they must be explicitly deallocated by the creator process, by the current
+owner, or by a superuser process.&lt;/p&gt;
+
+&lt;p&gt;Shared memory provides the fastest way for processes to exchange and share data.&lt;/p&gt;
+
+&lt;p&gt;1.6.7.1 Zombie processes
+a process
+remains in that state until its parent process executes a wait( ) system call on it.&lt;/p&gt;
+
+&lt;h3 id=&quot;memory-management&quot;&gt;Memory Management&lt;/h3&gt;
+&lt;h4 id=&quot;virtual-memory&quot;&gt;virtual memory&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Several processes can be executed concurrently.&lt;/li&gt;
+  &lt;li&gt;It is possible to run applications whose memory needs are larger than the available
+physical memory.&lt;/li&gt;
+  &lt;li&gt;Processes can execute a program whose code is only partially loaded in memory.&lt;/li&gt;
+  &lt;li&gt;Each process is allowed to access a subset of the available physical memory.&lt;/li&gt;
+  &lt;li&gt;Processes can share a single memory image of a library or program.&lt;/li&gt;
+  &lt;li&gt;Programs can be relocatable, that is, they can be placed anywhere in physical memory.&lt;/li&gt;
+  &lt;li&gt;Programmers can write machine-independent code, since they do not need to be
+concerned about physical memory organization.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;random-access-memory-usage&quot;&gt;Random access memory usage&lt;/h4&gt;
+&lt;p&gt;two portions of the random access memory(RAM).&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A few megabytes are dedicated to storing the kernel image (i.e., the kernel code and
+the kernel static data structures).&lt;/li&gt;
+  &lt;li&gt;The remaining portion of RAM is used in three possible ways:
+• To satisfy kernel requests for buffers, descriptors, and other dynamic kernel data
+structures
+• To satisfy process requests for generic memory areas and for memory mapping of files
+• To get better performance from disks and other buffered devices by means of caches&lt;/li&gt;
+&lt;/ul&gt;</content><summary>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</summary></entry><entry><title>Java polymorphism and class modifier!</title><link href="http://localhost:4000/java/Java-polymorphism-and-class-modifier/" rel="alternate" type="text/html" title="Java polymorphism and class modifier!" /><published>2016-12-23T22:41:22-05:00</published><updated>2016-12-23T22:41:22-05:00</updated><id>http://localhost:4000/java/Java-polymorphism-and-class-modifier</id><content type="html" xml:base="http://localhost:4000/java/Java-polymorphism-and-class-modifier/">&lt;p&gt;“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba&lt;/p&gt;
+
+&lt;h3 id=&quot;description&quot;&gt;Description&lt;/h3&gt;
+&lt;p&gt;介绍Java Basic的多态性：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;override是重写，指的是子类集成父类重新写父类已有的方法，方法名称、参数个数，类型，顺序，返回值类型都是必须和父类方法一致的。&lt;/li&gt;
+  &lt;li&gt;overload是重载，值得是在同一个类中写多一个和另外一个方法名一毛一样的方法，不过是不同的方法参数或者返回值调用–因为方法就是一个功能的实现，但是参数可能有多种类型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sample-点击看代码&quot;&gt;sample 点击看代码&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/liao123abc/AndroidSnacks/tree/master/app/src/main/java/liao/thomas/androidsnacks/javabasic/overload&quot;&gt;overload&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/liao123abc/AndroidSnacks/tree/master/app/src/main/java/liao/thomas/androidsnacks/javabasic/override&quot;&gt;override&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;public-protected-default-private&quot;&gt;public protected default private&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;modifier&lt;/th&gt;
+      &lt;th&gt;类内部&lt;/th&gt;
+      &lt;th&gt;本包&lt;/th&gt;
+      &lt;th&gt;子类&lt;/th&gt;
+      &lt;th&gt;外部包&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;public&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;protected&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;default&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;private&lt;/td&gt;
+      &lt;td&gt;√&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+      &lt;td&gt;×&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;public 
+对于public修饰符，它具有最大的访问权限，可以访问任何一个在CLASSPATH下的类、接口、异常等。它往往用于对外的情况，也就是对象或类对外的一种接口的形式。(其实就是什么都可以访问)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;protected
+对于protected修饰符，对于protected的方法或者变量就只有本包和本类或者子类可以维护（其实就是对外不公开的意思），但是你可以在外部包写一个子类override protected
+方法&lt;/p&gt;
+
+    &lt;p&gt;包accessing有个方法test1&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package liao.thomas.androidsnacks.javabasic.accessing;
+
+/**
+ * Created by Administrator on 2016/12/24.
+ */
+
+public class Foo {
+
+    /**
+     * default
+     */
+    void test1() {
+        //do something
+    }
+
+    /**
+     * protected
+     */
+    protected void test2() {
+
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;另外一个包有个方法&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Foo2 foo2 = new Foo2();
+    //嘿嘿，调用继承后的test2方法,如果Foo2没有override test2方法，这里会报错，你可以试一下注释掉Foo2的test2方法
+    foo2.test2();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;default，针对本包访问设计，就是在同一个包内的都可以访问，其他的就不可以了，一般用于某些方法我们只在本包内被修改，对于包外，呵呵，不好意思，你没权限看到，更加不要说修改了。&lt;/p&gt;
+
+    &lt;p&gt;包accessing有个方法test1&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package liao.thomas.androidsnacks.javabasic.accessing;
+
+/**
+ * Created by Administrator on 2016/12/24.
+ */
+
+public class Foo {
+
+    /**
+     * default
+     */
+    void test1() {
+        //do something
+    }
+
+    /**
+     * protected
+     */
+    protected void test2() {
+
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;另外一个包有个方法&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Foo foo = new Foo();
+    //foo.test1(); //会报错，因为test1是default方法，无法在别的包访问
         
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;private 啥也不要说了，private修饰的方法或者变量只有本类才能够访问和修改，子类也不行&lt;/li&gt;
+&lt;/ul&gt;</content><summary>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</summary></entry><entry><title>Java 8 new features!</title><link href="http://localhost:4000/java/Java-8-Language-new-features/" rel="alternate" type="text/html" title="Java 8 new features!" /><published>2016-12-20T23:21:22-05:00</published><updated>2016-12-20T23:21:22-05:00</updated><id>http://localhost:4000/java/Java-8-Language-new-features</id><content type="html" xml:base="http://localhost:4000/java/Java-8-Language-new-features/">&lt;p&gt;This is a post introducing the new Features of Java8.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-we-need-jdk&quot;&gt;Why we need JDK?&lt;/h2&gt;
+
+&lt;p&gt;Why do we need JDK when we are already using Android SDK? After all, we are not developing for JVM.
+The Android build process depends on a number of tools from the JDK. Check out the build system overview documentation.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The first big piece we need from JDK is javac- all your source code written in Java needs to be compiled before it can be converted to the DEX foramt.&lt;/li&gt;
+  &lt;li&gt;Once your code has been compiled, dexed, and packaged into an APK, we need jarsigner to sign the APK.&lt;/li&gt;
+  &lt;li&gt;Is there any difference between using JDK 1.6, 1.7 and 1.8? That depends on what features you are using from each. Older projects that don’t use Java 7 features can use Java 6 without issue.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are some efforts out there to bring Java 8 features to Android, most notably gradle-retrolambda. Some of these require JDK 8 to compile properly.&lt;/p&gt;
+
+&lt;h2 id=&quot;android配置&quot;&gt;Android配置&lt;/h2&gt;
+
+&lt;p&gt;enable Java8&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;android {
+  ...
+  defaultConfig {
+    ...
+    jackOptions {
+      enabled true
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;android-supported-java-8-language-features-and-apis&quot;&gt;Android supported Java 8 Language Features and APIs&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Default and static interface methods&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lambda expressions (also available on API level 23 and lower)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Repeatable annotations&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Method References (also available on API level 23 and lower)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Type Annotations (also available on API level 23 and lower)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;default-and-static-interface-methods&quot;&gt;Default and static interface methods&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Java interface default methods
+    &lt;ul&gt;
+      &lt;li&gt;Defender Methods / Virtual extension methods&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Java Interface Static Method
+    &lt;ul&gt;
+      &lt;li&gt;similar to default method except that we can’t override them in the implementation classes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;why-java-8-import-default-interface-methods&quot;&gt;why java 8 import default interface methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设计接口需要小心翼翼(Tough)
+    &lt;ul&gt;
+      &lt;li&gt;随着功能扩展和时间推进，如果要在接口添加
+新方法，那么实现该接口的类也要响应实现该
+函数&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;大部分框架都会提供一个实现类xxImpl,
+    &lt;ul&gt;
+      &lt;li&gt;再extends该类选择自己需要的接口&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/lDJTlUc.png&quot; alt=&quot;why need default and static method&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;default-method-sample&quot;&gt;default method sample&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/KJt94Io.png&quot; alt=&quot;default method sample&quot; /&gt;
+Java8之前，那么每个实现了该interface的类都要实现sort这接口&lt;/p&gt;
+
+&lt;h3 id=&quot;default-method好处多多&quot;&gt;Default method好处多多&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;扩展接口不用担心会破坏当前的实现类&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Default interface 使abstract class和interface更加泾渭分明&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;避免大量的Utility classes&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;避免编写大量实现类&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;优化Collections API，以便支持Lambda&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Default method不能重载Object基类的方法&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;java-8才支持否则会提示出错&quot;&gt;Java 8才支持(否则会提示出错)&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/q8oX9vl.png&quot; alt=&quot;support in java8&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;发散思维&quot;&gt;发散思维&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Java 不支持多继承—就是说一个类只能继承另外一个类。想同时继承两个类？Forget it！
+    &lt;ul&gt;
+      &lt;li&gt;为什么？&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Java接口(Interface)支持多重继承
+    &lt;ul&gt;
+      &lt;li&gt;接口中所有的方法必须是抽象方法。(java 7及以前)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Java8 Interface 支持default method (java 8)
+    &lt;ul&gt;
+      &lt;li&gt;难道没有问题么？&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;diamond-problem&quot;&gt;Diamond problem&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/nTjxtWD.png&quot; alt=&quot;Diamond problem&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;default-methods---diamond-problem&quot;&gt;default methods - Diamond Problem&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/1pCXIHe.png&quot; alt=&quot;Diamond Problem&quot; /&gt;
+如果B或者C其中有一个并没有实现sayHi() ， 编译器不会报错&lt;/p&gt;
+
+&lt;h3 id=&quot;have-got-to-override-to-avoid-diamond-problem&quot;&gt;have got to override to avoid diamond problem&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/uwHyUlr.png&quot; alt=&quot;override to avoid diamond problem&quot; /&gt;
+Avoid Diamond problem , we have to override sayHi()&lt;/p&gt;
+
+&lt;h3 id=&quot;cannot-override-method-from-object&quot;&gt;cannot override method from Object&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/3WWJRPA.png&quot; alt=&quot;cannot override method from Object&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;static-method&quot;&gt;Static Method&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Static method[如果有的话]是interface领土不可分割的一部分
+    &lt;ul&gt;
+      &lt;li&gt;Class不能implement这个方法&lt;/li&gt;
+      &lt;li&gt;Security—保证方法的唯一性&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;方便interface提供utility方法
+    &lt;ul&gt;
+      &lt;li&gt;Null check&lt;/li&gt;
+      &lt;li&gt;Collection sorting&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;可以直接通过接口的方法调用来调用static method&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;abstract-classes-vs-defaultstatic-methods&quot;&gt;Abstract Classes Vs Default/Static Methods&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;抽象类可能包含变量，接口[interface]只包含方法和常量&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;类只能单继承，interface可以多继承&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不是所有地方都推荐用Default/Static Methods&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;java-annotations&quot;&gt;Java Annotations&lt;/h2&gt;
+
+&lt;h3 id=&quot;short-description&quot;&gt;short description&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;What
+    &lt;ul&gt;
+      &lt;li&gt;a form of metadata, provide data about a program that is not part of the program itself.&lt;/li&gt;
+      &lt;li&gt;Metadata is data about data. So Annotations are metadata for code.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Why
+    &lt;ul&gt;
+      &lt;li&gt;Free of boilerplate Java code&lt;/li&gt;
+      &lt;li&gt;Less likely to contain bugs&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;When
+    &lt;ul&gt;
+      &lt;li&gt;Introduced in JDK5&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;java-reflection&quot;&gt;java reflection&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Performance Overhead
+    &lt;ul&gt;
+      &lt;li&gt;Generally though the JVM may optimize the normal instantiation but could not make optimizations for the reflective use case.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Security Restrictions&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Exposure of Internals&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Performance Overhead
+Because reflection involves types that are dynamically resolved, certain Java virtual machine optimizations can not be performed. Consequently, reflective operations have slower performance than their non-reflective counterparts, and should be avoided in sections of code which are called frequently in performance-sensitive applications.
+Security Restrictions
+Reflection requires a runtime permission which may not be present when running under a security manager. This is in an important consideration for code which has to run in a restricted security context, such as in an Applet.
+Exposure of Internals
+Since reflection allows code to perform operations that would be illegal in non-reflective code, such as accessing private fields and methods, the use of reflection can result in unexpected side-effects, which may render code dysfunctional and may destroy portability. Reflective code breaks abstractions and therefore may change behavior with upgrades of the platform.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-annotation&quot;&gt;custom annotation&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/CUcEG2y.png&quot; alt=&quot;annotation policy&quot; /&gt;
+You apply @Documented when defining an annotation, to ensure that classes using your annotation show this in their generated JavaDoc.&lt;/p&gt;
+
+&lt;h3 id=&quot;repeatable-annotations&quot;&gt;Repeatable annotations&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jvOljJV.png&quot; alt=&quot;Repeatable annotations&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;java8-stream&quot;&gt;java8 Stream&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;InputStream and OutputStream from Java I/O? NO!&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Monads—java函数式编程
+[ˈmɑ:næd]&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Stream() / parallelStream()  create a sequential or a parallel stream&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Stream operations一般和lambda结合使用
+    &lt;ul&gt;
+      &lt;li&gt;intermediate operations&lt;/li&gt;
+      &lt;li&gt;terminal operation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Stream operations
+    &lt;ul&gt;
+      &lt;li&gt;non-interfering&lt;/li&gt;
+      &lt;li&gt;stateless&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A function is non-interfering when it does not modify the underlying data source of the stream&lt;/p&gt;
+
+&lt;p&gt;A function is stateless when the execution of the operation is deterministic, e.g. in the above example no lambda expression depends on any mutable variables or states from the outer scope which might change during execution.&lt;/p&gt;
+
+&lt;h3 id=&quot;java8-stream-1&quot;&gt;java8 Stream&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;元素集&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;数据源&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;聚合操作(aggregate operations) ： filter, map, limit, reduce, find, match等等&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;管道(pipelining)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。
+Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/eZ1Kv3z.png&quot; alt=&quot;Java8 Stream&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;stream-有丰富的接口&quot;&gt;Stream 有丰富的接口&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jUyfcaZ.png&quot; alt=&quot;Stream API&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;java8-predicate接口&quot;&gt;Java8 Predicate接口&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方便单元测试&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;方便代码管理&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;可读性&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lambda&quot;&gt;Lambda&lt;/h2&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;What is lambda
+    &lt;ul&gt;
+      &lt;li&gt;Lambda (uppercase Λ, lowercase λ) is the 11th letter of the Greek alphabet&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Lambda 表达式”是一个匿名函数
+&lt;img src=&quot;http://i.imgur.com/IcU4yic.png&quot; alt=&quot;Lambda icon&quot; /&gt;
+&lt;img src=&quot;http://i.imgur.com/uP0HUSz.png&quot; alt=&quot;lambda tips&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lambda-syntax&quot;&gt;Lambda Syntax&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;包含三个部分
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;一个括号内用逗号分隔的形式参数，参数是函数式接口里面方法的参数&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;一个箭头符号：-&amp;gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;方法体，可以是表达式和代码块，方法体函数式接口里面方法的实现，如果是代码块，则必须用{}来包裹起来，且需要一个return 返回值，但有个例外，若函数式接口里面方法返回值是void，则无需{}&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(parameters) -&amp;gt; expression 或者 (parameters) -&amp;gt; { statements; }&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;why-lambda&quot;&gt;why Lambda&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lambda expression provides a good alternative to Closure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;adds that missing link of functional programming to Java. &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;in Java, the lambda expressions are represented as objects&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lambdas-vs-closure&quot;&gt;Lambdas VS Closure&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Lambda 是匿名函数的别称
+    &lt;ul&gt;
+      &lt;li&gt;Instance of function&lt;/li&gt;
+      &lt;li&gt;Non-local variables have been bound&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Closure闭包，是指可以包含自由（未绑定到特定对象）变量的代码块；这些变量不是在这个代码块内或者任何全局上下文中定义的，而是在定义代码块的环境中定义（局部变量）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A lambda is just an anonymous function - a function defined with no name.&lt;/p&gt;
+
+&lt;p&gt;A closure is any function which closes over the environment in which it was defined.&lt;/p&gt;
+
+&lt;p&gt;An anonymous function is a function literal without a name, while a closure is an instance of a function, a value, whose non-local variables have been bound either to values or to storage locations&lt;/p&gt;
+
+&lt;h3 id=&quot;lambda-作用域&quot;&gt;Lambda 作用域&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;可以直接在lambda表达式中访问外层的局部变量&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;声明为final，或者不在代码块里面修改变量&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;lambda内部对于实例的字段以及静态变量是即可读又可写(和匿名对象是一致的)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;android-studio-会提醒你可以用lambda&quot;&gt;Android Studio 会提醒你可以用Lambda&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/glkmxfH.png&quot; alt=&quot;Android Studio Suggestion&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;lambda-usage&quot;&gt;Lambda usage&lt;/h3&gt;
+
+&lt;p&gt;#### 
+&lt;img src=&quot;http://i.imgur.com/1PZTAA4.png&quot; alt=&quot;Lambda case 0&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;#### 
+&lt;img src=&quot;http://i.imgur.com/3i3Yw6G.png&quot; alt=&quot;Lambda case 1&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;#### 
+&lt;img src=&quot;http://i.imgur.com/iOB4bMN.png&quot; alt=&quot;Lambda case 2&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;#### 
+&lt;img src=&quot;http://i.imgur.com/3fJPPuy.png&quot; alt=&quot;Lambda case 3&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;case-4&quot;&gt;case 4&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/jIIyiQM.png&quot; alt=&quot;Lambda case 4&quot; /&gt;
+&lt;img src=&quot;http://i.imgur.com/KODvwvO.png&quot; alt=&quot;Lambda calculator code&quot; /&gt;&lt;/p&gt;</content><summary>This is a post introducing the new Features of Java8.</summary></entry><entry><title>Java History Introduction!</title><link href="http://localhost:4000/java/Java-History-Introduction/" rel="alternate" type="text/html" title="Java History Introduction!" /><published>2016-12-14T23:22:22-05:00</published><updated>2016-12-14T23:22:22-05:00</updated><id>http://localhost:4000/java/Java-History-Introduction</id><content type="html" xml:base="http://localhost:4000/java/Java-History-Introduction/">&lt;p&gt;This is a short article introducing the naming history about Java.&lt;/p&gt;
+
+&lt;h2 id=&quot;description&quot;&gt;Description&lt;/h2&gt;
+&lt;p&gt;本文介绍Java的历史版本名称&lt;/p&gt;
+
+&lt;h4 id=&quot;introduction&quot;&gt;Introduction&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Java Creator
+James Gosling&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;What is Java：high-level programming language
+    &lt;ol&gt;
+      &lt;li&gt;concurrent&lt;/li&gt;
+      &lt;li&gt;class-based&lt;/li&gt;
+      &lt;li&gt;object-oriented&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;WORA ： Write once, run anywhere&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;java-history&quot;&gt;Java History&lt;/h4&gt;
+&lt;p&gt;This gives a brief description to all Java versions naming.&lt;/p&gt;
+
+&lt;h5 id=&quot;jdk-version-10--january-23-1996--oak橡木&quot;&gt;JDK Version 1.0  (January 23, 1996):  Oak(橡木)&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/ndBOLcf.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;jdk-version-11--february-19-1997--abigail-ˈæbɪˌɡel-来源于希伯来语含义是教父欣喜father-rejoiced&quot;&gt;JDK Version 1.1  (February 19, 1997):  Abigail [ˈæbɪˌɡel] 来源于希伯来语，含义是“教父欣喜”(father rejoiced);&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/7Q5SzZY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;j2se-versiono-12-december-8-1998-playground&quot;&gt;J2SE Versiono 1.2 (December 8, 1998): Playground&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/ynefXQD.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;j2se-version-13-may-8-2000--kestrel-ˈkɛstrəl-产于欧洲的茶隼一种鹰-&quot;&gt;J2SE Version 1.3 (May 8, 2000):  Kestrel [ˈkɛstrəl] （产于欧洲的）茶隼（一种鹰） ;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/0Dkqdsf.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;jese-version-14-february-6-2002-merlin-ˈmɜrlɪn-隼灰背隼&quot;&gt;JESE Version 1.4 (February 6, 2002): Merlin [ˈmɜ:rlɪn] 隼，灰背隼;&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/PkqVXJW.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;j2se-version-50--september-30-2004--tiger&quot;&gt;J2SE Version 5.0  (September 30, 2004):  Tiger&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/Ra1McNQ.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;java-se-6-december-11-2006-mustang-ˈmʌsˌtæŋ-野马&quot;&gt;Java SE 6 (December 11, 2006): Mustang [ˈmʌsˌtæŋ] 野马&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/SgFRwRa.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;java-se-7--july-28-2011-dolphin&quot;&gt;Java SE 7  (July 28, 2011): Dolphin&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/ip5pQwC.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;java-se-8-march-18-2014-java-8--the-code-name-culture-is-dropped-with-java-8-and-so-no-official-code-name-going-forward-from-java-8&quot;&gt;Java SE 8 (March 18, 2014): Java 8  (The code name culture is dropped with Java 8 and so no official code name going forward from Java 8.)&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/HcLPS8L.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><summary>This is a short article introducing the naming history about Java.</summary></entry><entry><title>Linux Command</title><link href="http://localhost:4000/linux-command/" rel="alternate" type="text/html" title="Linux Command" /><published>2016-10-07T00:00:00-04:00</published><updated>2016-10-07T00:00:00-04:00</updated><id>http://localhost:4000/linux-command</id><content type="html" xml:base="http://localhost:4000/linux-command/">&lt;hr /&gt;
+&lt;p&gt;layout: post
+title:  “Linux commands”
+date:   2016-10-07 11:41:22 +0800
+categories: Linux
+—&lt;/p&gt;
+
+&lt;h2 id=&quot;commands&quot;&gt;commands&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;command&lt;/th&gt;
+      &lt;th&gt;description&lt;/th&gt;
+      &lt;th&gt;description2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;.&lt;/td&gt;
+      &lt;td&gt;代表此层目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;..&lt;/td&gt;
+      &lt;td&gt;代表上一层目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;代表前一个工作目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;~&lt;/td&gt;
+      &lt;td&gt;代表『目前使用者身份』所在的家目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;~account&lt;/td&gt;
+      &lt;td&gt;代表 account 这个使用者的家目录(account是个帐号名称)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cd&lt;/td&gt;
+      &lt;td&gt;变换目录 Change Directory&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;pwd&lt;/td&gt;
+      &lt;td&gt;显示目前的目录 Print Working Directory&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mkdir&lt;/td&gt;
+      &lt;td&gt;创建一个新的目录 make directory&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rmdir&lt;/td&gt;
+      &lt;td&gt;删除一个空的目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;df -h&lt;/td&gt;
+      &lt;td&gt;查看磁盘空间&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cat &amp;gt; foo.txt&lt;/td&gt;
+      &lt;td&gt;创建新文件， press CTRL+D to save file&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cat foo.txt&lt;/td&gt;
+      &lt;td&gt;display the file&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sudo apt-get install open-vm-tools-lts-trusty&lt;/td&gt;
+      &lt;td&gt;install vm tools&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sudo apt-get update&lt;/td&gt;
+      &lt;td&gt;downloads the package lists from the repositories and “updates” them to get information on the newest versions of packages and their dependencies.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sudo apt-get install open-vm-tools-desktop&lt;/td&gt;
+      &lt;td&gt;install vm tools&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cd ..&lt;/td&gt;
+      &lt;td&gt;返回上一级目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;print $ANDROID_HOME/&lt;/td&gt;
+      &lt;td&gt;输出环境变量值&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mkdir my-blog&lt;/td&gt;
+      &lt;td&gt;创建一个my-blog的文件夹&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mkdocs serve&lt;/td&gt;
+      &lt;td&gt;运行mkdocs&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;apt-cache search linux-source&lt;/td&gt;
+      &lt;td&gt;搜索支持的内核代码&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cd /&lt;/td&gt;
+      &lt;td&gt;如果root 后 ls没有显示任何东西，切换到根目录&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;useradd cindy&lt;/td&gt;
+      &lt;td&gt;Linux增加用户&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;test –d /home/cindy&lt;/td&gt;
+      &lt;td&gt;为用户创建主文件夹输入命令&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;grep cindy /etc/passwd /etc/shadow /etc/group&lt;/td&gt;
+      &lt;td&gt;在/etc/passwd里面创建一行与账号相关的数据，包括创建UID/GID/主文件夹等。在/etc/shadow里面将此账号的密码相关参数填入。在/etc/group里面加入一个与账号名称一样的组名&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;passwd cindy&lt;/td&gt;
+      &lt;td&gt;确认后会提示输入新的密码，再次确认密码后。若密码一致，提示更改成功。若两次输入密码不一致，提示更改不成功&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;knowledge&quot;&gt;knowledge&lt;/h2&gt;
+
+&lt;h3 id=&quot;编译第一个module&quot;&gt;编译第一个module&lt;/h3&gt;
+&lt;p&gt;http://www.linuxidc.com/Linux/2012-12/75891.htm
+[注意，根据这篇文章，后面要进入已经下载的src再make oldconfig]&lt;/p&gt;
+
+&lt;h3 id=&quot;linux文件属性&quot;&gt;Linux文件属性&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;第一栏代表这个文件的类型与权限(permission)：&lt;/li&gt;
+  &lt;li&gt;第二栏表示有多少档名连结到此节点(i-node)：&lt;/li&gt;
+  &lt;li&gt;第三栏表示这个文件(或目录)的『拥有者账号』&lt;/li&gt;
+  &lt;li&gt;第四栏表示这个文件的所属群组&lt;/li&gt;
+  &lt;li&gt;第五栏为这个文件的容量大小，默认单位为bytes；&lt;/li&gt;
+  &lt;li&gt;第六栏为这个文件的建档日期或者是最近的修改日期：&lt;/li&gt;
+  &lt;li&gt;第七栏为这个文件的档名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;文档权限&quot;&gt;文档权限&lt;/h3&gt;
+&lt;p&gt;如：[-][rwx][r-x][r–]
+        1  234  567  890&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1 为：代表这个文件名为目录或文件，本例中为文件(-)；
+    &lt;ul&gt;
+      &lt;li&gt;当为[ d ]则是目录，例如上表档名为『.gconf』的那一行；&lt;/li&gt;
+      &lt;li&gt;当为[ - ]则是文件，例如上表档名为『install.log』那一行；&lt;/li&gt;
+      &lt;li&gt;若是[ l ]则表示为连结档(link file)；&lt;/li&gt;
+      &lt;li&gt;若是[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；&lt;/li&gt;
+      &lt;li&gt;若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;234为：拥有者的权限，本例中为可读、可写、可执行(rwx)；&lt;/li&gt;
+  &lt;li&gt;567为：同群组用户权力，本例中为可读可执行(rx)；&lt;/li&gt;
+  &lt;li&gt;890为：其他用户权力，本例中为可读(r)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;linux磁盘与文件管理&quot;&gt;linux磁盘与文件管理&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;ext2 :  Linux second extended file system, ext2fs&lt;/li&gt;
+  &lt;li&gt;superblock: superblock：记彔此 filesystem 癿整体信息，包括 inode/block 癿总量、使用量、剩余量， 以 及文件系统癿格式不相关信息等；&lt;/li&gt;
+  &lt;li&gt;inode：记彔档案癿属性，一个档案占用一个 inode，同时记彔此档案癿数据所在癿 block 号 码；&lt;/li&gt;
+  &lt;li&gt;block：实际记彔档案癿内容，若档案太大时，会占用多个 block 。&lt;/li&gt;
+&lt;/ul&gt;</content><summary>layout: post
+title:  “Linux commands”
+date:   2016-10-07 11:41:22 +0800
+categories: Linux
+—</summary></entry><entry><title>React Native环境搭建!</title><link href="http://localhost:4000/ReactNative/" rel="alternate" type="text/html" title="React Native环境搭建!" /><published>2016-03-29T00:00:00-04:00</published><updated>2016-03-29T00:00:00-04:00</updated><id>http://localhost:4000/ReactNative</id><content type="html" xml:base="http://localhost:4000/ReactNative/">&lt;h1 id=&quot;react-native&quot;&gt;React Native&lt;/h1&gt;
+
+&lt;h3 id=&quot;安装好sdk和ndk&quot;&gt;安装好SDK和NDK&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/P1COXhP.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;安装好sdk和ndk-1&quot;&gt;安装好SDK和NDK&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/LnZHLMn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;安装nodejs&quot;&gt;安装node.js&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://nodejs.org/en/
+&lt;img src=&quot;http://i.imgur.com/f5ZbbXf.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;安装nrm模块&quot;&gt;安装nrm模块&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;为了方便切换npm源，需要先安装nrm模块&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;cmd:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;npm install –g nrm&lt;/code&gt;
+  ​&lt;/p&gt;
+    &lt;h3 id=&quot;切换npm源&quot;&gt;切换npm源&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;为了方便切换npm源，切换npm源到taobao—比较快&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NPs3yBL.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;安装rn-cmd-tools&quot;&gt;安装RN cmd tools&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Install the React Native command line tools:&lt;/li&gt;
+  &lt;li&gt;Cmd:   &lt;br /&gt;
+       &lt;code class=&quot;highlighter-rouge&quot;&gt;npm install –g react-native-cli&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;建立project&quot;&gt;建立project&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;1 Init：
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;react-native init HelloWorld&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;2 run:
+   &lt;code class=&quot;highlighter-rouge&quot;&gt;react-native run-android&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;3 Start packager:
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;cd HelloWorld&lt;/code&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;react-native start&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;修改indexandroidjs&quot;&gt;修改index.android.js&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/FUEwr9p.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/FQxCYqu.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;特性&quot;&gt;特性&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;learn-once, write-anywhere&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OTA (over-the-air)
+    &lt;ul&gt;
+      &lt;li&gt;bug fixes and minor updates to apps in the store without resubmitting–IOS&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Web编程
+    &lt;ul&gt;
+      &lt;li&gt;It feels like I’m developing for the web. But I’m writing a real native app, and you seriously can’t tell the difference. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Fast
+    &lt;ul&gt;
+      &lt;li&gt;runs JavaScript on a separate thread, React Native takes your UI and sends the minimal amount of data to the main thread to render it with native components.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;how
+    &lt;ul&gt;
+      &lt;li&gt;A View is a UIView, for example. The best part is, you don’t have to worry about updating your UI; you declaratively render your UI based on some state, and React uses a diffing algorithm to send the smallest amount of changes necessary over the bridge.&lt;/li&gt;
+      &lt;li&gt;React 有一个观点很明白, 就是以往的编程太多过程式的写法, 他们想要变成声明式的,因为声明式的写法能讲底层逻辑交给可靠的代码, 那么开发者的门槛极大地降低&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
+&lt;h4 id=&quot;在react-native中写js的工程师解决的是将基本组件拼装成可用的react组件的问题写native-code的工程师解决的是提供核心组件提供足够的扩展性灵活性和性能的问题&quot;&gt;在React Native中，写JS的工程师解决的是「将基本组件拼装成可用的React组件」的问题，写Native Code的工程师解决的是「提供核心组件，提供足够的扩展性、灵活性和性能」的问题。&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;1.learn-once, write-anywhere？nor run anywhere&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;2.系统仍然（不得不）依赖原生组件暴露出来的组件和方法&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3.目前相当不完善
+    &lt;ul&gt;
+      &lt;li&gt;Native UI components&lt;/li&gt;
+      &lt;li&gt;native Modules&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;4.由于最外层是React，初次学习成本高&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;only-for-view&quot;&gt;Only for view&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/4MAbfFE.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-flow&quot;&gt;Data flow&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;solutions for data flow—flux&lt;/li&gt;
+  &lt;li&gt;React Native 的亮点是解决了在 Native 中使用声明式来开发 UI 的渲染效率问题，而不是软件架构和工程模型的问题
+&lt;img src=&quot;http://i.imgur.com/xYgjaMj.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;summary&lt;/h3&gt;
+
+&lt;h4 id=&quot;引用httpwwwzhihucomquestion27852694answer38829884&quot;&gt;引用：&lt;a href=&quot;http://www.zhihu.com/question/27852694/answer/38829884&quot; title=&quot;作者：知乎|赵望野&quot;&gt;http://www.zhihu.com/question/27852694/answer/38829884&lt;/a&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;React 作为一个 View Component 封装解决方案来讲，同 Polymer 以及 AngularJS 中 Directive 并没有本质区别，只是用不同的思路来封装 View 而已，用 React 也不一定非得用 Flux 模型，React 替换 Backbone.View 组件，用纯朴的 MVC 模型来描述也是 okay 的。但是当 component 很多且互相嵌套时，就需要有一个合理的模型来描述通信机制，优雅且高效，那就是 Flux 模型了。前年 React 刚发布，还没有提出 Flux 时，我们在终端产品中开始小范围尝试 React 就遇到了 component 之间通信麻烦或者不合理的问题，当时的解决方案是全局实例化了一个继承 Backbone Event 的对象作为 event hub，所有的 component 都在其上来 reg 和 trigger 事件。现在看来，就是简化版的 Flux 模型。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;my-opinion&quot;&gt;my opinion&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;这是一个大坑！至少目前来说是这样子！&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Android" /><summary>React Native</summary></entry><entry><title>Post with a Background Image</title><link href="http://localhost:4000/background-image/" rel="alternate" type="text/html" title="Post with a Background Image" /><published>2013-10-26T00:00:00-04:00</published><updated>2013-10-26T00:00:00-04:00</updated><id>http://localhost:4000/background-image</id><content type="html" xml:base="http://localhost:4000/background-image/">&lt;p&gt;Here be a sample post with a custom background image. To utilize this “feature” just add the following YAML to a post’s front matter.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;filename.png&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This little bit of YAML makes the assumption that your background image asset is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/images&lt;/code&gt; folder. If you place it somewhere else or are hotlinking from the web, just include the full http(s):// URL. Either way you should have a background image that is tiled.&lt;/p&gt;
+
+&lt;p&gt;If you want to set a background image for the entire site just add &lt;code class=&quot;highlighter-rouge&quot;&gt;background: filename.png&lt;/code&gt; to your &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; and BOOM — background images on every page!&lt;/p&gt;
+
+&lt;div xmlns:cc=&quot;http://creativecommons.org/ns#&quot; xmlns:dct=&quot;http://purl.org/dc/terms/&quot; about=&quot;http://subtlepatterns.com&quot; class=&quot;notice&quot;&gt;Background images from &lt;span property=&quot;dct:title&quot;&gt;Subtle Patterns&lt;/span&gt; (&lt;a rel=&quot;cc:attributionURL&quot; property=&quot;cc:attributionName&quot; href=&quot;http://subtlepatterns.com&quot;&gt;Subtle Patterns&lt;/a&gt;) / &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;&gt;CC BY-SA 3.0&lt;/a&gt;&lt;/div&gt;</content><category term="sample post" /><summary>Here be a sample post with a custom background image. To utilize this “feature” just add the following YAML to a post’s front matter.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000{&quot;background&quot;=&gt;&quot;triangular.png&quot;}" /></entry></feed>
