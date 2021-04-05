@@ -3,6 +3,9 @@ layout: post
 title:  "Java polymorphism and class modifier!"
 date:   2016-12-24 11:41:22 +0800
 categories: java
+catalog: true
+tags:
+    - java
 ---
 
 “When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”

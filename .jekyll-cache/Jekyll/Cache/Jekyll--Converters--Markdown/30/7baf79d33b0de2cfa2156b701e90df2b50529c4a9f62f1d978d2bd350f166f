@@ -1,0 +1,138 @@
+I"<p>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</p>
+
+<h1 id="from-jake-wharton">from Jake Wharton</h1>
+<ul>
+  <li>usually do work when you start or stop listening.</li>
+  <li>Sysnchronous or asynchronous.</li>
+  <li>Single item, many items, or empty
+    <ul>
+      <li>single - network request</li>
+      <li>many - button click</li>
+      <li>empty - save file or database</li>
+    </ul>
+  </li>
+  <li>terminates with an error or succeeds to completion</li>
+  <li>may never terminate</li>
+  <li>just an implementation of the Observer pattern</li>
+</ul>
+
+<h3 id="rxjava">Rxjava</h3>
+<ul>
+  <li>a set of classes for representing sources of data</li>
+  <li>a set of classes for listening to data sources</li>
+  <li>A set of methods for modifying and composing the data</li>
+</ul>
+
+<h3 id="source">Source</h3>
+<ul>
+  <li>Usually do work when you start or stop listening.</li>
+  <li>Synchronous or asynchronous.</li>
+  <li>Single item, many items, or empty.</li>
+  <li>Terminates with an error or succeeds to completion.</li>
+  <li>May never terminate!</li>
+  <li>just an implementation of the Observer pattern</li>
+</ul>
+
+<h3 id="sources">sources</h3>
+<ul>
+  <li>Observable<T>
+</T>    <ul>
+      <li>Emits 0 to n items</li>
+      <li>Terminates with complete or error.</li>
+      <li>Does not have backpressure.</li>
+    </ul>
+  </li>
+  <li>Flowable<T>
+</T>    <ul>
+      <li>Emits 0 to n items</li>
+      <li>Terminates with complete or error.</li>
+      <li>Has backpressure</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="flowable-vs-observable">Flowable vs Observable</h3>
+<ul>
+  <li>backpressure allows you to control how fast a source emits items.</li>
+  <li>Rxjava 1.x added backpressure late in the design process</li>
+  <li>All types exposed backupressure but not all sources respected it</li>
+  <li>Backpressure, like interitance, must be designed for.</li>
+</ul>
+
+<h3 id="single">Single</h3>
+<ul>
+  <li>Either succeeds with an item or errors.</li>
+  <li>No backpressure support.</li>
+</ul>
+
+<h3 id="completable">Completable</h3>
+<ul>
+  <li>Either completes or errors. Has no items!</li>
+  <li>No backpressure support.</li>
+</ul>
+
+<h3 id="maybe">Maybe</h3>
+<ul>
+  <li>Either succeeds with an item, completes with no items, or errors. - No backpressure support.</li>
+</ul>
+
+<h3 id="flowable-vs-observable-1">Flowable vs Observable</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>—</th>
+      <th>Backpressure</th>
+      <th>No Backpressure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0…n items, complete / error</td>
+      <td>Flowable</td>
+      <td>Observable</td>
+    </tr>
+    <tr>
+      <td>item / complete/error</td>
+      <td>-</td>
+      <td>Maybe</td>
+    </tr>
+    <tr>
+      <td>item / error</td>
+      <td>-</td>
+      <td>Single</td>
+    </tr>
+    <tr>
+      <td>complete / error</td>
+      <td>-</td>
+      <td>Completable</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="source-specializations">Source Specializations</h3>
+<ul>
+  <li>Encoding subsets of Observable into the type system
+    <ul>
+      <li>Single -item or error. think “scalar”</li>
+      <li>Completable - Complete or error, think “runnable”.</li>
+      <li>Maybe - Item, complete, or error. think “optional”</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="points-">points ?</h3>
+<ul>
+  <li>create</li>
+  <li>dispose</li>
+</ul>
+
+<h3 id="operators">Operators</h3>
+<ul>
+  <li>Manipulate or combine data in some way</li>
+  <li>Manipulate threading in some way.</li>
+  <li>Manipulate emissions in some way.</li>
+</ul>
+
+:ET

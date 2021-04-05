@@ -3,6 +3,9 @@ layout: post
 title:  "Understanding the linux kernel!"
 date:   2017-04-23 20:41:22 +0800
 categories: Linux
+catalog: true
+tags:
+    - Linux
 ---
 
 “When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
