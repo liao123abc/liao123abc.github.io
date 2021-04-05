@@ -2,7 +2,9 @@
 layout: post
 title:  "Java History Introduction!"
 date:   2016-12-15 12:22:22 +0800
-categories: java
+catalog: true
+tags:
+    - java
 ---
 
 This is a short article introducing the naming history about Java.

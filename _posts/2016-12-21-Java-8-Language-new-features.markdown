@@ -2,7 +2,9 @@
 layout: post
 title:  "Java 8 new features!"
 date:   2016-12-21 12:21:22 +0800
-categories: java
+catalog: true
+tags:
+    - java
 ---
 
 

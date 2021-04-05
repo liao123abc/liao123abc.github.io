@@ -1,0 +1,194 @@
+I"�<p>“When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
+―Morihei Ueshiba</p>
+
+<h2 id="description">Description</h2>
+<p>这个是对«Understanding the linux kernel»的读书笔记,记录下了要点.持续更新</p>
+
+<h2 id="chapter-1">Chapter 1</h2>
+<h3 id="terms">terms</h3>
+<ul>
+  <li>symmetric multiprocessing (SMP)</li>
+  <li>Journaling file system 日志型文件系统</li>
+  <li>General Public License (GPL)</li>
+  <li>Fiber Distributed Data Interface (FDDI)光纤分布式数据接口</li>
+  <li>High Performance Parallel Interface (HIPPI)高性能并行接口</li>
+  <li>cpu nonprivileged mode:User Mode</li>
+  <li>cpu privileged mode:Kernel Mode</li>
+  <li>TSS:Task State Segment</li>
+</ul>
+
+<h3 id="区分module和microkernel-operating-systems">区分module和microkernel operating systems</h3>
+<ul>
+  <li>module [monolithic operating Systems]:</li>
+  <li>
+    <p>does not run as a specific process.Instead it is executed in Kernel Mode on behalf of the current process ,like any other statically linked kernel function</p>
+  </li>
+  <li>microkernel operating Systems:</li>
+  <li>demand a very small set of functions from the kernel, generally including a few synchronization primitives, a simple scheduler, and an interprocess communication mechanism. Several system processes that run on top of the microkernel implement other operating system-layer functions, like memory allocators, device drivers, system call handlers, and so on.</li>
+</ul>
+
+<h3 id="file">File</h3>
+<p>A Unix file is an information container structured as a sequence of bytes; the kernel does not interpret the contents of a file.</p>
+
+<h4 id="files-types">Files Types</h4>
+<ul>
+  <li>Regular file</li>
+  <li>Directory</li>
+  <li>Symbolic link</li>
+  <li>Device file</li>
+  <li>Block-oriented device file</li>
+  <li>Character-oriented device file</li>
+  <li>Device files are related to I/O devices and device drivers integrated into the kernel</li>
+  <li>Pipe and named pipe (also called FIFO)</li>
+  <li>Pipes and sockets are special files used for interprocess communication</li>
+  <li>Socket</li>
+</ul>
+
+<h4 id="inode-consist-the-information">Inode, consist the information:</h4>
+<ul>
+  <li>File type (see previous section)</li>
+  <li>Number of hard links associated with the file</li>
+  <li>File length in bytes</li>
+  <li>Device ID (i.e., an identifier of the device containing the file)</li>
+  <li>Inode number that identifies the file within the filesystem</li>
+  <li>User ID of the file owner</li>
+  <li>Group ID of the file</li>
+  <li>Several timestamps that specify the inode status change time, the last access time, and
+the last modify time</li>
+  <li>Access rights and file mode (see next section)</li>
+</ul>
+
+<h3 id="file-descriptor-and-inode">File Descriptor and Inode</h3>
+<ul>
+  <li>each file consists of a sequence of characters</li>
+  <li>Information needed included in a data structure-inode</li>
+</ul>
+
+<h3 id="161-the-processkernel-model">1.6.1 The Process/Kernel Model</h3>
+
+<p>he kernel itself is not a process but a process manager.</p>
+
+<p>Besides user processes, Unix systems include a few privileged processes called kernel threads:</p>
+<ul>
+  <li>They run in Kernel Mode in the kernel address space.</li>
+  <li>They do not interact with users, and thus do not require terminal devices.</li>
+  <li>They are usually created during system startup and remain alive until the system is
+shut down.</li>
+</ul>
+
+<p>Kernel routine invoded:</p>
+<ul>
+  <li>process itself invokes a system call</li>
+  <li>process sinals an exception, cause the kernel invoke to handle  the exception</li>
+  <li>device issues an interrupt signal</li>
+  <li>kernel thread is executed</li>
+</ul>
+
+<h3 id="162-process-implementation">1.6.2 Process Implementation</h3>
+<h4 id="process-descriptor">Process Descriptor</h4>
+<ul>
+  <li>program counter and stack pointer</li>
+  <li>general-purpose registers</li>
+  <li>floating point registers</li>
+  <li>processor control registers(Process Status Word-cpu state)</li>
+  <li>memory manager registers keep track of RAM</li>
+</ul>
+
+<h3 id="163-reentrant-kernels">1.6.3 Reentrant Kernels</h3>
+<ul>
+  <li>All Unix Kernels are reentrant</li>
+</ul>
+
+<h2 id="chapter-2memory-addressing">Chapter 2.Memory Addressing</h2>
+<h3 id="21-memory-address">2.1 Memory address</h3>
+<ul>
+  <li>Logical address:</li>
+  <li>Included in the machine language instructions to specify the address of an operand or of an instruction.</li>
+  <li>
+    <p>segment + offset</p>
+  </li>
+  <li>Linear addrss:</li>
+  <li>A single 32-bit unsigned integer that can be used to address up to 4 GB</li>
+  <li>
+    <p>range from 0x00000000 to 0xffffffff.</p>
+  </li>
+  <li>Physical address:</li>
+  <li>
+    <p>Used to address memory cells included in memory chips.</p>
+  </li>
+  <li>sample:
+我们写个最简单的hello world程序，用gccs编译，再反编译后会看到以下指令：</li>
+</ul>
+
+<p>···
+mov    0x80495b0, %eax
+···</p>
+
+<p>这里的内存地址0x80495b0 就是一个逻辑地址，必须加上隐含的DS 数据段的基地址，才能构成线性地址。也就是说 0x80495b0 是当前任务的DS数据段内的偏移。</p>
+
+<h3 id="22-segmentation-in-hardware">2.2 Segmentation in Hardware</h3>
+
+<ul>
+  <li>
+    <p>logical address = a segment identifier[16-bit field called Segment Selector]  + an offset[32-bit field]</p>
+  </li>
+  <li>processor provides segmentation registers to hold Segment Selectors</li>
+  <li>
+    <p>CS:code segment register, points to a segment containing program instructions</p>
+  </li>
+  <li>
+    <p>SS:stack segment register, points to a segment containing the current program stack</p>
+  </li>
+  <li>
+    <p>DS:data segment register, points to a segment containing static and external data</p>
+  </li>
+  <li>ES,FS,GS:-&gt;three segmentation registers are general purpose and may refer to arbitrary segments.</li>
+</ul>
+
+<h3 id="25-paging-in-linux">2.5 paging in Linux</h3>
+<p>Linux handling of processes relyis heavily on paging.</p>
+
+<h4 id="signals-and-interprocess-communication">Signals and Interprocess Communication</h4>
+<ul>
+  <li>Asynchronous notifications</li>
+  <li>Synchronous errors or exceptions</li>
+</ul>
+
+<p>The kernel implements these constructs as IPC resources: a process acquires a resource by
+invoking a shmget( ), semget( ), or msgget( ) system call. Just like files, IPC resources
+are persistent: they must be explicitly deallocated by the creator process, by the current
+owner, or by a superuser process.</p>
+
+<p>Shared memory provides the fastest way for processes to exchange and share data.</p>
+
+<p>1.6.7.1 Zombie processes
+a process
+remains in that state until its parent process executes a wait( ) system call on it.</p>
+
+<h3 id="memory-management">Memory Management</h3>
+<h4 id="virtual-memory">virtual memory</h4>
+<ul>
+  <li>Several processes can be executed concurrently.</li>
+  <li>It is possible to run applications whose memory needs are larger than the available
+physical memory.</li>
+  <li>Processes can execute a program whose code is only partially loaded in memory.</li>
+  <li>Each process is allowed to access a subset of the available physical memory.</li>
+  <li>Processes can share a single memory image of a library or program.</li>
+  <li>Programs can be relocatable, that is, they can be placed anywhere in physical memory.</li>
+  <li>Programmers can write machine-independent code, since they do not need to be
+concerned about physical memory organization.</li>
+</ul>
+
+<h4 id="random-access-memory-usage">Random access memory usage</h4>
+<p>two portions of the random access memory(RAM).</p>
+<ul>
+  <li>A few megabytes are dedicated to storing the kernel image (i.e., the kernel code and
+the kernel static data structures).</li>
+  <li>The remaining portion of RAM is used in three possible ways:
+• To satisfy kernel requests for buffers, descriptors, and other dynamic kernel data
+structures
+• To satisfy process requests for generic memory areas and for memory mapping of files
+• To get better performance from disks and other buffered devices by means of caches</li>
+</ul>
+
+:ET

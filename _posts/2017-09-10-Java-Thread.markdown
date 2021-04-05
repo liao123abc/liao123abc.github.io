@@ -2,7 +2,9 @@
 layout: post
 title:  "Thread"
 date:   2017-09-10 22:18:38 +0800
-categories: Java
+catalog: true
+tags:
+    - Java
 ---
 
 “When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”

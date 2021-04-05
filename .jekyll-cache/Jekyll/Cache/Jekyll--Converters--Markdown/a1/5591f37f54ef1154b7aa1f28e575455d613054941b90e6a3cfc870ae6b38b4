@@ -1,0 +1,419 @@
+I"�5<p>This is a post introducing the new Features of Java8.</p>
+
+<h2 id="why-we-need-jdk">Why we need JDK?</h2>
+
+<p>Why do we need JDK when we are already using Android SDK? After all, we are not developing for JVM.
+The Android build process depends on a number of tools from the JDK. Check out the build system overview documentation.</p>
+
+<ul>
+  <li>The first big piece we need from JDK is javac- all your source code written in Java needs to be compiled before it can be converted to the DEX foramt.</li>
+  <li>Once your code has been compiled, dexed, and packaged into an APK, we need jarsigner to sign the APK.</li>
+  <li>Is there any difference between using JDK 1.6, 1.7 and 1.8? That depends on what features you are using from each. Older projects that don’t use Java 7 features can use Java 6 without issue.</li>
+</ul>
+
+<p>There are some efforts out there to bring Java 8 features to Android, most notably gradle-retrolambda. Some of these require JDK 8 to compile properly.</p>
+
+<h2 id="android配置">Android配置</h2>
+
+<p>enable Java8</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>android {
+  ...
+  defaultConfig {
+    ...
+    jackOptions {
+      enabled true
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="android-supported-java-8-language-features-and-apis">Android supported Java 8 Language Features and APIs</h2>
+
+<ul>
+  <li>
+    <p>Default and static interface methods</p>
+  </li>
+  <li>
+    <p>Lambda expressions (also available on API level 23 and lower)</p>
+  </li>
+  <li>
+    <p>Repeatable annotations</p>
+  </li>
+  <li>
+    <p>Method References (also available on API level 23 and lower)</p>
+  </li>
+  <li>
+    <p>Type Annotations (also available on API level 23 and lower)</p>
+  </li>
+</ul>
+
+<h2 id="default-and-static-interface-methods">Default and static interface methods</h2>
+
+<ul>
+  <li>Java interface default methods
+    <ul>
+      <li>Defender Methods / Virtual extension methods</li>
+    </ul>
+  </li>
+  <li>Java Interface Static Method
+    <ul>
+      <li>similar to default method except that we can’t override them in the implementation classes</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="why-java-8-import-default-interface-methods">why java 8 import default interface methods</h3>
+
+<ul>
+  <li>设计接口需要小心翼翼(Tough)
+    <ul>
+      <li>随着功能扩展和时间推进，如果要在接口添加
+新方法，那么实现该接口的类也要响应实现该
+函数</li>
+    </ul>
+  </li>
+  <li>大部分框架都会提供一个实现类xxImpl,
+    <ul>
+      <li>再extends该类选择自己需要的接口</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="http://i.imgur.com/lDJTlUc.png" alt="why need default and static method" /></p>
+
+<h3 id="default-method-sample">default method sample</h3>
+<p><img src="http://i.imgur.com/KJt94Io.png" alt="default method sample" />
+Java8之前，那么每个实现了该interface的类都要实现sort这接口</p>
+
+<h3 id="default-method好处多多">Default method好处多多</h3>
+<ul>
+  <li>
+    <p>扩展接口不用担心会破坏当前的实现类</p>
+  </li>
+  <li>
+    <p>Default interface 使abstract class和interface更加泾渭分明</p>
+  </li>
+  <li>
+    <p>避免大量的Utility classes</p>
+  </li>
+  <li>
+    <p>避免编写大量实现类</p>
+  </li>
+  <li>
+    <p>优化Collections API，以便支持Lambda</p>
+  </li>
+  <li>
+    <p>Default method不能重载Object基类的方法</p>
+  </li>
+</ul>
+
+<h3 id="java-8才支持否则会提示出错">Java 8才支持(否则会提示出错)</h3>
+<p><img src="http://i.imgur.com/q8oX9vl.png" alt="support in java8" /></p>
+
+<h3 id="发散思维">发散思维</h3>
+<ul>
+  <li>Java 不支持多继承—就是说一个类只能继承另外一个类。想同时继承两个类？Forget it！
+    <ul>
+      <li>为什么？</li>
+    </ul>
+  </li>
+  <li>Java接口(Interface)支持多重继承
+    <ul>
+      <li>接口中所有的方法必须是抽象方法。(java 7及以前)</li>
+    </ul>
+  </li>
+  <li>Java8 Interface 支持default method (java 8)
+    <ul>
+      <li>难道没有问题么？</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="diamond-problem">Diamond problem</h3>
+<p><img src="http://i.imgur.com/nTjxtWD.png" alt="Diamond problem" /></p>
+
+<h3 id="default-methods---diamond-problem">default methods - Diamond Problem</h3>
+<p><img src="http://i.imgur.com/1pCXIHe.png" alt="Diamond Problem" />
+如果B或者C其中有一个并没有实现sayHi() ， 编译器不会报错</p>
+
+<h3 id="have-got-to-override-to-avoid-diamond-problem">have got to override to avoid diamond problem</h3>
+<p><img src="http://i.imgur.com/uwHyUlr.png" alt="override to avoid diamond problem" />
+Avoid Diamond problem , we have to override sayHi()</p>
+
+<h3 id="cannot-override-method-from-object">cannot override method from Object</h3>
+<p><img src="http://i.imgur.com/3WWJRPA.png" alt="cannot override method from Object" /></p>
+
+<h3 id="static-method">Static Method</h3>
+<ul>
+  <li>Static method[如果有的话]是interface领土不可分割的一部分
+    <ul>
+      <li>Class不能implement这个方法</li>
+      <li>Security—保证方法的唯一性</li>
+    </ul>
+  </li>
+  <li>方便interface提供utility方法
+    <ul>
+      <li>Null check</li>
+      <li>Collection sorting</li>
+    </ul>
+  </li>
+  <li>可以直接通过接口的方法调用来调用static method</li>
+</ul>
+
+<h3 id="abstract-classes-vs-defaultstatic-methods">Abstract Classes Vs Default/Static Methods</h3>
+<ul>
+  <li>
+    <p>抽象类可能包含变量，接口[interface]只包含方法和常量</p>
+  </li>
+  <li>
+    <p>类只能单继承，interface可以多继承</p>
+  </li>
+  <li>
+    <p>不是所有地方都推荐用Default/Static Methods</p>
+  </li>
+</ul>
+
+<h2 id="java-annotations">Java Annotations</h2>
+
+<h3 id="short-description">short description</h3>
+<ul>
+  <li>What
+    <ul>
+      <li>a form of metadata, provide data about a program that is not part of the program itself.</li>
+      <li>Metadata is data about data. So Annotations are metadata for code.</li>
+    </ul>
+  </li>
+  <li>Why
+    <ul>
+      <li>Free of boilerplate Java code</li>
+      <li>Less likely to contain bugs</li>
+    </ul>
+  </li>
+  <li>When
+    <ul>
+      <li>Introduced in JDK5</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="java-reflection">java reflection</h3>
+<ul>
+  <li>Performance Overhead
+    <ul>
+      <li>Generally though the JVM may optimize the normal instantiation but could not make optimizations for the reflective use case.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Security Restrictions</p>
+  </li>
+  <li>Exposure of Internals</li>
+</ul>
+
+<p>Performance Overhead
+Because reflection involves types that are dynamically resolved, certain Java virtual machine optimizations can not be performed. Consequently, reflective operations have slower performance than their non-reflective counterparts, and should be avoided in sections of code which are called frequently in performance-sensitive applications.
+Security Restrictions
+Reflection requires a runtime permission which may not be present when running under a security manager. This is in an important consideration for code which has to run in a restricted security context, such as in an Applet.
+Exposure of Internals
+Since reflection allows code to perform operations that would be illegal in non-reflective code, such as accessing private fields and methods, the use of reflection can result in unexpected side-effects, which may render code dysfunctional and may destroy portability. Reflective code breaks abstractions and therefore may change behavior with upgrades of the platform.</p>
+
+<h3 id="custom-annotation">custom annotation</h3>
+<p><img src="http://i.imgur.com/CUcEG2y.png" alt="annotation policy" />
+You apply @Documented when defining an annotation, to ensure that classes using your annotation show this in their generated JavaDoc.</p>
+
+<h3 id="repeatable-annotations">Repeatable annotations</h3>
+<p><img src="http://i.imgur.com/jvOljJV.png" alt="Repeatable annotations" /></p>
+
+<h2 id="java8-stream">java8 Stream</h2>
+<ul>
+  <li>
+    <p>InputStream and OutputStream from Java I/O? NO!</p>
+  </li>
+  <li>
+    <p>Monads—java函数式编程
+[ˈmɑ:næd]</p>
+  </li>
+  <li>
+    <p>Stream() / parallelStream()  create a sequential or a parallel stream</p>
+  </li>
+  <li>Stream operations一般和lambda结合使用
+    <ul>
+      <li>intermediate operations</li>
+      <li>terminal operation</li>
+    </ul>
+  </li>
+  <li>Stream operations
+    <ul>
+      <li>non-interfering</li>
+      <li>stateless</li>
+    </ul>
+  </li>
+</ul>
+
+<p>A function is non-interfering when it does not modify the underlying data source of the stream</p>
+
+<p>A function is stateless when the execution of the operation is deterministic, e.g. in the above example no lambda expression depends on any mutable variables or states from the outer scope which might change during execution.</p>
+
+<h3 id="java8-stream-1">java8 Stream</h3>
+
+<ul>
+  <li>
+    <p>元素集</p>
+  </li>
+  <li>
+    <p>数据源</p>
+  </li>
+  <li>
+    <p>聚合操作(aggregate operations) ： filter, map, limit, reduce, find, match等等</p>
+  </li>
+  <li>
+    <p>管道(pipelining)</p>
+  </li>
+</ul>
+
+<p>Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。
+Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。</p>
+
+<p><img src="http://i.imgur.com/eZ1Kv3z.png" alt="Java8 Stream" /></p>
+
+<h3 id="stream-有丰富的接口">Stream 有丰富的接口</h3>
+<p><img src="http://i.imgur.com/jUyfcaZ.png" alt="Stream API" /></p>
+
+<h3 id="java8-predicate接口">Java8 Predicate接口</h3>
+<ul>
+  <li>
+    <p>方便单元测试</p>
+  </li>
+  <li>
+    <p>方便代码管理</p>
+  </li>
+  <li>
+    <p>可读性</p>
+  </li>
+  <li>
+    <p>Predicate 接口只有一个参数，返回boolean类型。该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）</p>
+  </li>
+</ul>
+
+<h2 id="lambda">Lambda</h2>
+
+<h3 id="introduction">Introduction</h3>
+<ul>
+  <li>What is lambda
+    <ul>
+      <li>Lambda (uppercase Λ, lowercase λ) is the 11th letter of the Greek alphabet</li>
+    </ul>
+  </li>
+  <li>Lambda 表达式”是一个匿名函数
+<img src="http://i.imgur.com/IcU4yic.png" alt="Lambda icon" />
+<img src="http://i.imgur.com/uP0HUSz.png" alt="lambda tips" /></li>
+</ul>
+
+<h3 id="lambda-syntax">Lambda Syntax</h3>
+<ul>
+  <li>包含三个部分
+    <ul>
+      <li>
+        <p>一个括号内用逗号分隔的形式参数，参数是函数式接口里面方法的参数</p>
+      </li>
+      <li>
+        <p>一个箭头符号：-&gt;</p>
+      </li>
+      <li>
+        <p>方法体，可以是表达式和代码块，方法体函数式接口里面方法的实现，如果是代码块，则必须用{}来包裹起来，且需要一个return 返回值，但有个例外，若函数式接口里面方法返回值是void，则无需{}</p>
+      </li>
+    </ul>
+  </li>
+  <li>(parameters) -&gt; expression 或者 (parameters) -&gt; { statements; }</li>
+</ul>
+
+<h3 id="why-lambda">why Lambda</h3>
+<ul>
+  <li>
+    <p>Lambda expression provides a good alternative to Closure.</p>
+  </li>
+  <li>
+    <p>adds that missing link of functional programming to Java. </p>
+  </li>
+  <li>
+    <p>in Java, the lambda expressions are represented as objects</p>
+  </li>
+</ul>
+
+<h3 id="lambdas-vs-closure">Lambdas VS Closure</h3>
+<ul>
+  <li>Lambda 是匿名函数的别称
+    <ul>
+      <li>Instance of function</li>
+      <li>Non-local variables have been bound</li>
+    </ul>
+  </li>
+  <li>Closure闭包，是指可以包含自由（未绑定到特定对象）变量的代码块；这些变量不是在这个代码块内或者任何全局上下文中定义的，而是在定义代码块的环境中定义（局部变量）。</li>
+</ul>
+
+<p>A lambda is just an anonymous function - a function defined with no name.</p>
+
+<p>A closure is any function which closes over the environment in which it was defined.</p>
+
+<p>An anonymous function is a function literal without a name, while a closure is an instance of a function, a value, whose non-local variables have been bound either to values or to storage locations</p>
+
+<h3 id="lambda-作用域">Lambda 作用域</h3>
+<ul>
+  <li>
+    <p>可以直接在lambda表达式中访问外层的局部变量</p>
+  </li>
+  <li>
+    <p>声明为final，或者不在代码块里面修改变量</p>
+  </li>
+  <li>
+    <p>lambda内部对于实例的字段以及静态变量是即可读又可写(和匿名对象是一致的)</p>
+  </li>
+</ul>
+
+<h3 id="android-studio-会提醒你可以用lambda">Android Studio 会提醒你可以用Lambda</h3>
+<p><img src="http://i.imgur.com/glkmxfH.png" alt="Android Studio Suggestion" /></p>
+
+<h3 id="lambda-usage">Lambda usage</h3>
+
+<p>#### 
+<img src="http://i.imgur.com/1PZTAA4.png" alt="Lambda case 0" /></p>
+
+<hr />
+
+<p>#### 
+<img src="http://i.imgur.com/3i3Yw6G.png" alt="Lambda case 1" /></p>
+
+<hr />
+
+<p>#### 
+<img src="http://i.imgur.com/iOB4bMN.png" alt="Lambda case 2" /></p>
+
+<hr />
+
+<p>#### 
+<img src="http://i.imgur.com/3fJPPuy.png" alt="Lambda case 3" /></p>
+
+<hr />
+
+<h4 id="case-4">case 4</h4>
+<p><img src="http://i.imgur.com/jIIyiQM.png" alt="Lambda case 4" />
+<img src="http://i.imgur.com/KODvwvO.png" alt="Lambda calculator code" /></p>
+
+:ET

@@ -1,9 +1,11 @@
-
 ---
 layout: post
 title:  "Linux commands"
 date:   2016-10-07 11:41:22 +0800
 categories: Linux
+catalog: true
+tags:
+    - Linux
 ---
 
 

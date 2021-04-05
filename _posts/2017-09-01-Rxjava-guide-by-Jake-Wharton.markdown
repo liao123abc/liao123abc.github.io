@@ -3,6 +3,9 @@ layout: post
 title:  "Rxjava Guide By Jake Wharton"
 date:   2017-09-01 12:47:08 +0800
 categories: Rxjava
+catalog: true
+tags:
+    - Rxjava
 ---
 
 “When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”

@@ -1,9 +1,11 @@
 ---
 layout: post
 title:  "React Native环境搭建!"
-Description: "React Native预言"
+subtitle: "React Native预言"
 modified: 2016-3-29
-tags: Android
+catalog: true
+tags:
+    - Android
 ---
 
 
