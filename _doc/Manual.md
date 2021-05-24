@@ -97,6 +97,8 @@ After [Rake](https://github.com/ruby/rake) is introduced, we can use the command
 
 ```
 rake post title="Hello 2015" subtitle="Hello World, Hello Blog"
+
+rake post title="Lambda(λ), what and why" subtitle="introduce and plactice in λ"
 ```
 
 This command will automatially generate a sample post similar as above under the `_posts/` folder.

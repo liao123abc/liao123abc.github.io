@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "c++ notes”",
+      "subtitle" : "c++ notes, from books, keep updating...",
+      "tags"     : "c++, note, Anki",
+      "url"      : "/2021/04/10/c++-notes/",
+      "date"     : "2021-04-10 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Thread",
       "subtitle" : "",
       "tags"     : "Java",
