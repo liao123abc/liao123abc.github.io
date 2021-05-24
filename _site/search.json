@@ -1,7 +1,23 @@
 [
   
     {
-      "title"    : "c++ notes”",
+      "title"    : "computer-network",
+      "subtitle" : "computer-network",
+      "tags"     : "computer network, note, Anki",
+      "url"      : "/2021/04/11/computer-network/",
+      "date"     : "2021-04-11 00:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Encoding",
+      "subtitle" : "ascii,Utf8,Unicode…",
+      "tags"     : "",
+      "url"      : "/2021/04/10/encoding/",
+      "date"     : "2021-04-10 00:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "c++ notes",
       "subtitle" : "c++ notes, from books, keep updating...",
       "tags"     : "c++, note, Anki",
       "url"      : "/2021/04/10/c++-notes/",

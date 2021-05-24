@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Android Developer">
+    <meta name="keywords"  content="thomasliao, 廖东明的博客, ThomasLiao Blog, 博客, 个人网站, 互联网, Android, Kotlin, Java, C++, C">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="computer-network - 廖东明的博客|ThomasLiao Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="computer networks
+">
+    
+    <meta property="article:published_time" content="2021-04-11T00:00:00Z">
+    
+    
+    <meta property="article:author" content="thomasliao">
+    
+    
+    <meta property="article:tag" content="computer network">
+    
+    <meta property="article:tag" content="note">
+    
+    <meta property="article:tag" content="Anki">
+    
+    
+    <meta property="og:image" content="https://thomasliao.cn/img/little-bo.png">
+    <meta property="og:url" content="https://thomasliao.cn/2021/04/11/computer-network/">
+    <meta property="og:site_name" content="廖东明的博客|ThomasLiao Blog">
+    
+    <title>computer-network - 廖东明的博客|ThomasLiao Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://thomasliao.cn/2021/04/11/computer-network/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">ThomasLiao Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-2015.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=computer+network" title="computer network">computer network</a>
+                        
+                        <a class="tag" href="/archive/?tag=note" title="note">note</a>
+                        
+                        <a class="tag" href="/archive/?tag=Anki" title="Anki">Anki</a>
+                        
+                    </div>
+                    <h1>computer-network</h1>
+                    
+                    <h2 class="subheading">computer-network</h2>
+                    <span class="meta">Posted by thomasliao on April 11, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="computer-networks">computer networks</h1>
+
+<h2 id="12-network-hardware">1.2 network hardware</h2>
+<ul>
+  <li>taxonomy of computer networks
+    <ul>
+      <li>transmission technology
+        <ul>
+          <li>broadcast links
+            <ul>
+              <li>A wireless network</li>
+            </ul>
+          </li>
+          <li>broadcasting: every machine</li>
+          <li>multicasting: subset of the machines</li>
+          <li>point-to-point links, sometimes called unicasting</li>
+        </ul>
+      </li>
+      <li>scale
+        <ul>
+          <li>PANs (Personal Area Networks)
+            <ul>
+              <li>Bluetooth
+                <ul>
+                  <li>The master tells the slaves
+                    <ul>
+                      <li>what addresses to use,</li>
+                      <li>when they can broadcast,</li>
+                      <li>how long they can transmit,</li>
+                      <li>what frequencies they can use,and so on</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>LAN (Local Area Network)
+            <ul>
+              <li>a standard for wireless LANs called IEEE 802.11, popularly known as WiFi</li>
+              <li>IEEE 802.3, popularly called Ethernet, is, by far, the most common type of wired LAN.</li>
+            </ul>
+          </li>
+          <li>MAN (Metropolitan Area Network)</li>
+          <li>WAN (Wide Area Network)</li>
+          <li>Internetworks
+            <ul>
+              <li>A collection of interconnected networks is called an internetwork or internet.</li>
+              <li>worldwide Internet (is one specific internet)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="131-protocol-hierarchies">1.3.1 Protocol Hierarchies</h2>
+<ul>
+  <li>each layer passes data and control information to the layer immediately below it, until the lowest layer is reached.</li>
+  <li>It is common that different hosts use different implementations of the same protocol</li>
+  <li>the lower layers of a protocol hierarchy are frequently implemented in hardware or firmware</li>
+</ul>
+
+<h2 id="132-design-issues-for-the-layers">1.3.2 Design Issues for the Layers</h2>
+
+<h3 id="reliability">Reliability</h3>
+<ul>
+  <li>bits are damaged
+    <ul>
+      <li>errors:
+        <ul>
+          <li>fluke electrical noise,</li>
+          <li>random wireless signals,</li>
+          <li>hardware flaws,</li>
+          <li>software bugs and so on</li>
+        </ul>
+      </li>
+      <li>solution: adding redundant information, used at low layers, to protect packets sent over individual links,and high layers, to check that the right contents were received
+        <ul>
+          <li>error detection
+            <ul>
+              <li>Information that is incorrectly received can then be retransmitted, until it is received correctly</li>
+            </ul>
+          </li>
+          <li>error correction
+            <ul>
+              <li>where the correct message is recovered from the possibly incorrect bits that were originally received</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>finding a working path through a network
+    <ul>
+      <li>may be some links or routers that are broken</li>
+      <li>routing: The network should automatically make this decision</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-evolution-of-the-network">the evolution of the network</h3>
+<ul>
+  <li>protocol layering
+    <ul>
+      <li>internetworking, different network technologies often have different limitations .ex:
+        <ul>
+          <li>number messages
+            <ul>
+              <li>not all communication channels preserve the order of messages sent on them</li>
+            </ul>
+          </li>
+          <li>differences in the maximum size of a message that the networks can transmit
+            <ul>
+              <li>disassembling, transmitting, and then reassembling messages</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>traffic jams</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="resource-allocation">resource allocation</h3>
+<ul>
+  <li>statistical multiplexing
+    <ul>
+      <li>share the bandwith dynamically, rather than by giving each host a fixed fraction</li>
+      <li>sharing based on the statistics of demand</li>
+    </ul>
+  </li>
+  <li>how to keep a fast sender from swamping a slow receiver with data
+    <ul>
+      <li>flow control: feedback from the receiver</li>
+    </ul>
+  </li>
+  <li>congestion: network is oversubscribed, overloading
+    <ul>
+      <li>too many computers want to send too much traffic</li>
+      <li>the network cannot deliver it all</li>
+    </ul>
+  </li>
+  <li>resource
+    <ul>
+      <li>bandwidth</li>
+      <li>timeliness
+        <ul>
+          <li>live video</li>
+          <li>real-time</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="security">security</h3>
+<ul>
+  <li>eavesdropping[ secretly listening to the private conversation]
+    <ul>
+      <li>solution: provide confidentiality
+        <ul>
+          <li>authentication: prevent someone from impersonating someone else</li>
+          <li>integrity: prevent surreptitious changes to messages</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="133-connection-oriented-versus-connectionless-service">1.3.3 Connection-Oriented Versus Connectionless Service</h2>
+
+<h3 id="connection-oriented">Connection-oriented</h3>
+<ul>
+  <li>Connection-oriented service is modeled after the telephone system.
+    <ul>
+      <li>establish</li>
+      <li>use</li>
+      <li>release</li>
+    </ul>
+  </li>
+  <li>service is modeled after the telephone system.</li>
+  <li>A circuit is another name for a connection with associated resources
+    <ul>
+      <li>fixed bandwidth</li>
+      <li>in some case negotiation parameters
+        <ul>
+          <li>maximum message size</li>
+          <li>quality of service required</li>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>one side make proposal, the other accept</td>
+                  <td> </td>
+                  <td>reject</td>
+                  <td> </td>
+                  <td>make a counterproposal</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>acts like a tube:
+        <ul>
+          <li>sender pushes at one end , receiver takes them at the other end</li>
+          <li>in most case the order is preserved: bits arrive in the order they were sent</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="connectionless-service">Connectionless Service</h3>
+<ul>
+  <li>connectionless service is modeled after the postal system
+    <ul>
+      <li>each msg carries the full destination address</li>
+      <li>a packet is a message at the network layer</li>
+      <li>store-and-forward switching：
+        <ul>
+          <li>nodes receive a message in full before sending it to the next</li>
+        </ul>
+      </li>
+      <li>cut-through switching:
+        <ul>
+          <li>onward transmission of a message at a node starts before it is completely received</li>
+        </ul>
+      </li>
+      <li>order is not consistant because of delayed</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="reliability-1">reliability</h3>
+<blockquote>
+  <p>both Connection-Oriented or Connectionless Service  can further be characterized by its reliability</p>
+  <ul>
+    <li>implemented by having the receiver acknowledge the receipt of each msg</li>
+    <li>Reliable connection-oriented service has two minor variations:
+      <ul>
+        <li>message sequences
+          <ul>
+            <li>message boundaries are preserved</li>
+          </ul>
+        </li>
+        <li>byte streams
+          <ul>
+            <li>no message boundaries</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Unreliable (meaning not acknowledged) connectionless service is often called datagram service
+      <ul>
+        <li>does not return an acknowledgement to the sender</li>
+        <li>dominant form in most networks
+          <ul>
+            <li>reliable communication (in our sense, that is,acknowledged) may not be available in a given layer
+              <ul>
+                <li>Ethernet does not provide reliable communication</li>
+                <li>many reliable services are built on top of an unreliable datagram service</li>
+                <li>the delays inherent in providing a reliable service may be unacceptable, especially in real-time applications such as multimedia</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+<h2 id="134-service-primitives">1.3.4 Service Primitives</h2>
+
+<h3 id="a-service-is-formally-specified-by-a-set-of-primitives-operations-available-to-user-processes-to-access-the-service">A service is formally specified by a set of primitives (operations) available to user processes to access the service</h3>
+<ul>
+  <li>tell the service to perform some action or report on an action taken by a peer entity</li>
+  <li>system calls
+    <ul>
+      <li>cause a trap to kernel mode</li>
+      <li>send the necessary packets</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>primitives for connection-oriented service
+<a href="todo"></a></p>
+</blockquote>
+
+<h3 id="steps">steps</h3>
+
+<h4 id="six-packets-are-required-to-complete-the-protocol">six packets are required to complete the protocol</h4>
+
+<ul>
+  <li>server executes LISTEN to indicate that it is prepared to accept incoming connections.
+    <ul>
+      <li>system call</li>
+      <li>server process blocked until a request for connection appears</li>
+    </ul>
+  </li>
+  <li>send packets
+    <ul>
+      <li>1.client executes CONNECT to establish a connection with the server
+        <ul>
+          <li>sends a packet to the peer asking it to connect</li>
+          <li>parameter of server’s address</li>
+          <li>client suspended until a response</li>
+        </ul>
+      </li>
+      <li>2.server can then establish the connection with the ACCEPT call
+        <ul>
+          <li>send a response to accept</li>
+          <li>arrival of response release the client
+            <ul>
+              <li>client &amp;&amp; server now both running and have a connection established</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>server to execute RECEIVE to prepare to accept the first request
+    <ul>
+      <li>block the server</li>
+      <li>when
+        <ul>
+          <li>normally immediately being released from the LISTEN</li>
+          <li>before the acknowledgement can get back to the client</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>send packets
+    <ul>
+      <li>3.client executes SEND to transmit its request
+        <ul>
+          <li>client: followed by execution of RECEIVE to get the reply</li>
+          <li>server: arrivial of request unblock the server to handle the request</li>
+        </ul>
+      </li>
+      <li>4.server: use SEND to return the answer
+        <ul>
+          <li>client: arrivial of the packet unblock the cient</li>
+        </ul>
+      </li>
+      <li>additional requsts can go on(if have)</li>
+    </ul>
+  </li>
+  <li>send packets
+    <ul>
+      <li>5.client: when done, executes DISCONNECT to terminate the connection
+        <ul>
+          <li>an initial DISCONNECT is a blocking call, suspending the client</li>
+          <li>sending a packet to the server saying that the connection is no longer needed</li>
+        </ul>
+      </li>
+      <li>6.server: gets the packet
+        <ul>
+          <li>issues a DISCONNECT of its own</li>
+          <li>acknowledging the client and releasing the connection</li>
+        </ul>
+      </li>
+      <li>client receive the packet
+        <ul>
+          <li>client process is released</li>
+          <li>connection is broken</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="issues">issues</h3>
+<ul>
+  <li>timing can be wrong (e.g., the CONNECT is done before the LISTEN),</li>
+  <li>packets can get lost</li>
+  <li>why not connectionless:
+    <ul>
+      <li>in perfect world only two packets would be needed
+        <ul>
+          <li>request</li>
+          <li>reply</li>
+        </ul>
+      </li>
+      <li>but
+        <ul>
+          <li>large messages in either direction (e.g., a megabyte file),</li>
+          <li>transmission errors,</li>
+          <li>lost packets</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="problems-of-connectionless">problems of connectionless</h3>
+<ul>
+  <li>if packets lost, how would the client know if some pieces were missing?</li>
+  <li>How would the client know whether the last packet actually received was really the last packet sent?</li>
+  <li>How could it tell packet 1 from the second file from a lost packet 1 from the first file that suddenly found its way to the client?</li>
+</ul>
+
+<h2 id="135-services-vs-protocols">1.3.5 services vs protocols</h2>
+<p><a href="todo">image</a></p>
+<ul>
+  <li>service
+    <ul>
+      <li>like api</li>
+      <li>is a set of primitives that a layer provides to the layer above it</li>
+      <li>relates to an interface between two layers
+        <ul>
+          <li>lower layer -&gt; service provider</li>
+          <li>upper layer -&gt; service user</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>protocol
+    <ul>
+      <li>like impl</li>
+      <li>relate to the packtets</li>
+      <li>is a set of rules relate to packets
+        <ul>
+          <li>governing the format and meaning of
+            <ul>
+              <li>the packets,</li>
+              <li>or messages that are exchanged by the peer entities within a layer.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Many older protocols did not distinguish the service from the protocol
+    <ul>
+      <li>a typical layer might have had a service primitive SEND PACKET with the user providing a pointer to a fully assembled packet.</li>
+      <li>all changes to the protocol were immediately visible to the users —– violate the rule/ a serious blunder</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="14-osi-model--tcpip-model">1.4 OSI Model &amp;&amp; TCP/IP Model</h2>
+<ul>
+  <li>osi
+    <ul>
+      <li>protocols not used any more</li>
+      <li>model itself quite general &amp;&amp; valid</li>
+      <li>features at each layer are still very important</li>
+    </ul>
+  </li>
+  <li>TCP/IP
+    <ul>
+      <li>the model itself is not of much use</li>
+      <li>the protocols are widely used.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="141-osi">1.4.1 OSI</h2>
+<ul>
+  <li>developed by the International Standards Organization (ISO)</li>
+  <li>ISO OSI (Open Systems Interconnection) Reference Model
+    <ul>
+      <li>means open for communication with other systems</li>
+    </ul>
+  </li>
+  <li>OSI model itself is not a network architecture
+    <ul>
+      <li>it does not specify the exact services and protocols to be used in each layer
+        <ul>
+          <li>just tell what each layers should do</li>
+        </ul>
+      </li>
+      <li>produced standards for all layers
+        <ul>
+          <li>these are not part of refernce model itself</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>model(in part) widely used, protocols are long forgotten</p>
+</blockquote>
+
+<h2 id="141-osi-model-layers">1.4.1 OSI model layers</h2>
+
+<p><a href="">image</a></p>
+
+<h3 id="physical-layer">physical layer</h3>
+<ul>
+  <li>concerned with transmitting raw bits</li>
+  <li>Typical questions
+    <ul>
+      <li>what electrical signals should be used to represent a 1 and a 0,</li>
+      <li>how many nanoseconds a bit lasts,</li>
+      <li>whether transmission may proceed simultaneously in both directions,</li>
+      <li>how the initial connection is established,</li>
+      <li>how it is torn down when both sides are finished,</li>
+      <li>how many pins the network connector has, and what each pin is used for.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="data-link-layer">data link layer</h3>
+<ul>
+  <li>transform a raw transmission facility into a line that appears free of undetected transmission errors
+    <ul>
+      <li>by masking the real errors so the network layer does not see them</li>
+      <li>break up the input data into data frames
+        <ul>
+          <li>transmit the frames sequentially</li>
+          <li>receiver confirms each frame by sending back an acknowledgement frame.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>issues
+    <ul>
+      <li>how to keep a fast transmitter from drowning a slow receiver in data.</li>
+      <li>some traffic regulation mechanism want to konw when the receiver can accept more data</li>
+      <li>Broadcast networks : how to control access to the shared channel.
+        <ul>
+          <li>A special sublayer added: medium access control sublayer</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-network-layer">the network layer</h3>
+<ul>
+  <li>controls the operations of the subnet
+    <ul>
+      <li>determining how packets are routed from source to destination.</li>
+      <li>handling congestion</li>
+      <li>the quality of service provided (delay, transit time, jitter, etc.</li>
+      <li>allow heterogeneous networks to be interconnected
+        <ul>
+          <li>different network may be different
+            <ul>
+              <li>in addressing</li>
+              <li>packet might be too large</li>
+              <li>protocol may differ</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-transport-layer">the transport layer</h3>
+<ul>
+  <li>basic function
+    <ul>
+      <li>accept data from above it,</li>
+      <li>split it up into smaller units if need be,</li>
+      <li>pass these to the network layer,</li>
+      <li>and ensure that the pieces all arrive correctly at the other end.</li>
+    </ul>
+  </li>
+  <li>determines what type of service to provide to the session layer, and, ultimately, to the users of the network–determined when connection is established
+    <ul>
+      <li>most popular: error-free point-to-point channel
+        <ul>
+          <li>delivers messages or bytes in the order in which they were sent.</li>
+        </ul>
+      </li>
+      <li>others
+        <ul>
+          <li>transporting of isolated messages with no guarantee about the order of delivery</li>
+          <li>the broadcasting of messages to multiple destinations.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>true end-to-end layer
+    <ul>
+      <li>carries data from source to destination
+        <ul>
+          <li>message headers</li>
+          <li>control message</li>
+        </ul>
+      </li>
+      <li>lower layers not end-2-end
+        <ul>
+          <li>each protocols is between a machine and its immediate neighbors,</li>
+          <li>not between the ultimate source and destination machines,
+            <ul>
+              <li>separated by many routers</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-session-layer">the session layer</h3>
+<ul>
+  <li>allows users on different machines to establish sessions between them.
+    <ul>
+      <li>dialog control
+        <ul>
+          <li>(keeping track of whose turn it is to transmit),</li>
+        </ul>
+      </li>
+      <li>token management
+        <ul>
+          <li>(preventing two parties from attempting the same critical operation simultaneously)</li>
+        </ul>
+      </li>
+      <li>synchronization
+        <ul>
+          <li>(checkpointing long transmissions to allow them to pick up from where they left off in the event of a crash and subsequent recovery).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="presentation-layer">presentation layer</h3>
+<ul>
+  <li>concerned with the syntax and semantics of the information transmitted.</li>
+</ul>
+
+<h3 id="application-layer">Application Layer</h3>
+<ul>
+  <li>ex. http</li>
+</ul>
+
+<h2 id="142-the-tcpip-reference-model">1.4.2 The TCP/IP Reference Model</h2>
+
+<p><a href="">image</a></p>
+
+<h3 id="history">history</h3>
+<ul>
+  <li>ARPANET
+    <ul>
+      <li>using leased telephone lines</li>
+      <li>connect hundreds of universities and government</li>
+      <li>trouble with interworking with satellite and radio networks</li>
+      <li>a new reference architecture was needed –&gt; tcp/ip
+        <ul>
+          <li>goals
+            <ul>
+              <li>connect multiple networks in a seamless way</li>
+              <li>be able to survive loss of subnet hardware(Soviet Union attack)</li>
+              <li>others:
+                <ul>
+                  <li>transferring files</li>
+                  <li>real-time speech transmission,</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-link-layer">The Link Layer</h3>
+<ul>
+  <li>describes what links such as serial lines and classic Ethernet must do to meet the needs of this connectionless internet layer.</li>
+</ul>
+
+<h3 id="the-internet-layer">The Internet Layer</h3>
+<ul>
+  <li>linchpin that holds the whole architecture together</li>
+  <li>deliver IP packets where they are supposed to go
+    <ul>
+      <li>IP (Internet Protocol): official packet format and protoco</li>
+      <li>ICMP (Internet Control Message Protocol)</li>
+    </ul>
+  </li>
+  <li>issues
+    <ul>
+      <li>Packet routing</li>
+      <li>congestion</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-transport-layer-1">the transport layer</h3>
+<ul>
+  <li>allow peer entities on the source and destination hosts to carry on a conversation
+    <ul>
+      <li>end-to-end transport protocols
+        <ul>
+          <li>TCP(Transmission Control Protocol)
+            <ul>
+              <li>reliable connection-oriented protocol</li>
+              <li>handles flow control to make sure a fast sender cannot swamp a slow receiver</li>
+            </ul>
+          </li>
+          <li>UDP (User Datagram Protocol)
+            <ul>
+              <li>unreliable, connectionless protocol</li>
+              <li>for applications that do not want TCP’s sequencing or flow control and wish to provide their own</li>
+              <li>widely used
+                <ul>
+                  <li>one-shot, client-server-type request-reply queries</li>
+                  <li>applications in which prompt delivery is more important than accurate delivery
+                    <ul>
+                      <li>such as transmitting speech or video.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-application-layer">The Application Layer</h3>
+<ul>
+  <li>virtual terminal (TELNET),</li>
+  <li>file transfer (FTP),</li>
+  <li>and electronic mail (SMTP)</li>
+  <li>Domain Name System (DNS)</li>
+  <li>HTTP, the protocol for fetching pages on the World Wide Web,</li>
+  <li>RTP, the protocol for delivering real-time media such as voice or movies</li>
+</ul>
+
+<h2 id="144-osi-vs-tcpip-compare-in-reference-modules-not-the-corresponding-protocol-stacks">1.4.4 OSI vs TCP/IP [compare in reference modules not the corresponding protocol stacks]</h2>
+<ul>
+  <li>layers:
+    <ul>
+      <li>osi: 4 layers</li>
+      <li>tcp/ip: 7 layers</li>
+    </ul>
+  </li>
+  <li>both: layers up through and including the transport layer provide an end-to-end, network-independent transport service to processes wishing to communicate</li>
+  <li>OSI devised before the corresponding protocols</li>
+  <li>tcp/ip:protocols come first,
+    <ul>
+      <li>model was really just a description of the existing protocols</li>
+      <li>no problems with protocols fitting the model, but model did not fit any other protocol stacks
+        <ul>
+          <li>it was not especially useful for describing other, non-TCP/IP networks.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="three-concepts-are-central-to-the-osi-model">Three concepts are central to the OSI model:</h3>
+<ul>
+  <li>
+    <ol>
+      <li>Services.[methods , operations]
+        <ul>
+          <li>tells what the layer does,</li>
+          <li>not how entities above it access it or how the layer works.</li>
+          <li>It defines the layer’s semantics.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Interfaces.[methods’ parameter &amp;&amp; result]
+        <ul>
+          <li>tells the processes above it how to access it</li>
+          <li>specific parameters</li>
+          <li>not or how the layer works.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>Protocols.[code internal]
+        <ul>
+          <li>the layer’s own business.</li>
+          <li>can use any protocols to finish its work</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="the-tcpip-model-did-not-originally-clearly-distinguish-between-services-interfaces-and-protocols">The TCP/IP model did not originally clearly distinguish between services, interfaces, and protocols</h3>
+<ul>
+  <li>ex. the only real services offered by the internet layer are SEND IP PACKET and RECEIVE IP PACKET</li>
+  <li>the protocols in the OSI model compare that in the TCP/IP model
+    <ul>
+      <li>better hidden</li>
+      <li>replaced relatively easily as the technology changes</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="connectionless-vs-connection-oriented">connectionless vs connection-oriented</h3>
+<ul>
+  <li>osi
+    <ul>
+      <li>support both in network layer</li>
+      <li>only connection-oriented in transport layer</li>
+    </ul>
+  </li>
+  <li>tcp/ip
+    <ul>
+      <li>connectionless in network layer</li>
+      <li>both in transport layer
+        <ul>
+          <li>giving the user a choice–important for simple request-response protocols</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="145-critique-of-osi">1.4.5 critique of osi</h2>
+
+<h3 id="bad-timing">bad timing</h3>
+<ul>
+  <li>TCP/IP protocols were already in widespread use by research universities by the time the OSI protocols appeared</li>
+  <li>When OSI came around, they did not want to support a second protocol stack until they were forced to</li>
+</ul>
+
+<h3 id="bad-technology">bad technology</h3>
+<ul>
+  <li>seven layers was more political than technical, and two of the layers
+    <ul>
+      <li>(session and presentation) are nearly empty,</li>
+      <li>(data link and network) are overfull.</li>
+    </ul>
+  </li>
+  <li>extraordinarily complex
+    <ul>
+      <li>difficult to implement and inefficient in operation</li>
+    </ul>
+  </li>
+  <li>functions, such as addressing, flow control, and error control, reappear again and again in each layer.
+    <ul>
+      <li>unnecessary and inefficient.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="bad-implementations">bad implementations</h3>
+<ul>
+  <li>implementations were huge, unwieldy, and slow.</li>
+  <li>In contrast, one of the first implementations of TCP/IP was part of Berkeley UNIX and was quite good &amp;&amp; free</li>
+</ul>
+
+<h3 id="bad-politics">bad politics</h3>
+<ul>
+  <li>TCP/IP was thought as part of UNIX</li>
+  <li>osi supported by the government but not work</li>
+</ul>
+
+<h2 id="146-critique-of-tcpip">1.4.6 critique of tcp/ip</h2>
+<ul>
+  <li>not clearly distinguish the concepts of services, interfaces, and protocols.
+    <ul>
+      <li>not much of a guide for designing new networks using new technologies</li>
+    </ul>
+  </li>
+  <li>the TCP/IP model is not at all general and is poorly suited to describing any protocol stack other than TCP/IP.
+    <ul>
+      <li>ex: completely impossible to use the TCP/IP model to describe Bluetooth</li>
+    </ul>
+  </li>
+  <li>the link layer is not a layer
+    <ul>
+      <li>it is an interface between the network and data link layer</li>
+    </ul>
+  </li>
+  <li>does not distinguish between the physical and data link layers.
+    <ul>
+      <li>physical layer:
+        <ul>
+          <li>copper wire, fiber optics, and wireless communication</li>
+        </ul>
+      </li>
+      <li>data link layer:
+        <ul>
+          <li>delimit the start and end of frames and get them from one side to the other with the desired degree of reliability.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>some protocols are ad hoc,
+    <ul>
+      <li>ex. TELNET–The virtual terminal protocol
+        <ul>
+          <li>was designed for a ten-character-per-second mechanical Teletype terminal.</li>
+          <li>knows nothing of graphical user interfaces and mice</li>
+          <li>but still in used some 30 years later</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Ad hoc是拉丁文常用短语中的一个短语。这个短语的意思是“特设的、特定目的的（地）、即席的、临时的、将就的、专案的”。这个短语通常用来形容一些特殊的、不能用于其它方面的的，为一个特定的问题、任务而专门设定的解决方案</p>
+</blockquote>
+
+<h2 id="151-the-internet">1.5.1 the internet</h2>
+
+<h3 id="not-really-a-network-at-all">not really a network at all</h3>
+<ul>
+  <li>a vast collection of different networks
+    <ul>
+      <li>use certain common protocols</li>
+      <li>provide certain common services</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="the-arpanet">The ARPANET</h3>
+<ul>
+  <li>1950 DoD wants a command-and-control network that could survive a nuclear war.
+    <ul>
+      <li>telephone network</li>
+    </ul>
+  </li>
+  <li>1960s, Baran proposed using digital packet-switching technology. AT&amp;T dismissed</li>
+  <li>1957,  Soviet Union launch of the first artificial satellite, Sputnik–beat US
+    <ul>
+      <li>President Eisenhower–ARPA, the Advanced Research Projects Agency.
+        <ul>
+          <li>1967, ARPA – ARPANET (minicomputers + IMPs[Interface Message Processors])
+            <ul>
+              <li>first electronic storeand-forward packet-switching network</li>
+            </ul>
+          </li>
+          <li>NPL system – National Physical Laboratory in England
+            <ul>
+              <li>demonstrated that packet switching could be made to work</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>an experimental network went online
+    <ul>
+      <li>1969 with four nodes: at UCLA, UCSB, SRI, and the University of Utah.
+        <ul>
+          <li>all had a large number of ARPA contracts</li>
+          <li>all had different and completely incompatible host computers (just to make it more fun).</li>
+        </ul>
+      </li>
+      <li>ARPA also funded research on the use of satellite networks and mobile packet radio networks</li>
+      <li>demonstrated that the existing ARPANET protocols were not suitable for running over different networks
+        <ul>
+          <li>1974–TCP/IP was specifically designed to handle communication over internetworks</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>ARPA awarded several contracts to implement TCP/IP on different computer platforms,
+    <ul>
+      <li>IBM, DEC, and HP systems, as well as for Berkeley UNIX.</li>
+      <li>Berkeley UNIX–rewrote TCP/IP with a new programming interface called sockets for the upcoming 4.2BSD release of Berkeley UNIX</li>
+    </ul>
+  </li>
+  <li>1980s, additional networks, especially LANs, connected to the ARPANET
+    <ul>
+      <li>DNS(Domain Name System) was created</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="nsfnet">NSFNET</h3>
+<ul>
+  <li>1970s,  NSF (the U.S. National Science Foundation) saw enormous impact of ARPANET
+    <ul>
+      <li>fund the Computer Science Network (CSNET) in 1981,
+        <ul>
+          <li>have to have a research contract with the DoD to get on ARPANET, many have no contract</li>
+          <li>connect to ARPANET via dial-up and leased lines</li>
+          <li>backbone network to connect supercomputer centers
+            <ul>
+              <li>Each supercomputer given a microcomputer called a fuzzball
+                <ul>
+                  <li>fuzzball connected with 56kb lines to form subnet
+                    <ul>
+                      <li>same hardware technology the ARPANET used</li>
+                    </ul>
+                  </li>
+                  <li>fuzzball use TCP/IP right from the start—first TCP/IP WAN</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>NSFNET: the complete network
+        <ul>
+          <li>funded some regional networks connected to the backbone</li>
+        </ul>
+      </li>
+      <li>NSF encouraged MERIT, MCI, and IBM to form a nonprofit corporation, ANS (Advanced Networks and Services)
+        <ul>
+          <li>ANS took over NSFNET and upgraded to form ANSNET</li>
+          <li>5 years later sold to America Online</li>
+        </ul>
+      </li>
+      <li>NSF awarded contracts to four different network operators to establish a NAP (Network Access Point)
+        <ul>
+          <li>To ease the transition &amp;&amp; make sure regional networks could communicate with each other</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>1990s,  many other countries and regions also built national research networks,
+    <ul>
+      <li>often patterned on the ARPANET and NSFNET</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="151-architecture-of-the-internet">1.5.1 Architecture of the Internet</h2>
+<ul>
+  <li>ISP: Internet Service Provider</li>
+  <li>DSL: Digital Subscriber Line
+    <ul>
+      <li>DSL modem
+        <ul>
+          <li>modem is short for ‘modulator demodulator’ and refers to any device that converts between digital bits and analog signals.</li>
+        </ul>
+      </li>
+      <li>DSLAM (Digital Subscriber Line Access Multiplexer)</li>
+    </ul>
+  </li>
+  <li>DSL + telephone line : dial-up
+    <ul>
+      <li>limited to 56 kbps</li>
+    </ul>
+  </li>
+  <li>DSL + cable : much greater</li>
+  <li>FTTH (Fiber to the Home)
+    <ul>
+      <li>optical fiber, 光纤</li>
+    </ul>
+  </li>
+  <li>POP (Point of Presence)
+    <ul>
+      <li>the ISP’s POP:   locaiton at which customer packets enter the ISP network for service</li>
+    </ul>
+  </li>
+  <li>TV system
+    <ul>
+      <li>cable modem</li>
+      <li>CMTS (Cable Modem Termination System)</li>
+    </ul>
+  </li>
+  <li>ISP’s POP (Point of Presence).</li>
+  <li>backbone
+    <ul>
+      <li>long-distance transmission lines that interconnect routers at POPs in the different cities that the ISPs serve</li>
+    </ul>
+  </li>
+  <li>IXPs (Internet eXchange Points)
+    <ul>
+      <li>ISPs connect their networks to exchange traffic at IXPs</li>
+      <li>Basically, an IXP is a room full of routers,
+        <ul>
+          <li>at least one per ISP</li>
+          <li>A LAN in the room connects all the routers</li>
+        </ul>
+      </li>
+      <li>a small ISP might pay a larger ISP for Internet connectivity</li>
+      <li>two large ISPs might decide to exchange traffic</li>
+    </ul>
+  </li>
+  <li>packet’s path
+    <ul>
+      <li>depends on the peering choices of the ISPs
+        <ul>
+          <li>with destination ISP :directly to its peer</li>
+          <li>or else route the packet to the nearest paid transit provider</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>tier 1 ISPs
+    <ul>
+      <li>form the backbone of the Internet</li>
+      <li>thousands of routers connected by high-bandwidth fiber optic links</li>
+      <li>AT&amp;T, Sprint…</li>
+    </ul>
+  </li>
+  <li>data centers
+    <ul>
+      <li>Google, Yahoo…</li>
+      <li>server farm: rack upon rack of machines</li>
+      <li>Colocation/hosting (机器托管)
+        <ul>
+          <li>short, fast connections can be made between the servers and the ISP backbones</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="152-mobile-phone-networks">1.5.2 Mobile Phone Networks</h2>
+
+<h3 id="generation">generation</h3>
+
+<h4 id="amps--advanced-mobile-phone-system--1g">AMPS : Advanced Mobile Phone System , 1G</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>- transmitted voice calls as continuously varying(Analog) signals
+- each voice call on a specific frequency band
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="gsm--global-system-for-mobile-communications">GSM : Global System for Mobile communications</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>- transmitting voice calls in digital form #### UMTS (Universal Mobile Telecommunications System) || WCDMA (Wideband Code Division Multiple Access)
+- offer both digital voice and broadband digital data services
+- each cell to use all frequencies,
+- a tolerable level of interference to the neighboring cells.
+- based on Code Division Multiple Access (CDMA)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="radio-access-network">radio access network</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>- cellular base station
+- controller node or RNC (Radio Network Controller)
+    - controls how the spectrum is used.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="core-network-carries-the-traffic-for-the-radio-access-network">core network: carries the traffic for the radio access network</h4>
+<ul>
+  <li>UMTS core network evolved from 2G GSM system’s core network
+    <ul>
+      <li>connectionless subnets–packet networks
+        <ul>
+          <li>if too many packets, router will choke and lose packets
+            <ul>
+              <li>sender will resend but service will be jerky</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>connection-oriented subnets–circuit networks
+        <ul>
+          <li>set up establishes a route
+            <ul>
+              <li>all words or packets follow the same route</li>
+              <li>if a line or switch on the path goes down, call is aborted</li>
+            </ul>
+          </li>
+          <li>support quality of service more easily
+            <ul>
+              <li>subnet can reserve resources(link bandwidth, switch buffer space, CPU)</li>
+              <li>if resource is insufficient, call will be rejected</li>
+              <li>once a connection is connected, connection would get good service</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>old mobile phone networks–connectionless
+    <ul>
+      <li>MSC (Mobile Switching Center), GMSC (Gateway Mobile Switching Center)</li>
+      <li>MGW (Media Gateway) elements that set up connections over a circuit-switched core network such as the PSTN (Public Switched Telephone Network).</li>
+    </ul>
+  </li>
+  <li>GPRS(General Packet Radio Service)
+    <ul>
+      <li>ran at tens of kbps</li>
+    </ul>
+  </li>
+  <li>UMTS core network nodes connect directly to a packet-switched network
+    <ul>
+      <li>SGSN (Serving GPRS Support Node) and the GGSN (Gateway GPRS Support Node)</li>
+      <li>voice calls over a packet data network</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="issues-1">issues</h4>
+<ul>
+  <li>handover
+    <ul>
+      <li>soft handover
+        <ul>
+          <li>connect to the new base station before disconnecting from the old base station</li>
+        </ul>
+      </li>
+      <li>hard handover</li>
+    </ul>
+  </li>
+  <li>how to find a mobile in the first place when there is an incoming call
+    <ul>
+      <li>Each mobile phone network has a HSS (Home Subscriber Server)
+        <ul>
+          <li>the location of each subscriber,</li>
+          <li>profile information that is used for authentication and authorization</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>security
+    <ul>
+      <li>SIM card, short for Subscriber Identity Module
+        <ul>
+          <li>authenticate subscribers</li>
+          <li>cryptographic keys on the SIM card are used to encrypt transmissions</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="153-wifi-80211">1.5.3 wifi, 802.11</h2>
+<ul>
+  <li>operate in unlicensed bands such as the ISM (Industrial, Scientific, and Medical) bands
+    <ul>
+      <li>defined by ITU-R (e.g., 902-928 MHz, 2.4-2.5 GHz, 5.725-5.825 GHz).</li>
+    </ul>
+  </li>
+  <li>two style
+    <ul>
+      <li>Wired network with APs(access points)</li>
+      <li>ad hoc network: clients talk directly</li>
+    </ul>
+  </li>
+  <li>multipath fading
+    <ul>
+      <li>radio signals reflected off solid objects
+        <ul>
+          <li>multiple echoes of a transmission
+            <ul>
+              <li>cancel</li>
+              <li>reinforce</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>solutions:
+        <ul>
+          <li>path diersity: sending along multiple, independent paths</li>
+          <li>using different frequencies</li>
+          <li>repeating bits over different periods of time</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>multiple transmissions collide
+    <ul>
+      <li>CSMA (Carrier Sense Multiple Access)
+        <ul>
+          <li>Computers wait for a short random interval before transmitting, and defer their transmissions if they hear that someone else is already transmitting</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>security
+    <ul>
+      <li>WEP (Wired Equivalent Privacy)</li>
+      <li>WiFi Protected Access, initially called WPA but now replaced by WPA2</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="154-rfid-and-sensor-networks">1.5.4 RFID and Sensor Networks</h2>
+
+<h3 id="radio-frequency-identification-rfid">Radio Frequency IDentification (RFID)</h3>
+<ul>
+  <li>consists of a small microchip with a unique identifier and an antenna that receives radio transmissions.</li>
+</ul>
+
+<h4 id="battery">battery</h4>
+<ul>
+  <li>passive RFID
+    <ul>
+      <li>all of the energy needed to operate them is supplied in the form of radio waves by RFID readers.</li>
+    </ul>
+  </li>
+  <li>active RFID
+    <ul>
+      <li>there is a power source on the tag</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="distance">distance</h4>
+<ul>
+  <li>UHF RFID (Ultra-High Frequency RFID).
+    <ul>
+      <li>shipping pallets and some drivers licenses</li>
+      <li>backscatter：Tags communicate at distances of several meters by changing the way they reflect the reader signals</li>
+    </ul>
+  </li>
+  <li>HF RFID (High Frequency RFID)
+    <ul>
+      <li>passport, credit cards, books, and noncontact payment systems</li>
+      <li>based on induction</li>
+    </ul>
+  </li>
+  <li>LFRFID (Low Frequency RFID)
+    <ul>
+      <li>for animal tracking</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="problem">problem</h4>
+<ul>
+  <li>multiple tags
+    <ul>
+      <li>tags wait for a short random interval before responding with their identification</li>
+    </ul>
+  </li>
+  <li>security
+    <ul>
+      <li>weak measures: like passwords</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="sensor-network">sensor network</h3>
+<ul>
+  <li>Sensor nodes are small computers</li>
+  <li>self-organize to relay messages for each other</li>
+</ul>
+
+<h2 id="17-metric-units">1.7 METRIC UNITS</h2>
+
+<p>https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fslideplayer.com%2F5675735%2F18%2Fimages%2F4%2FMetric%2BConversion%2BChart.jpg&amp;refer=http%3A%2F%2Fslideplayer.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1622127822&amp;t=f468c0add4a2c6f3b629c2b95844ce87</p>
+
+<h2 id="31-data-link-layer">3.1 data link layer</h2>
+
+<p>uses the services of the physical layer to send and receive bits over communication channels</p>
+<ul>
+  <li>Providing a well-defined service interface to the network layer.</li>
+  <li>Dealing with transmission errors.</li>
+  <li>Regulating the flow of data</li>
+</ul>
+
+<h2 id="311-services-provided-to-the-natwork-layer">3.1.1 services provided to the natwork layer</h2>
+
+<h3 id="unacknowledged-connectionless-service">Unacknowledged connectionless service.</h3>
+<p>having the source machine send independent frames to the destination machine without having the destination machine acknowledge them</p>
+<ul>
+  <li>ex. Ethernet,</li>
+  <li>no logical connection</li>
+  <li>if a frame is lost, no attempt to detect the loss or recover</li>
+  <li>appropriate when the error rate is very low,  appropriate for real-time traffic, such as voice</li>
+</ul>
+
+<h3 id="acknowledged-connectionless-service">Acknowledged connectionless service.</h3>
+<ul>
+  <li>no logical connections</li>
+  <li>each frame sent is individually acknowledged</li>
+  <li>is useful over unreliable channels, such as wireless systems. ex.  802.11 (WiFi)</li>
+</ul>
+
+<h3 id="acknowledged-connection-oriented-service">Acknowledged connection-oriented service</h3>
+
+<h4 id="providing-acknowledgements-in-the-data-link-layer-is-just-an-optimization-never-a-requirement">providing acknowledgements in the data link layer is just an optimization, never a requirement</h4>
+
+<ul>
+  <li>can send packets and wait for ack, resend when expired
+    <ul>
+      <li>inefficient,</li>
+    </ul>
+  </li>
+  <li>network layer does not know hardware parameters, and send a big packet(ex.10 frames, 2 lost):
+    <ul>
+      <li>links have a strict maximum frame length imposed by hardware</li>
+      <li>known propagation delays.</li>
+    </ul>
+  </li>
+  <li>On reliable channels, such as fiber, the overhead of a heavyweight data link protocol may be unnecessary,</li>
+  <li>but on (inherently unreliable) wireless channels it is well worth the cost</li>
+</ul>
+
+<h4 id="connection-oriented-1">connection-oriented</h4>
+<ul>
+  <li>Each frame sent over the connection is numbered,</li>
+  <li>guarantees that each frame sent is indeed received.</li>
+  <li>guarantees that each frame is received exactly once and that all frames are received in the right order.</li>
+  <li>appropriate over long, unreliable links such as a satellite channel or a long-distance telephone circuit.
+    <ul>
+      <li>if connectionless, cause a frame to be sent and received several times, wasting bandwidth.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="312-framing">3.1.2 framing</h2>
+<ul>
+  <li>channel is noisy</li>
+  <li>Breaking up the bit stream into frames
+    <ul>
+      <li>Byte count.
+        <ul>
+          <li>无法解决乱序问题</li>
+        </ul>
+      </li>
+      <li>Flag bytes with byte stuffing.
+        <ul>
+          <li>two consecutive flag bytes indicate the end of one frame and the start of the next</li>
+          <li>insert special escape byte(ESC) to avoid interfering</li>
+          <li>flaw: tied to the use of 8-bit bytes</li>
+        </ul>
+      </li>
+      <li>Flag bits with bit stuffing.
+        <ul>
+          <li>framing done at the bit level</li>
+          <li>Each frame begins and ends with a special bit pattern, 01111110 or 0x7E in hexadecimal.
+            <ul>
+              <li>to avoid conflict in the body
+                <ul>
+                  <li>sender: stuffs 0, when encounters five consecutive 1s</li>
+                  <li>receiver: automatically destuffs the 0 bits when sees</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Physical layer coding violations.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/Users/thomasliao/Documents/github/liao123abc.github.io/images/bit_stuffing_mechanism.jpeg" alt="bit stuffing" /></p>
+
+<blockquote>
+  <p>A common pattern used for Ethernet and 802.11 is to have a frame begin with a well-defined pattern called a preamble.</p>
+</blockquote>
+
+<h2 id="313-error-control">3.1.3 Error Control</h2>
+
+<blockquote>
+  <p>ensure that each frame is ultimately passed to the network layer at the destination exactly once, no more and no less</p>
+</blockquote>
+
+<ul>
+  <li>provide the sender with some feedback
+    <ul>
+      <li>positive ack: arrived</li>
+      <li>negative ack: something go wrong</li>
+    </ul>
+  </li>
+  <li>if a frame vanish?
+    <ul>
+      <li>introducing timers
+        <ul>
+          <li>expire after an interval</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>if either the frame or the ack is lost?
+    <ul>
+      <li>just transmit the frame again</li>
+    </ul>
+  </li>
+  <li>if sender transmit the same frame multiple times, receiver accept the same frame two or more time
+    <ul>
+      <li>assign sequence numbers to outgoing frames</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="314-flow-control">3.1.4 flow control</h2>
+<blockquote>
+  <p>a sender that systematically wants to transmit frames faster than the receiver can accept them.</p>
+</blockquote>
+
+<h3 id="issues-2">issues</h3>
+<ul>
+  <li>sender: a fast, powerful computer and the receiver: a slow, low-end machine.
+    <ul>
+      <li>phone request a web page from powerful server</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="commonly-used-approaches">commonly used approaches</h3>
+<ul>
+  <li>feedback-based flow control
+    <ul>
+      <li>receivers send back information to the sender to send more data</li>
+      <li>or at least telling the sender how the receiver is doing</li>
+    </ul>
+  </li>
+  <li>rate-based flow control
+    <ul>
+      <li>the protocol has a built-in mechanism that limits the rate at which senders may transmit data,</li>
+      <li>without using feedback from the receiver.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="feedback-vs-rate">feedback vs rate</h3>
+<ul>
+  <li>Feedback-based schemes are seen at both the link layer and higher layers
+    <ul>
+      <li>more common:
+        <ul>
+          <li>the link layer hardware is designed to run fast enough that it does not cause loss.</li>
+          <li>hardware implementations of the link layer as NICs (Network Interface Cards) can handle frames as fast as they can arrive on the link
+            <ul>
+              <li>so handled by higher layers</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>various feedback-based flow control schemes: the same basic principle
+        <ul>
+          <li>well-defined rules about when a sender may transmit the next frame.</li>
+          <li>These rules often prohibit frames from being sent until the receiver has granted permission,</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>rate-based schemes are only seen as part of the transport layer</li>
+</ul>
+
+<h2 id="32-error-detection-and-correction">3.2 ERROR DETECTION AND CORRECTION</h2>
+
+<h3 id="strategies-dealing-with-errors">strategies dealing with errors</h3>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>error-correcting codes</td>
+          <td> </td>
+          <td>FEC (Forward Error Correction).</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>include enough redundant information to enable the receiver to deduce what the transmitted data must have been.</li>
+      <li>used On channels that are highly reliable, such as fiber
+        <ul>
+          <li>it is cheaper to use an error-detecting code and just retransmit the occasional block found to be faulty</li>
+        </ul>
+      </li>
+      <li>seen in the physical layer, particularly for noisy channels</li>
+      <li>in higher layers, particularly for real-time media and content distribution</li>
+    </ul>
+  </li>
+  <li>error-detecting codes
+    <ul>
+      <li>include only enough redundancy to allow the receiver to deduce that an error has occurred (but not which error)
+        <ul>
+          <li>have it request a retransmission.</li>
+        </ul>
+      </li>
+      <li>FEC is used on noisy channels because retransmissions are just as likely to be in error as the first transmission
+        <ul>
+          <li>wireless links: make many errors</li>
+        </ul>
+      </li>
+      <li>commonly used in link, network, and transport layers</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Neither error-correcting codes nor error-detecting codes can handle all possible errors</p>
+</blockquote>
+
+<h2 id="321-error-correcting-codestodo">3.2.1 Error-correcting codes–todo</h2>
+<ol>
+  <li>Hamming codes.</li>
+  <li>Binary convolutional codes.</li>
+  <li>Reed-Solomon codes.</li>
+  <li>Low-Density Parity Check codes.</li>
+</ol>
+
+<h2 id="322-error-detecting-codestodo">3.2.2 Error-Detecting Codes–todo</h2>
+<ol>
+  <li>Parity.</li>
+  <li>Checksums.</li>
+  <li>Cyclic Redundancy Checks (CRCs).</li>
+</ol>
+
+<h2 id="34-sliding-window">3.4 sliding window</h2>
+
+<blockquote>
+  <p>The network layer, in contrast, is always fed data in the proper order, regardless of the data link layer’s window size</p>
+</blockquote>
+
+<ul>
+  <li>each outbound frame contains a sequence number,ranging from 0 up to some maximum.</li>
+  <li>sender maintains a set of sequence numbers corresponding to frames it is permitted to send.
+    <ul>
+      <li>These frames are said to fall within the sending window</li>
+    </ul>
+  </li>
+  <li>receiver also maintains a receiving window corresponding to the set of frames it is permitted to accept.</li>
+</ul>
+
+<h3 id="sequence-number-in-sender">sequence number in sender</h3>
+<ul>
+  <li>The sequence numbers within the sender’s window represent
+    <ul>
+      <li>frames that have been sent</li>
+      <li>or can be sent but are as yet not acknowledged.</li>
+    </ul>
+  </li>
+  <li>maintains a list of unacknowledged frames
+    <ul>
+      <li>when a new packet arrives
+        <ul>
+          <li>it is given the next highest sequence number,</li>
+          <li>the upper edge of the window is advanced by one</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="sequence-number-in-receiver">sequence number in receiver</h3>
+<ul>
+  <li>frame receive,
+    <ul>
+      <li>if (frame.sq == window.lowerEdge)
+        <ul>
+          <li>it is passed to network layer</li>
+          <li>window is rotated by one</li>
+        </ul>
+      </li>
+      <li>any frame falling outside the window is discarded</li>
+    </ul>
+  </li>
+  <li>ack
+    <ul>
+      <li>a window size of 1 means that the data link layer only accepts frames in order,
+        <ul>
+          <li>but for larger windows this is not so</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="341-sliding-window-protocol">3.4.1 Sliding Window Protocol</h2>
+
+<h3 id="go-back-n">go-back-n</h3>
+<p>is for the receiver simply to discard all subsequent frames, sending no acknowledgements for the discarded frames.</p>
+
+<h3 id="selective-repeat">selective repeat</h3>
+<p>a bad frame that is received is discarded, but any good frames received after it are accepted and buffered.</p>
+
+<h3 id="flow-control">flow control</h3>
+
+<h3 id="error-control">error control</h3>
+
+<h2 id="4-the-medium-access-control-sublayer">4 the medium access control sublayer</h2>
+
+<h2 id="512-services-provided-to-the-transport-layer">5.1.2 Services Provided to the Transport Layer</h2>
+<blockquote>
+  <p>provides services to the transport layer</p>
+</blockquote>
+
+<h3 id="rules">rules:</h3>
+<ul>
+  <li>The services should be independent of the router technology</li>
+  <li>transport layer should be shielded from the number, type, and topology of the routers present</li>
+  <li>network addresses should use a uniform numbering plan, even across LANs and WANs</li>
+</ul>
+
+<h3 id="two-camps">two camps</h3>
+<ul>
+  <li>connectionoriented service
+    <ul>
+      <li>routers’job is moving packets around and nothing else</li>
+      <li>host: error control(error detection and correction) &amp;&amp; flow control</li>
+    </ul>
+  </li>
+  <li>connectionless service
+    <ul>
+      <li>represented by telephone companies</li>
+      <li>ATM vs IP</li>
+      <li>connection-oriented technologies
+        <ul>
+          <li>MPLS (MultiProtocol Label Switching)</li>
+          <li>VLANs</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="521-the-optimality-principle">5.2.1 the optimality principle</h2>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/04/10/encoding/" data-toggle="tooltip" data-placement="top" title="Encoding">
+                        Previous<br>
+                        <span>Encoding</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0009" 
+                    href="/archive/?tag=Linux"
+                    title="Linux"
+                    rel="3">Linux</a>
+        
+                <a data-sort="0009" 
+                    href="/archive/?tag=java"
+                    title="java"
+                    rel="3">java</a>
+        
+                <a data-sort="0010" 
+                    href="/archive/?tag=Anki"
+                    title="Anki"
+                    rel="2">Anki</a>
+        
+                <a data-sort="0010" 
+                    href="/archive/?tag=note"
+                    title="note"
+                    rel="2">note</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "thomas_liao";
+    var disqus_identifier = "/2021/04/11/computer-network";
+    var disqus_url = "https://thomasliao.cn/2021/04/11/computer-network/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  <li>
+    <a href="https://twitter.com/TommyL42821183">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://www.zhihu.com/people/thomas-liao">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa  fa-stack-1x fa-inverse">知</i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="http://weibo.com/1763054223">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/liao123abc">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; ThomasLiao Blog 2021
+                    <br>
+                    Powered by <a href="https://jekyllrb.com/">Jekyll</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=jekyll&repo=jekyll&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

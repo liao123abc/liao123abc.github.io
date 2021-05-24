@@ -1,11 +1,10 @@
 ---
 layout: post
-title: "“computer"
-subtitle: "“computer"
+title: "computer-network"
+subtitle: "computer-network"
 date: 2021-04-11
 author: "thomasliao"
 header-img: "img/post-bg-2015.jpg"
-published: false
 tags:
     - computer network
     - note

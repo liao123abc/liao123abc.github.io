@@ -5,12 +5,2329 @@
     <description>Android Developer</description>
     <link>https://thomasliao.cn/</link>
     <atom:link href="https://thomasliao.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 24 May 2021 09:57:07 +0800</pubDate>
-    <lastBuildDate>Mon, 24 May 2021 09:57:07 +0800</lastBuildDate>
+    <pubDate>Mon, 24 May 2021 10:11:36 +0800</pubDate>
+    <lastBuildDate>Mon, 24 May 2021 10:11:36 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
-        <title>c++ notes”</title>
+        <title>computer-network</title>
+        <description>&lt;h1 id=&quot;computer-networks&quot;&gt;computer networks&lt;/h1&gt;
+
+&lt;h2 id=&quot;12-network-hardware&quot;&gt;1.2 network hardware&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;taxonomy of computer networks
+    &lt;ul&gt;
+      &lt;li&gt;transmission technology
+        &lt;ul&gt;
+          &lt;li&gt;broadcast links
+            &lt;ul&gt;
+              &lt;li&gt;A wireless network&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;broadcasting: every machine&lt;/li&gt;
+          &lt;li&gt;multicasting: subset of the machines&lt;/li&gt;
+          &lt;li&gt;point-to-point links, sometimes called unicasting&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;scale
+        &lt;ul&gt;
+          &lt;li&gt;PANs (Personal Area Networks)
+            &lt;ul&gt;
+              &lt;li&gt;Bluetooth
+                &lt;ul&gt;
+                  &lt;li&gt;The master tells the slaves
+                    &lt;ul&gt;
+                      &lt;li&gt;what addresses to use,&lt;/li&gt;
+                      &lt;li&gt;when they can broadcast,&lt;/li&gt;
+                      &lt;li&gt;how long they can transmit,&lt;/li&gt;
+                      &lt;li&gt;what frequencies they can use,and so on&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;LAN (Local Area Network)
+            &lt;ul&gt;
+              &lt;li&gt;a standard for wireless LANs called IEEE 802.11, popularly known as WiFi&lt;/li&gt;
+              &lt;li&gt;IEEE 802.3, popularly called Ethernet, is, by far, the most common type of wired LAN.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;MAN (Metropolitan Area Network)&lt;/li&gt;
+          &lt;li&gt;WAN (Wide Area Network)&lt;/li&gt;
+          &lt;li&gt;Internetworks
+            &lt;ul&gt;
+              &lt;li&gt;A collection of interconnected networks is called an internetwork or internet.&lt;/li&gt;
+              &lt;li&gt;worldwide Internet (is one specific internet)&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;131-protocol-hierarchies&quot;&gt;1.3.1 Protocol Hierarchies&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;each layer passes data and control information to the layer immediately below it, until the lowest layer is reached.&lt;/li&gt;
+  &lt;li&gt;It is common that different hosts use different implementations of the same protocol&lt;/li&gt;
+  &lt;li&gt;the lower layers of a protocol hierarchy are frequently implemented in hardware or firmware&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;132-design-issues-for-the-layers&quot;&gt;1.3.2 Design Issues for the Layers&lt;/h2&gt;
+
+&lt;h3 id=&quot;reliability&quot;&gt;Reliability&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;bits are damaged
+    &lt;ul&gt;
+      &lt;li&gt;errors:
+        &lt;ul&gt;
+          &lt;li&gt;fluke electrical noise,&lt;/li&gt;
+          &lt;li&gt;random wireless signals,&lt;/li&gt;
+          &lt;li&gt;hardware flaws,&lt;/li&gt;
+          &lt;li&gt;software bugs and so on&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;solution: adding redundant information, used at low layers, to protect packets sent over individual links,and high layers, to check that the right contents were received
+        &lt;ul&gt;
+          &lt;li&gt;error detection
+            &lt;ul&gt;
+              &lt;li&gt;Information that is incorrectly received can then be retransmitted, until it is received correctly&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;error correction
+            &lt;ul&gt;
+              &lt;li&gt;where the correct message is recovered from the possibly incorrect bits that were originally received&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;finding a working path through a network
+    &lt;ul&gt;
+      &lt;li&gt;may be some links or routers that are broken&lt;/li&gt;
+      &lt;li&gt;routing: The network should automatically make this decision&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-evolution-of-the-network&quot;&gt;the evolution of the network&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;protocol layering
+    &lt;ul&gt;
+      &lt;li&gt;internetworking, different network technologies often have different limitations .ex:
+        &lt;ul&gt;
+          &lt;li&gt;number messages
+            &lt;ul&gt;
+              &lt;li&gt;not all communication channels preserve the order of messages sent on them&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;differences in the maximum size of a message that the networks can transmit
+            &lt;ul&gt;
+              &lt;li&gt;disassembling, transmitting, and then reassembling messages&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;traffic jams&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;resource-allocation&quot;&gt;resource allocation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;statistical multiplexing
+    &lt;ul&gt;
+      &lt;li&gt;share the bandwith dynamically, rather than by giving each host a fixed fraction&lt;/li&gt;
+      &lt;li&gt;sharing based on the statistics of demand&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;how to keep a fast sender from swamping a slow receiver with data
+    &lt;ul&gt;
+      &lt;li&gt;flow control: feedback from the receiver&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;congestion: network is oversubscribed, overloading
+    &lt;ul&gt;
+      &lt;li&gt;too many computers want to send too much traffic&lt;/li&gt;
+      &lt;li&gt;the network cannot deliver it all&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;resource
+    &lt;ul&gt;
+      &lt;li&gt;bandwidth&lt;/li&gt;
+      &lt;li&gt;timeliness
+        &lt;ul&gt;
+          &lt;li&gt;live video&lt;/li&gt;
+          &lt;li&gt;real-time&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;security&quot;&gt;security&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;eavesdropping[ secretly listening to the private conversation]
+    &lt;ul&gt;
+      &lt;li&gt;solution: provide confidentiality
+        &lt;ul&gt;
+          &lt;li&gt;authentication: prevent someone from impersonating someone else&lt;/li&gt;
+          &lt;li&gt;integrity: prevent surreptitious changes to messages&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;133-connection-oriented-versus-connectionless-service&quot;&gt;1.3.3 Connection-Oriented Versus Connectionless Service&lt;/h2&gt;
+
+&lt;h3 id=&quot;connection-oriented&quot;&gt;Connection-oriented&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Connection-oriented service is modeled after the telephone system.
+    &lt;ul&gt;
+      &lt;li&gt;establish&lt;/li&gt;
+      &lt;li&gt;use&lt;/li&gt;
+      &lt;li&gt;release&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;service is modeled after the telephone system.&lt;/li&gt;
+  &lt;li&gt;A circuit is another name for a connection with associated resources
+    &lt;ul&gt;
+      &lt;li&gt;fixed bandwidth&lt;/li&gt;
+      &lt;li&gt;in some case negotiation parameters
+        &lt;ul&gt;
+          &lt;li&gt;maximum message size&lt;/li&gt;
+          &lt;li&gt;quality of service required&lt;/li&gt;
+          &lt;li&gt;
+            &lt;table&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td&gt;one side make proposal, the other accept&lt;/td&gt;
+                  &lt;td&gt; &lt;/td&gt;
+                  &lt;td&gt;reject&lt;/td&gt;
+                  &lt;td&gt; &lt;/td&gt;
+                  &lt;td&gt;make a counterproposal&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;acts like a tube:
+        &lt;ul&gt;
+          &lt;li&gt;sender pushes at one end , receiver takes them at the other end&lt;/li&gt;
+          &lt;li&gt;in most case the order is preserved: bits arrive in the order they were sent&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;connectionless-service&quot;&gt;Connectionless Service&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;connectionless service is modeled after the postal system
+    &lt;ul&gt;
+      &lt;li&gt;each msg carries the full destination address&lt;/li&gt;
+      &lt;li&gt;a packet is a message at the network layer&lt;/li&gt;
+      &lt;li&gt;store-and-forward switching：
+        &lt;ul&gt;
+          &lt;li&gt;nodes receive a message in full before sending it to the next&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;cut-through switching:
+        &lt;ul&gt;
+          &lt;li&gt;onward transmission of a message at a node starts before it is completely received&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;order is not consistant because of delayed&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;reliability-1&quot;&gt;reliability&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;both Connection-Oriented or Connectionless Service  can further be characterized by its reliability&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;implemented by having the receiver acknowledge the receipt of each msg&lt;/li&gt;
+    &lt;li&gt;Reliable connection-oriented service has two minor variations:
+      &lt;ul&gt;
+        &lt;li&gt;message sequences
+          &lt;ul&gt;
+            &lt;li&gt;message boundaries are preserved&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;byte streams
+          &lt;ul&gt;
+            &lt;li&gt;no message boundaries&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Unreliable (meaning not acknowledged) connectionless service is often called datagram service
+      &lt;ul&gt;
+        &lt;li&gt;does not return an acknowledgement to the sender&lt;/li&gt;
+        &lt;li&gt;dominant form in most networks
+          &lt;ul&gt;
+            &lt;li&gt;reliable communication (in our sense, that is,acknowledged) may not be available in a given layer
+              &lt;ul&gt;
+                &lt;li&gt;Ethernet does not provide reliable communication&lt;/li&gt;
+                &lt;li&gt;many reliable services are built on top of an unreliable datagram service&lt;/li&gt;
+                &lt;li&gt;the delays inherent in providing a reliable service may be unacceptable, especially in real-time applications such as multimedia&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;134-service-primitives&quot;&gt;1.3.4 Service Primitives&lt;/h2&gt;
+
+&lt;h3 id=&quot;a-service-is-formally-specified-by-a-set-of-primitives-operations-available-to-user-processes-to-access-the-service&quot;&gt;A service is formally specified by a set of primitives (operations) available to user processes to access the service&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;tell the service to perform some action or report on an action taken by a peer entity&lt;/li&gt;
+  &lt;li&gt;system calls
+    &lt;ul&gt;
+      &lt;li&gt;cause a trap to kernel mode&lt;/li&gt;
+      &lt;li&gt;send the necessary packets&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;primitives for connection-oriented service
+&lt;a href=&quot;todo&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;steps&quot;&gt;steps&lt;/h3&gt;
+
+&lt;h4 id=&quot;six-packets-are-required-to-complete-the-protocol&quot;&gt;six packets are required to complete the protocol&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;server executes LISTEN to indicate that it is prepared to accept incoming connections.
+    &lt;ul&gt;
+      &lt;li&gt;system call&lt;/li&gt;
+      &lt;li&gt;server process blocked until a request for connection appears&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;send packets
+    &lt;ul&gt;
+      &lt;li&gt;1.client executes CONNECT to establish a connection with the server
+        &lt;ul&gt;
+          &lt;li&gt;sends a packet to the peer asking it to connect&lt;/li&gt;
+          &lt;li&gt;parameter of server’s address&lt;/li&gt;
+          &lt;li&gt;client suspended until a response&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;2.server can then establish the connection with the ACCEPT call
+        &lt;ul&gt;
+          &lt;li&gt;send a response to accept&lt;/li&gt;
+          &lt;li&gt;arrival of response release the client
+            &lt;ul&gt;
+              &lt;li&gt;client &amp;amp;&amp;amp; server now both running and have a connection established&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;server to execute RECEIVE to prepare to accept the first request
+    &lt;ul&gt;
+      &lt;li&gt;block the server&lt;/li&gt;
+      &lt;li&gt;when
+        &lt;ul&gt;
+          &lt;li&gt;normally immediately being released from the LISTEN&lt;/li&gt;
+          &lt;li&gt;before the acknowledgement can get back to the client&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;send packets
+    &lt;ul&gt;
+      &lt;li&gt;3.client executes SEND to transmit its request
+        &lt;ul&gt;
+          &lt;li&gt;client: followed by execution of RECEIVE to get the reply&lt;/li&gt;
+          &lt;li&gt;server: arrivial of request unblock the server to handle the request&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;4.server: use SEND to return the answer
+        &lt;ul&gt;
+          &lt;li&gt;client: arrivial of the packet unblock the cient&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;additional requsts can go on(if have)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;send packets
+    &lt;ul&gt;
+      &lt;li&gt;5.client: when done, executes DISCONNECT to terminate the connection
+        &lt;ul&gt;
+          &lt;li&gt;an initial DISCONNECT is a blocking call, suspending the client&lt;/li&gt;
+          &lt;li&gt;sending a packet to the server saying that the connection is no longer needed&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;6.server: gets the packet
+        &lt;ul&gt;
+          &lt;li&gt;issues a DISCONNECT of its own&lt;/li&gt;
+          &lt;li&gt;acknowledging the client and releasing the connection&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;client receive the packet
+        &lt;ul&gt;
+          &lt;li&gt;client process is released&lt;/li&gt;
+          &lt;li&gt;connection is broken&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;issues&quot;&gt;issues&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;timing can be wrong (e.g., the CONNECT is done before the LISTEN),&lt;/li&gt;
+  &lt;li&gt;packets can get lost&lt;/li&gt;
+  &lt;li&gt;why not connectionless:
+    &lt;ul&gt;
+      &lt;li&gt;in perfect world only two packets would be needed
+        &lt;ul&gt;
+          &lt;li&gt;request&lt;/li&gt;
+          &lt;li&gt;reply&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;but
+        &lt;ul&gt;
+          &lt;li&gt;large messages in either direction (e.g., a megabyte file),&lt;/li&gt;
+          &lt;li&gt;transmission errors,&lt;/li&gt;
+          &lt;li&gt;lost packets&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;problems-of-connectionless&quot;&gt;problems of connectionless&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;if packets lost, how would the client know if some pieces were missing?&lt;/li&gt;
+  &lt;li&gt;How would the client know whether the last packet actually received was really the last packet sent?&lt;/li&gt;
+  &lt;li&gt;How could it tell packet 1 from the second file from a lost packet 1 from the first file that suddenly found its way to the client?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;135-services-vs-protocols&quot;&gt;1.3.5 services vs protocols&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;todo&quot;&gt;image&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;service
+    &lt;ul&gt;
+      &lt;li&gt;like api&lt;/li&gt;
+      &lt;li&gt;is a set of primitives that a layer provides to the layer above it&lt;/li&gt;
+      &lt;li&gt;relates to an interface between two layers
+        &lt;ul&gt;
+          &lt;li&gt;lower layer -&amp;gt; service provider&lt;/li&gt;
+          &lt;li&gt;upper layer -&amp;gt; service user&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;protocol
+    &lt;ul&gt;
+      &lt;li&gt;like impl&lt;/li&gt;
+      &lt;li&gt;relate to the packtets&lt;/li&gt;
+      &lt;li&gt;is a set of rules relate to packets
+        &lt;ul&gt;
+          &lt;li&gt;governing the format and meaning of
+            &lt;ul&gt;
+              &lt;li&gt;the packets,&lt;/li&gt;
+              &lt;li&gt;or messages that are exchanged by the peer entities within a layer.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Many older protocols did not distinguish the service from the protocol
+    &lt;ul&gt;
+      &lt;li&gt;a typical layer might have had a service primitive SEND PACKET with the user providing a pointer to a fully assembled packet.&lt;/li&gt;
+      &lt;li&gt;all changes to the protocol were immediately visible to the users —– violate the rule/ a serious blunder&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;14-osi-model--tcpip-model&quot;&gt;1.4 OSI Model &amp;amp;&amp;amp; TCP/IP Model&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;osi
+    &lt;ul&gt;
+      &lt;li&gt;protocols not used any more&lt;/li&gt;
+      &lt;li&gt;model itself quite general &amp;amp;&amp;amp; valid&lt;/li&gt;
+      &lt;li&gt;features at each layer are still very important&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;TCP/IP
+    &lt;ul&gt;
+      &lt;li&gt;the model itself is not of much use&lt;/li&gt;
+      &lt;li&gt;the protocols are widely used.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;141-osi&quot;&gt;1.4.1 OSI&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;developed by the International Standards Organization (ISO)&lt;/li&gt;
+  &lt;li&gt;ISO OSI (Open Systems Interconnection) Reference Model
+    &lt;ul&gt;
+      &lt;li&gt;means open for communication with other systems&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OSI model itself is not a network architecture
+    &lt;ul&gt;
+      &lt;li&gt;it does not specify the exact services and protocols to be used in each layer
+        &lt;ul&gt;
+          &lt;li&gt;just tell what each layers should do&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;produced standards for all layers
+        &lt;ul&gt;
+          &lt;li&gt;these are not part of refernce model itself&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;model(in part) widely used, protocols are long forgotten&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;141-osi-model-layers&quot;&gt;1.4.1 OSI model layers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;&quot;&gt;image&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;physical-layer&quot;&gt;physical layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;concerned with transmitting raw bits&lt;/li&gt;
+  &lt;li&gt;Typical questions
+    &lt;ul&gt;
+      &lt;li&gt;what electrical signals should be used to represent a 1 and a 0,&lt;/li&gt;
+      &lt;li&gt;how many nanoseconds a bit lasts,&lt;/li&gt;
+      &lt;li&gt;whether transmission may proceed simultaneously in both directions,&lt;/li&gt;
+      &lt;li&gt;how the initial connection is established,&lt;/li&gt;
+      &lt;li&gt;how it is torn down when both sides are finished,&lt;/li&gt;
+      &lt;li&gt;how many pins the network connector has, and what each pin is used for.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;data-link-layer&quot;&gt;data link layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;transform a raw transmission facility into a line that appears free of undetected transmission errors
+    &lt;ul&gt;
+      &lt;li&gt;by masking the real errors so the network layer does not see them&lt;/li&gt;
+      &lt;li&gt;break up the input data into data frames
+        &lt;ul&gt;
+          &lt;li&gt;transmit the frames sequentially&lt;/li&gt;
+          &lt;li&gt;receiver confirms each frame by sending back an acknowledgement frame.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;issues
+    &lt;ul&gt;
+      &lt;li&gt;how to keep a fast transmitter from drowning a slow receiver in data.&lt;/li&gt;
+      &lt;li&gt;some traffic regulation mechanism want to konw when the receiver can accept more data&lt;/li&gt;
+      &lt;li&gt;Broadcast networks : how to control access to the shared channel.
+        &lt;ul&gt;
+          &lt;li&gt;A special sublayer added: medium access control sublayer&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-network-layer&quot;&gt;the network layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;controls the operations of the subnet
+    &lt;ul&gt;
+      &lt;li&gt;determining how packets are routed from source to destination.&lt;/li&gt;
+      &lt;li&gt;handling congestion&lt;/li&gt;
+      &lt;li&gt;the quality of service provided (delay, transit time, jitter, etc.&lt;/li&gt;
+      &lt;li&gt;allow heterogeneous networks to be interconnected
+        &lt;ul&gt;
+          &lt;li&gt;different network may be different
+            &lt;ul&gt;
+              &lt;li&gt;in addressing&lt;/li&gt;
+              &lt;li&gt;packet might be too large&lt;/li&gt;
+              &lt;li&gt;protocol may differ&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-transport-layer&quot;&gt;the transport layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;basic function
+    &lt;ul&gt;
+      &lt;li&gt;accept data from above it,&lt;/li&gt;
+      &lt;li&gt;split it up into smaller units if need be,&lt;/li&gt;
+      &lt;li&gt;pass these to the network layer,&lt;/li&gt;
+      &lt;li&gt;and ensure that the pieces all arrive correctly at the other end.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;determines what type of service to provide to the session layer, and, ultimately, to the users of the network–determined when connection is established
+    &lt;ul&gt;
+      &lt;li&gt;most popular: error-free point-to-point channel
+        &lt;ul&gt;
+          &lt;li&gt;delivers messages or bytes in the order in which they were sent.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;others
+        &lt;ul&gt;
+          &lt;li&gt;transporting of isolated messages with no guarantee about the order of delivery&lt;/li&gt;
+          &lt;li&gt;the broadcasting of messages to multiple destinations.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;true end-to-end layer
+    &lt;ul&gt;
+      &lt;li&gt;carries data from source to destination
+        &lt;ul&gt;
+          &lt;li&gt;message headers&lt;/li&gt;
+          &lt;li&gt;control message&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;lower layers not end-2-end
+        &lt;ul&gt;
+          &lt;li&gt;each protocols is between a machine and its immediate neighbors,&lt;/li&gt;
+          &lt;li&gt;not between the ultimate source and destination machines,
+            &lt;ul&gt;
+              &lt;li&gt;separated by many routers&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-session-layer&quot;&gt;the session layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;allows users on different machines to establish sessions between them.
+    &lt;ul&gt;
+      &lt;li&gt;dialog control
+        &lt;ul&gt;
+          &lt;li&gt;(keeping track of whose turn it is to transmit),&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;token management
+        &lt;ul&gt;
+          &lt;li&gt;(preventing two parties from attempting the same critical operation simultaneously)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;synchronization
+        &lt;ul&gt;
+          &lt;li&gt;(checkpointing long transmissions to allow them to pick up from where they left off in the event of a crash and subsequent recovery).&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;presentation-layer&quot;&gt;presentation layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;concerned with the syntax and semantics of the information transmitted.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;application-layer&quot;&gt;Application Layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;ex. http&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;142-the-tcpip-reference-model&quot;&gt;1.4.2 The TCP/IP Reference Model&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;&quot;&gt;image&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;history&quot;&gt;history&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;ARPANET
+    &lt;ul&gt;
+      &lt;li&gt;using leased telephone lines&lt;/li&gt;
+      &lt;li&gt;connect hundreds of universities and government&lt;/li&gt;
+      &lt;li&gt;trouble with interworking with satellite and radio networks&lt;/li&gt;
+      &lt;li&gt;a new reference architecture was needed –&amp;gt; tcp/ip
+        &lt;ul&gt;
+          &lt;li&gt;goals
+            &lt;ul&gt;
+              &lt;li&gt;connect multiple networks in a seamless way&lt;/li&gt;
+              &lt;li&gt;be able to survive loss of subnet hardware(Soviet Union attack)&lt;/li&gt;
+              &lt;li&gt;others:
+                &lt;ul&gt;
+                  &lt;li&gt;transferring files&lt;/li&gt;
+                  &lt;li&gt;real-time speech transmission,&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-link-layer&quot;&gt;The Link Layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;describes what links such as serial lines and classic Ethernet must do to meet the needs of this connectionless internet layer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-internet-layer&quot;&gt;The Internet Layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;linchpin that holds the whole architecture together&lt;/li&gt;
+  &lt;li&gt;deliver IP packets where they are supposed to go
+    &lt;ul&gt;
+      &lt;li&gt;IP (Internet Protocol): official packet format and protoco&lt;/li&gt;
+      &lt;li&gt;ICMP (Internet Control Message Protocol)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;issues
+    &lt;ul&gt;
+      &lt;li&gt;Packet routing&lt;/li&gt;
+      &lt;li&gt;congestion&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-transport-layer-1&quot;&gt;the transport layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;allow peer entities on the source and destination hosts to carry on a conversation
+    &lt;ul&gt;
+      &lt;li&gt;end-to-end transport protocols
+        &lt;ul&gt;
+          &lt;li&gt;TCP(Transmission Control Protocol)
+            &lt;ul&gt;
+              &lt;li&gt;reliable connection-oriented protocol&lt;/li&gt;
+              &lt;li&gt;handles flow control to make sure a fast sender cannot swamp a slow receiver&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;UDP (User Datagram Protocol)
+            &lt;ul&gt;
+              &lt;li&gt;unreliable, connectionless protocol&lt;/li&gt;
+              &lt;li&gt;for applications that do not want TCP’s sequencing or flow control and wish to provide their own&lt;/li&gt;
+              &lt;li&gt;widely used
+                &lt;ul&gt;
+                  &lt;li&gt;one-shot, client-server-type request-reply queries&lt;/li&gt;
+                  &lt;li&gt;applications in which prompt delivery is more important than accurate delivery
+                    &lt;ul&gt;
+                      &lt;li&gt;such as transmitting speech or video.&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-application-layer&quot;&gt;The Application Layer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;virtual terminal (TELNET),&lt;/li&gt;
+  &lt;li&gt;file transfer (FTP),&lt;/li&gt;
+  &lt;li&gt;and electronic mail (SMTP)&lt;/li&gt;
+  &lt;li&gt;Domain Name System (DNS)&lt;/li&gt;
+  &lt;li&gt;HTTP, the protocol for fetching pages on the World Wide Web,&lt;/li&gt;
+  &lt;li&gt;RTP, the protocol for delivering real-time media such as voice or movies&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;144-osi-vs-tcpip-compare-in-reference-modules-not-the-corresponding-protocol-stacks&quot;&gt;1.4.4 OSI vs TCP/IP [compare in reference modules not the corresponding protocol stacks]&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;layers:
+    &lt;ul&gt;
+      &lt;li&gt;osi: 4 layers&lt;/li&gt;
+      &lt;li&gt;tcp/ip: 7 layers&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;both: layers up through and including the transport layer provide an end-to-end, network-independent transport service to processes wishing to communicate&lt;/li&gt;
+  &lt;li&gt;OSI devised before the corresponding protocols&lt;/li&gt;
+  &lt;li&gt;tcp/ip:protocols come first,
+    &lt;ul&gt;
+      &lt;li&gt;model was really just a description of the existing protocols&lt;/li&gt;
+      &lt;li&gt;no problems with protocols fitting the model, but model did not fit any other protocol stacks
+        &lt;ul&gt;
+          &lt;li&gt;it was not especially useful for describing other, non-TCP/IP networks.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;three-concepts-are-central-to-the-osi-model&quot;&gt;Three concepts are central to the OSI model:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Services.[methods , operations]
+        &lt;ul&gt;
+          &lt;li&gt;tells what the layer does,&lt;/li&gt;
+          &lt;li&gt;not how entities above it access it or how the layer works.&lt;/li&gt;
+          &lt;li&gt;It defines the layer’s semantics.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Interfaces.[methods’ parameter &amp;amp;&amp;amp; result]
+        &lt;ul&gt;
+          &lt;li&gt;tells the processes above it how to access it&lt;/li&gt;
+          &lt;li&gt;specific parameters&lt;/li&gt;
+          &lt;li&gt;not or how the layer works.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Protocols.[code internal]
+        &lt;ul&gt;
+          &lt;li&gt;the layer’s own business.&lt;/li&gt;
+          &lt;li&gt;can use any protocols to finish its work&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-tcpip-model-did-not-originally-clearly-distinguish-between-services-interfaces-and-protocols&quot;&gt;The TCP/IP model did not originally clearly distinguish between services, interfaces, and protocols&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;ex. the only real services offered by the internet layer are SEND IP PACKET and RECEIVE IP PACKET&lt;/li&gt;
+  &lt;li&gt;the protocols in the OSI model compare that in the TCP/IP model
+    &lt;ul&gt;
+      &lt;li&gt;better hidden&lt;/li&gt;
+      &lt;li&gt;replaced relatively easily as the technology changes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;connectionless-vs-connection-oriented&quot;&gt;connectionless vs connection-oriented&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;osi
+    &lt;ul&gt;
+      &lt;li&gt;support both in network layer&lt;/li&gt;
+      &lt;li&gt;only connection-oriented in transport layer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;tcp/ip
+    &lt;ul&gt;
+      &lt;li&gt;connectionless in network layer&lt;/li&gt;
+      &lt;li&gt;both in transport layer
+        &lt;ul&gt;
+          &lt;li&gt;giving the user a choice–important for simple request-response protocols&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;145-critique-of-osi&quot;&gt;1.4.5 critique of osi&lt;/h2&gt;
+
+&lt;h3 id=&quot;bad-timing&quot;&gt;bad timing&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;TCP/IP protocols were already in widespread use by research universities by the time the OSI protocols appeared&lt;/li&gt;
+  &lt;li&gt;When OSI came around, they did not want to support a second protocol stack until they were forced to&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bad-technology&quot;&gt;bad technology&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;seven layers was more political than technical, and two of the layers
+    &lt;ul&gt;
+      &lt;li&gt;(session and presentation) are nearly empty,&lt;/li&gt;
+      &lt;li&gt;(data link and network) are overfull.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;extraordinarily complex
+    &lt;ul&gt;
+      &lt;li&gt;difficult to implement and inefficient in operation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;functions, such as addressing, flow control, and error control, reappear again and again in each layer.
+    &lt;ul&gt;
+      &lt;li&gt;unnecessary and inefficient.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bad-implementations&quot;&gt;bad implementations&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;implementations were huge, unwieldy, and slow.&lt;/li&gt;
+  &lt;li&gt;In contrast, one of the first implementations of TCP/IP was part of Berkeley UNIX and was quite good &amp;amp;&amp;amp; free&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bad-politics&quot;&gt;bad politics&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;TCP/IP was thought as part of UNIX&lt;/li&gt;
+  &lt;li&gt;osi supported by the government but not work&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;146-critique-of-tcpip&quot;&gt;1.4.6 critique of tcp/ip&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;not clearly distinguish the concepts of services, interfaces, and protocols.
+    &lt;ul&gt;
+      &lt;li&gt;not much of a guide for designing new networks using new technologies&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;the TCP/IP model is not at all general and is poorly suited to describing any protocol stack other than TCP/IP.
+    &lt;ul&gt;
+      &lt;li&gt;ex: completely impossible to use the TCP/IP model to describe Bluetooth&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;the link layer is not a layer
+    &lt;ul&gt;
+      &lt;li&gt;it is an interface between the network and data link layer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;does not distinguish between the physical and data link layers.
+    &lt;ul&gt;
+      &lt;li&gt;physical layer:
+        &lt;ul&gt;
+          &lt;li&gt;copper wire, fiber optics, and wireless communication&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;data link layer:
+        &lt;ul&gt;
+          &lt;li&gt;delimit the start and end of frames and get them from one side to the other with the desired degree of reliability.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;some protocols are ad hoc,
+    &lt;ul&gt;
+      &lt;li&gt;ex. TELNET–The virtual terminal protocol
+        &lt;ul&gt;
+          &lt;li&gt;was designed for a ten-character-per-second mechanical Teletype terminal.&lt;/li&gt;
+          &lt;li&gt;knows nothing of graphical user interfaces and mice&lt;/li&gt;
+          &lt;li&gt;but still in used some 30 years later&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Ad hoc是拉丁文常用短语中的一个短语。这个短语的意思是“特设的、特定目的的（地）、即席的、临时的、将就的、专案的”。这个短语通常用来形容一些特殊的、不能用于其它方面的的，为一个特定的问题、任务而专门设定的解决方案&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;151-the-internet&quot;&gt;1.5.1 the internet&lt;/h2&gt;
+
+&lt;h3 id=&quot;not-really-a-network-at-all&quot;&gt;not really a network at all&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;a vast collection of different networks
+    &lt;ul&gt;
+      &lt;li&gt;use certain common protocols&lt;/li&gt;
+      &lt;li&gt;provide certain common services&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-arpanet&quot;&gt;The ARPANET&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;1950 DoD wants a command-and-control network that could survive a nuclear war.
+    &lt;ul&gt;
+      &lt;li&gt;telephone network&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;1960s, Baran proposed using digital packet-switching technology. AT&amp;amp;T dismissed&lt;/li&gt;
+  &lt;li&gt;1957,  Soviet Union launch of the first artificial satellite, Sputnik–beat US
+    &lt;ul&gt;
+      &lt;li&gt;President Eisenhower–ARPA, the Advanced Research Projects Agency.
+        &lt;ul&gt;
+          &lt;li&gt;1967, ARPA – ARPANET (minicomputers + IMPs[Interface Message Processors])
+            &lt;ul&gt;
+              &lt;li&gt;first electronic storeand-forward packet-switching network&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;NPL system – National Physical Laboratory in England
+            &lt;ul&gt;
+              &lt;li&gt;demonstrated that packet switching could be made to work&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;an experimental network went online
+    &lt;ul&gt;
+      &lt;li&gt;1969 with four nodes: at UCLA, UCSB, SRI, and the University of Utah.
+        &lt;ul&gt;
+          &lt;li&gt;all had a large number of ARPA contracts&lt;/li&gt;
+          &lt;li&gt;all had different and completely incompatible host computers (just to make it more fun).&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;ARPA also funded research on the use of satellite networks and mobile packet radio networks&lt;/li&gt;
+      &lt;li&gt;demonstrated that the existing ARPANET protocols were not suitable for running over different networks
+        &lt;ul&gt;
+          &lt;li&gt;1974–TCP/IP was specifically designed to handle communication over internetworks&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ARPA awarded several contracts to implement TCP/IP on different computer platforms,
+    &lt;ul&gt;
+      &lt;li&gt;IBM, DEC, and HP systems, as well as for Berkeley UNIX.&lt;/li&gt;
+      &lt;li&gt;Berkeley UNIX–rewrote TCP/IP with a new programming interface called sockets for the upcoming 4.2BSD release of Berkeley UNIX&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;1980s, additional networks, especially LANs, connected to the ARPANET
+    &lt;ul&gt;
+      &lt;li&gt;DNS(Domain Name System) was created&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;nsfnet&quot;&gt;NSFNET&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;1970s,  NSF (the U.S. National Science Foundation) saw enormous impact of ARPANET
+    &lt;ul&gt;
+      &lt;li&gt;fund the Computer Science Network (CSNET) in 1981,
+        &lt;ul&gt;
+          &lt;li&gt;have to have a research contract with the DoD to get on ARPANET, many have no contract&lt;/li&gt;
+          &lt;li&gt;connect to ARPANET via dial-up and leased lines&lt;/li&gt;
+          &lt;li&gt;backbone network to connect supercomputer centers
+            &lt;ul&gt;
+              &lt;li&gt;Each supercomputer given a microcomputer called a fuzzball
+                &lt;ul&gt;
+                  &lt;li&gt;fuzzball connected with 56kb lines to form subnet
+                    &lt;ul&gt;
+                      &lt;li&gt;same hardware technology the ARPANET used&lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;fuzzball use TCP/IP right from the start—first TCP/IP WAN&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;NSFNET: the complete network
+        &lt;ul&gt;
+          &lt;li&gt;funded some regional networks connected to the backbone&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;NSF encouraged MERIT, MCI, and IBM to form a nonprofit corporation, ANS (Advanced Networks and Services)
+        &lt;ul&gt;
+          &lt;li&gt;ANS took over NSFNET and upgraded to form ANSNET&lt;/li&gt;
+          &lt;li&gt;5 years later sold to America Online&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;NSF awarded contracts to four different network operators to establish a NAP (Network Access Point)
+        &lt;ul&gt;
+          &lt;li&gt;To ease the transition &amp;amp;&amp;amp; make sure regional networks could communicate with each other&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;1990s,  many other countries and regions also built national research networks,
+    &lt;ul&gt;
+      &lt;li&gt;often patterned on the ARPANET and NSFNET&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;151-architecture-of-the-internet&quot;&gt;1.5.1 Architecture of the Internet&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;ISP: Internet Service Provider&lt;/li&gt;
+  &lt;li&gt;DSL: Digital Subscriber Line
+    &lt;ul&gt;
+      &lt;li&gt;DSL modem
+        &lt;ul&gt;
+          &lt;li&gt;modem is short for ‘modulator demodulator’ and refers to any device that converts between digital bits and analog signals.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;DSLAM (Digital Subscriber Line Access Multiplexer)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DSL + telephone line : dial-up
+    &lt;ul&gt;
+      &lt;li&gt;limited to 56 kbps&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DSL + cable : much greater&lt;/li&gt;
+  &lt;li&gt;FTTH (Fiber to the Home)
+    &lt;ul&gt;
+      &lt;li&gt;optical fiber, 光纤&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;POP (Point of Presence)
+    &lt;ul&gt;
+      &lt;li&gt;the ISP’s POP:   locaiton at which customer packets enter the ISP network for service&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;TV system
+    &lt;ul&gt;
+      &lt;li&gt;cable modem&lt;/li&gt;
+      &lt;li&gt;CMTS (Cable Modem Termination System)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ISP’s POP (Point of Presence).&lt;/li&gt;
+  &lt;li&gt;backbone
+    &lt;ul&gt;
+      &lt;li&gt;long-distance transmission lines that interconnect routers at POPs in the different cities that the ISPs serve&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;IXPs (Internet eXchange Points)
+    &lt;ul&gt;
+      &lt;li&gt;ISPs connect their networks to exchange traffic at IXPs&lt;/li&gt;
+      &lt;li&gt;Basically, an IXP is a room full of routers,
+        &lt;ul&gt;
+          &lt;li&gt;at least one per ISP&lt;/li&gt;
+          &lt;li&gt;A LAN in the room connects all the routers&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;a small ISP might pay a larger ISP for Internet connectivity&lt;/li&gt;
+      &lt;li&gt;two large ISPs might decide to exchange traffic&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;packet’s path
+    &lt;ul&gt;
+      &lt;li&gt;depends on the peering choices of the ISPs
+        &lt;ul&gt;
+          &lt;li&gt;with destination ISP :directly to its peer&lt;/li&gt;
+          &lt;li&gt;or else route the packet to the nearest paid transit provider&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;tier 1 ISPs
+    &lt;ul&gt;
+      &lt;li&gt;form the backbone of the Internet&lt;/li&gt;
+      &lt;li&gt;thousands of routers connected by high-bandwidth fiber optic links&lt;/li&gt;
+      &lt;li&gt;AT&amp;amp;T, Sprint…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;data centers
+    &lt;ul&gt;
+      &lt;li&gt;Google, Yahoo…&lt;/li&gt;
+      &lt;li&gt;server farm: rack upon rack of machines&lt;/li&gt;
+      &lt;li&gt;Colocation/hosting (机器托管)
+        &lt;ul&gt;
+          &lt;li&gt;short, fast connections can be made between the servers and the ISP backbones&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;152-mobile-phone-networks&quot;&gt;1.5.2 Mobile Phone Networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;generation&quot;&gt;generation&lt;/h3&gt;
+
+&lt;h4 id=&quot;amps--advanced-mobile-phone-system--1g&quot;&gt;AMPS : Advanced Mobile Phone System , 1G&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;- transmitted voice calls as continuously varying(Analog) signals
+- each voice call on a specific frequency band
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;gsm--global-system-for-mobile-communications&quot;&gt;GSM : Global System for Mobile communications&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;- transmitting voice calls in digital form #### UMTS (Universal Mobile Telecommunications System) || WCDMA (Wideband Code Division Multiple Access)
+- offer both digital voice and broadband digital data services
+- each cell to use all frequencies,
+- a tolerable level of interference to the neighboring cells.
+- based on Code Division Multiple Access (CDMA)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;radio-access-network&quot;&gt;radio access network&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;- cellular base station
+- controller node or RNC (Radio Network Controller)
+    - controls how the spectrum is used.
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;core-network-carries-the-traffic-for-the-radio-access-network&quot;&gt;core network: carries the traffic for the radio access network&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;UMTS core network evolved from 2G GSM system’s core network
+    &lt;ul&gt;
+      &lt;li&gt;connectionless subnets–packet networks
+        &lt;ul&gt;
+          &lt;li&gt;if too many packets, router will choke and lose packets
+            &lt;ul&gt;
+              &lt;li&gt;sender will resend but service will be jerky&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;connection-oriented subnets–circuit networks
+        &lt;ul&gt;
+          &lt;li&gt;set up establishes a route
+            &lt;ul&gt;
+              &lt;li&gt;all words or packets follow the same route&lt;/li&gt;
+              &lt;li&gt;if a line or switch on the path goes down, call is aborted&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;support quality of service more easily
+            &lt;ul&gt;
+              &lt;li&gt;subnet can reserve resources(link bandwidth, switch buffer space, CPU)&lt;/li&gt;
+              &lt;li&gt;if resource is insufficient, call will be rejected&lt;/li&gt;
+              &lt;li&gt;once a connection is connected, connection would get good service&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;old mobile phone networks–connectionless
+    &lt;ul&gt;
+      &lt;li&gt;MSC (Mobile Switching Center), GMSC (Gateway Mobile Switching Center)&lt;/li&gt;
+      &lt;li&gt;MGW (Media Gateway) elements that set up connections over a circuit-switched core network such as the PSTN (Public Switched Telephone Network).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;GPRS(General Packet Radio Service)
+    &lt;ul&gt;
+      &lt;li&gt;ran at tens of kbps&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;UMTS core network nodes connect directly to a packet-switched network
+    &lt;ul&gt;
+      &lt;li&gt;SGSN (Serving GPRS Support Node) and the GGSN (Gateway GPRS Support Node)&lt;/li&gt;
+      &lt;li&gt;voice calls over a packet data network&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;issues-1&quot;&gt;issues&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;handover
+    &lt;ul&gt;
+      &lt;li&gt;soft handover
+        &lt;ul&gt;
+          &lt;li&gt;connect to the new base station before disconnecting from the old base station&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;hard handover&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;how to find a mobile in the first place when there is an incoming call
+    &lt;ul&gt;
+      &lt;li&gt;Each mobile phone network has a HSS (Home Subscriber Server)
+        &lt;ul&gt;
+          &lt;li&gt;the location of each subscriber,&lt;/li&gt;
+          &lt;li&gt;profile information that is used for authentication and authorization&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;security
+    &lt;ul&gt;
+      &lt;li&gt;SIM card, short for Subscriber Identity Module
+        &lt;ul&gt;
+          &lt;li&gt;authenticate subscribers&lt;/li&gt;
+          &lt;li&gt;cryptographic keys on the SIM card are used to encrypt transmissions&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;153-wifi-80211&quot;&gt;1.5.3 wifi, 802.11&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;operate in unlicensed bands such as the ISM (Industrial, Scientific, and Medical) bands
+    &lt;ul&gt;
+      &lt;li&gt;defined by ITU-R (e.g., 902-928 MHz, 2.4-2.5 GHz, 5.725-5.825 GHz).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;two style
+    &lt;ul&gt;
+      &lt;li&gt;Wired network with APs(access points)&lt;/li&gt;
+      &lt;li&gt;ad hoc network: clients talk directly&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;multipath fading
+    &lt;ul&gt;
+      &lt;li&gt;radio signals reflected off solid objects
+        &lt;ul&gt;
+          &lt;li&gt;multiple echoes of a transmission
+            &lt;ul&gt;
+              &lt;li&gt;cancel&lt;/li&gt;
+              &lt;li&gt;reinforce&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;solutions:
+        &lt;ul&gt;
+          &lt;li&gt;path diersity: sending along multiple, independent paths&lt;/li&gt;
+          &lt;li&gt;using different frequencies&lt;/li&gt;
+          &lt;li&gt;repeating bits over different periods of time&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;multiple transmissions collide
+    &lt;ul&gt;
+      &lt;li&gt;CSMA (Carrier Sense Multiple Access)
+        &lt;ul&gt;
+          &lt;li&gt;Computers wait for a short random interval before transmitting, and defer their transmissions if they hear that someone else is already transmitting&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;security
+    &lt;ul&gt;
+      &lt;li&gt;WEP (Wired Equivalent Privacy)&lt;/li&gt;
+      &lt;li&gt;WiFi Protected Access, initially called WPA but now replaced by WPA2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;154-rfid-and-sensor-networks&quot;&gt;1.5.4 RFID and Sensor Networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;radio-frequency-identification-rfid&quot;&gt;Radio Frequency IDentification (RFID)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;consists of a small microchip with a unique identifier and an antenna that receives radio transmissions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;battery&quot;&gt;battery&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;passive RFID
+    &lt;ul&gt;
+      &lt;li&gt;all of the energy needed to operate them is supplied in the form of radio waves by RFID readers.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;active RFID
+    &lt;ul&gt;
+      &lt;li&gt;there is a power source on the tag&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;distance&quot;&gt;distance&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;UHF RFID (Ultra-High Frequency RFID).
+    &lt;ul&gt;
+      &lt;li&gt;shipping pallets and some drivers licenses&lt;/li&gt;
+      &lt;li&gt;backscatter：Tags communicate at distances of several meters by changing the way they reflect the reader signals&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;HF RFID (High Frequency RFID)
+    &lt;ul&gt;
+      &lt;li&gt;passport, credit cards, books, and noncontact payment systems&lt;/li&gt;
+      &lt;li&gt;based on induction&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LFRFID (Low Frequency RFID)
+    &lt;ul&gt;
+      &lt;li&gt;for animal tracking&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;problem&quot;&gt;problem&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;multiple tags
+    &lt;ul&gt;
+      &lt;li&gt;tags wait for a short random interval before responding with their identification&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;security
+    &lt;ul&gt;
+      &lt;li&gt;weak measures: like passwords&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sensor-network&quot;&gt;sensor network&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sensor nodes are small computers&lt;/li&gt;
+  &lt;li&gt;self-organize to relay messages for each other&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;17-metric-units&quot;&gt;1.7 METRIC UNITS&lt;/h2&gt;
+
+&lt;p&gt;https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fslideplayer.com%2F5675735%2F18%2Fimages%2F4%2FMetric%2BConversion%2BChart.jpg&amp;amp;refer=http%3A%2F%2Fslideplayer.com&amp;amp;app=2002&amp;amp;size=f9999,10000&amp;amp;q=a80&amp;amp;n=0&amp;amp;g=0n&amp;amp;fmt=jpeg?sec=1622127822&amp;amp;t=f468c0add4a2c6f3b629c2b95844ce87&lt;/p&gt;
+
+&lt;h2 id=&quot;31-data-link-layer&quot;&gt;3.1 data link layer&lt;/h2&gt;
+
+&lt;p&gt;uses the services of the physical layer to send and receive bits over communication channels&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Providing a well-defined service interface to the network layer.&lt;/li&gt;
+  &lt;li&gt;Dealing with transmission errors.&lt;/li&gt;
+  &lt;li&gt;Regulating the flow of data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;311-services-provided-to-the-natwork-layer&quot;&gt;3.1.1 services provided to the natwork layer&lt;/h2&gt;
+
+&lt;h3 id=&quot;unacknowledged-connectionless-service&quot;&gt;Unacknowledged connectionless service.&lt;/h3&gt;
+&lt;p&gt;having the source machine send independent frames to the destination machine without having the destination machine acknowledge them&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ex. Ethernet,&lt;/li&gt;
+  &lt;li&gt;no logical connection&lt;/li&gt;
+  &lt;li&gt;if a frame is lost, no attempt to detect the loss or recover&lt;/li&gt;
+  &lt;li&gt;appropriate when the error rate is very low,  appropriate for real-time traffic, such as voice&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;acknowledged-connectionless-service&quot;&gt;Acknowledged connectionless service.&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;no logical connections&lt;/li&gt;
+  &lt;li&gt;each frame sent is individually acknowledged&lt;/li&gt;
+  &lt;li&gt;is useful over unreliable channels, such as wireless systems. ex.  802.11 (WiFi)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;acknowledged-connection-oriented-service&quot;&gt;Acknowledged connection-oriented service&lt;/h3&gt;
+
+&lt;h4 id=&quot;providing-acknowledgements-in-the-data-link-layer-is-just-an-optimization-never-a-requirement&quot;&gt;providing acknowledgements in the data link layer is just an optimization, never a requirement&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;can send packets and wait for ack, resend when expired
+    &lt;ul&gt;
+      &lt;li&gt;inefficient,&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;network layer does not know hardware parameters, and send a big packet(ex.10 frames, 2 lost):
+    &lt;ul&gt;
+      &lt;li&gt;links have a strict maximum frame length imposed by hardware&lt;/li&gt;
+      &lt;li&gt;known propagation delays.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;On reliable channels, such as fiber, the overhead of a heavyweight data link protocol may be unnecessary,&lt;/li&gt;
+  &lt;li&gt;but on (inherently unreliable) wireless channels it is well worth the cost&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;connection-oriented-1&quot;&gt;connection-oriented&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Each frame sent over the connection is numbered,&lt;/li&gt;
+  &lt;li&gt;guarantees that each frame sent is indeed received.&lt;/li&gt;
+  &lt;li&gt;guarantees that each frame is received exactly once and that all frames are received in the right order.&lt;/li&gt;
+  &lt;li&gt;appropriate over long, unreliable links such as a satellite channel or a long-distance telephone circuit.
+    &lt;ul&gt;
+      &lt;li&gt;if connectionless, cause a frame to be sent and received several times, wasting bandwidth.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;312-framing&quot;&gt;3.1.2 framing&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;channel is noisy&lt;/li&gt;
+  &lt;li&gt;Breaking up the bit stream into frames
+    &lt;ul&gt;
+      &lt;li&gt;Byte count.
+        &lt;ul&gt;
+          &lt;li&gt;无法解决乱序问题&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Flag bytes with byte stuffing.
+        &lt;ul&gt;
+          &lt;li&gt;two consecutive flag bytes indicate the end of one frame and the start of the next&lt;/li&gt;
+          &lt;li&gt;insert special escape byte(ESC) to avoid interfering&lt;/li&gt;
+          &lt;li&gt;flaw: tied to the use of 8-bit bytes&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Flag bits with bit stuffing.
+        &lt;ul&gt;
+          &lt;li&gt;framing done at the bit level&lt;/li&gt;
+          &lt;li&gt;Each frame begins and ends with a special bit pattern, 01111110 or 0x7E in hexadecimal.
+            &lt;ul&gt;
+              &lt;li&gt;to avoid conflict in the body
+                &lt;ul&gt;
+                  &lt;li&gt;sender: stuffs 0, when encounters five consecutive 1s&lt;/li&gt;
+                  &lt;li&gt;receiver: automatically destuffs the 0 bits when sees&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Physical layer coding violations.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/Users/thomasliao/Documents/github/liao123abc.github.io/images/bit_stuffing_mechanism.jpeg&quot; alt=&quot;bit stuffing&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A common pattern used for Ethernet and 802.11 is to have a frame begin with a well-defined pattern called a preamble.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;313-error-control&quot;&gt;3.1.3 Error Control&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ensure that each frame is ultimately passed to the network layer at the destination exactly once, no more and no less&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;provide the sender with some feedback
+    &lt;ul&gt;
+      &lt;li&gt;positive ack: arrived&lt;/li&gt;
+      &lt;li&gt;negative ack: something go wrong&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;if a frame vanish?
+    &lt;ul&gt;
+      &lt;li&gt;introducing timers
+        &lt;ul&gt;
+          &lt;li&gt;expire after an interval&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;if either the frame or the ack is lost?
+    &lt;ul&gt;
+      &lt;li&gt;just transmit the frame again&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;if sender transmit the same frame multiple times, receiver accept the same frame two or more time
+    &lt;ul&gt;
+      &lt;li&gt;assign sequence numbers to outgoing frames&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;314-flow-control&quot;&gt;3.1.4 flow control&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;a sender that systematically wants to transmit frames faster than the receiver can accept them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;issues-2&quot;&gt;issues&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;sender: a fast, powerful computer and the receiver: a slow, low-end machine.
+    &lt;ul&gt;
+      &lt;li&gt;phone request a web page from powerful server&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;commonly-used-approaches&quot;&gt;commonly used approaches&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;feedback-based flow control
+    &lt;ul&gt;
+      &lt;li&gt;receivers send back information to the sender to send more data&lt;/li&gt;
+      &lt;li&gt;or at least telling the sender how the receiver is doing&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;rate-based flow control
+    &lt;ul&gt;
+      &lt;li&gt;the protocol has a built-in mechanism that limits the rate at which senders may transmit data,&lt;/li&gt;
+      &lt;li&gt;without using feedback from the receiver.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;feedback-vs-rate&quot;&gt;feedback vs rate&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Feedback-based schemes are seen at both the link layer and higher layers
+    &lt;ul&gt;
+      &lt;li&gt;more common:
+        &lt;ul&gt;
+          &lt;li&gt;the link layer hardware is designed to run fast enough that it does not cause loss.&lt;/li&gt;
+          &lt;li&gt;hardware implementations of the link layer as NICs (Network Interface Cards) can handle frames as fast as they can arrive on the link
+            &lt;ul&gt;
+              &lt;li&gt;so handled by higher layers&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;various feedback-based flow control schemes: the same basic principle
+        &lt;ul&gt;
+          &lt;li&gt;well-defined rules about when a sender may transmit the next frame.&lt;/li&gt;
+          &lt;li&gt;These rules often prohibit frames from being sent until the receiver has granted permission,&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;rate-based schemes are only seen as part of the transport layer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;32-error-detection-and-correction&quot;&gt;3.2 ERROR DETECTION AND CORRECTION&lt;/h2&gt;
+
+&lt;h3 id=&quot;strategies-dealing-with-errors&quot;&gt;strategies dealing with errors&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;error-correcting codes&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;FEC (Forward Error Correction).&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;ul&gt;
+      &lt;li&gt;include enough redundant information to enable the receiver to deduce what the transmitted data must have been.&lt;/li&gt;
+      &lt;li&gt;used On channels that are highly reliable, such as fiber
+        &lt;ul&gt;
+          &lt;li&gt;it is cheaper to use an error-detecting code and just retransmit the occasional block found to be faulty&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;seen in the physical layer, particularly for noisy channels&lt;/li&gt;
+      &lt;li&gt;in higher layers, particularly for real-time media and content distribution&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;error-detecting codes
+    &lt;ul&gt;
+      &lt;li&gt;include only enough redundancy to allow the receiver to deduce that an error has occurred (but not which error)
+        &lt;ul&gt;
+          &lt;li&gt;have it request a retransmission.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;FEC is used on noisy channels because retransmissions are just as likely to be in error as the first transmission
+        &lt;ul&gt;
+          &lt;li&gt;wireless links: make many errors&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;commonly used in link, network, and transport layers&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Neither error-correcting codes nor error-detecting codes can handle all possible errors&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;321-error-correcting-codestodo&quot;&gt;3.2.1 Error-correcting codes–todo&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Hamming codes.&lt;/li&gt;
+  &lt;li&gt;Binary convolutional codes.&lt;/li&gt;
+  &lt;li&gt;Reed-Solomon codes.&lt;/li&gt;
+  &lt;li&gt;Low-Density Parity Check codes.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;322-error-detecting-codestodo&quot;&gt;3.2.2 Error-Detecting Codes–todo&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Parity.&lt;/li&gt;
+  &lt;li&gt;Checksums.&lt;/li&gt;
+  &lt;li&gt;Cyclic Redundancy Checks (CRCs).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;34-sliding-window&quot;&gt;3.4 sliding window&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The network layer, in contrast, is always fed data in the proper order, regardless of the data link layer’s window size&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;each outbound frame contains a sequence number,ranging from 0 up to some maximum.&lt;/li&gt;
+  &lt;li&gt;sender maintains a set of sequence numbers corresponding to frames it is permitted to send.
+    &lt;ul&gt;
+      &lt;li&gt;These frames are said to fall within the sending window&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;receiver also maintains a receiving window corresponding to the set of frames it is permitted to accept.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sequence-number-in-sender&quot;&gt;sequence number in sender&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The sequence numbers within the sender’s window represent
+    &lt;ul&gt;
+      &lt;li&gt;frames that have been sent&lt;/li&gt;
+      &lt;li&gt;or can be sent but are as yet not acknowledged.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;maintains a list of unacknowledged frames
+    &lt;ul&gt;
+      &lt;li&gt;when a new packet arrives
+        &lt;ul&gt;
+          &lt;li&gt;it is given the next highest sequence number,&lt;/li&gt;
+          &lt;li&gt;the upper edge of the window is advanced by one&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sequence-number-in-receiver&quot;&gt;sequence number in receiver&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;frame receive,
+    &lt;ul&gt;
+      &lt;li&gt;if (frame.sq == window.lowerEdge)
+        &lt;ul&gt;
+          &lt;li&gt;it is passed to network layer&lt;/li&gt;
+          &lt;li&gt;window is rotated by one&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;any frame falling outside the window is discarded&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ack
+    &lt;ul&gt;
+      &lt;li&gt;a window size of 1 means that the data link layer only accepts frames in order,
+        &lt;ul&gt;
+          &lt;li&gt;but for larger windows this is not so&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;341-sliding-window-protocol&quot;&gt;3.4.1 Sliding Window Protocol&lt;/h2&gt;
+
+&lt;h3 id=&quot;go-back-n&quot;&gt;go-back-n&lt;/h3&gt;
+&lt;p&gt;is for the receiver simply to discard all subsequent frames, sending no acknowledgements for the discarded frames.&lt;/p&gt;
+
+&lt;h3 id=&quot;selective-repeat&quot;&gt;selective repeat&lt;/h3&gt;
+&lt;p&gt;a bad frame that is received is discarded, but any good frames received after it are accepted and buffered.&lt;/p&gt;
+
+&lt;h3 id=&quot;flow-control&quot;&gt;flow control&lt;/h3&gt;
+
+&lt;h3 id=&quot;error-control&quot;&gt;error control&lt;/h3&gt;
+
+&lt;h2 id=&quot;4-the-medium-access-control-sublayer&quot;&gt;4 the medium access control sublayer&lt;/h2&gt;
+
+&lt;h2 id=&quot;512-services-provided-to-the-transport-layer&quot;&gt;5.1.2 Services Provided to the Transport Layer&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;provides services to the transport layer&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;rules&quot;&gt;rules:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The services should be independent of the router technology&lt;/li&gt;
+  &lt;li&gt;transport layer should be shielded from the number, type, and topology of the routers present&lt;/li&gt;
+  &lt;li&gt;network addresses should use a uniform numbering plan, even across LANs and WANs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;two-camps&quot;&gt;two camps&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;connectionoriented service
+    &lt;ul&gt;
+      &lt;li&gt;routers’job is moving packets around and nothing else&lt;/li&gt;
+      &lt;li&gt;host: error control(error detection and correction) &amp;amp;&amp;amp; flow control&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;connectionless service
+    &lt;ul&gt;
+      &lt;li&gt;represented by telephone companies&lt;/li&gt;
+      &lt;li&gt;ATM vs IP&lt;/li&gt;
+      &lt;li&gt;connection-oriented technologies
+        &lt;ul&gt;
+          &lt;li&gt;MPLS (MultiProtocol Label Switching)&lt;/li&gt;
+          &lt;li&gt;VLANs&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;521-the-optimality-principle&quot;&gt;5.2.1 the optimality principle&lt;/h2&gt;
+</description>
+        <pubDate>Sun, 11 Apr 2021 00:00:00 +0800</pubDate>
+        <link>https://thomasliao.cn/2021/04/11/computer-network/</link>
+        <guid isPermaLink="true">https://thomasliao.cn/2021/04/11/computer-network/</guid>
+        
+        <category>computer network</category>
+        
+        <category>note</category>
+        
+        <category>Anki</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Encoding</title>
+        <description>&lt;h2 id=&quot;ascii&quot;&gt;ASCII&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;http://www.robelle.com/library/smugbook/ascii.html&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;character encoding&lt;/li&gt;
+  &lt;li&gt;short for: American Standard Code for Information Interchange&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ASCII 码一共规定了128个字符的编码&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Wordstar&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/en/e/e3/Wordstar_Screenshot.png&quot; alt=&quot;dominated the market in the early and mid-1980s&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MS-DOS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pic4.zhimg.com/80/fd6d090f634b0afbe69b8d33cf5e58a4_720w.jpg?source=1940ef5c&quot; alt=&quot;MS-DOS时代的MS Office&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;question&quot;&gt;question&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;“plain text == ascii == characters are 8 bits”?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;only-for-english&quot;&gt;only for english&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/ASCII-Table-wide.svg/875px-ASCII-Table-wide.svg.png&quot; alt=&quot;table&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In ASCII, every letter, digits, and symbols that mattered were represented as a number between 32 and 127.&lt;/li&gt;
+  &lt;li&gt;1 byte
+    &lt;ul&gt;
+      &lt;li&gt;只占用了一个字节的后面7位，最前面的一位统一规定为0
+  	- 7位来编码，8位来传输&lt;/li&gt;
+      &lt;li&gt;有些软件会使用第一位。
+        &lt;ul&gt;
+          &lt;li&gt;wordstar-indicate the last letter in a word&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;[0, 31] called unprintable
+    &lt;ul&gt;
+      &lt;li&gt;大部分已经废弃
+        &lt;ul&gt;
+          &lt;li&gt;but remain some :such as the carriage return, line feed and tab codes.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;used for control characters， 如
+        &lt;ul&gt;
+          &lt;li&gt;7 which made your computer beep&lt;/li&gt;
+          &lt;li&gt;12 which caused the current page of paper to go flying out of the printer and a new one to be fed in&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;[32, 127] are printable–Ninety-five of the encoded characters
+    &lt;ul&gt;
+      &lt;li&gt;表示可打印的字符(a-z, A-Z, 0–9, +, -, /, “, ! etc.)&lt;/li&gt;
+      &lt;li&gt;32-space&lt;/li&gt;
+      &lt;li&gt;65-“A”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;不支持其他字符
+    &lt;ul&gt;
+      &lt;li&gt;没有带变音符的拉丁字母（如 é 和 ä ），也不支持像希腊字母（如 α、β、γ）、西里尔字母（如 Пушкин）这样的其他欧洲文字&lt;/li&gt;
+      &lt;li&gt;更加不要说中文了&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;//make a bel
+echo ^G
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;del-为什么删除键作为控制字符-编码为-127&quot;&gt;del 为什么删除键作为控制字符, 编码为 127&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;打孔机的纸带中，对应位为 0 就不打孔，对应位为 1 就打孔。&lt;/li&gt;
+  &lt;li&gt;一卷全新空纸带上完全没有孔，自然表示全 0，也就对应于 ASCII 的控制字符 Null。&lt;/li&gt;
+  &lt;li&gt;那在打孔机上打错字符时怎么办
+    &lt;ul&gt;
+      &lt;li&gt;纸带中不能将已打的孔填上，于是当打错字干脆将其全部打孔，表示这一个字符被省略或者删除。&lt;/li&gt;
+      &lt;li&gt;全部打孔就是二进制的 7 个 1，对应十进制编码 127&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Creed_model_6S-2_paper_tape_reader.jpg/1920px-Creed_model_6S-2_paper_tape_reader.jpg&quot; alt=&quot;holes&quot; width=&quot;400&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;line-feed--carriage-reture&quot;&gt;Line Feed &amp;amp;&amp;amp; Carriage Reture&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.stack.imgur.com/e4xm6.jpg&quot; alt=&quot;LFCR&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Line Feed
+    &lt;ul&gt;
+      &lt;li&gt;Classic Mac OS, OS-9, FLEX (and variants).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CR+LF
+    &lt;ul&gt;
+      &lt;li&gt;DOS and Windows, and by Application Layer protocols such as FTP, SMTP, and HTTP&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;history
+    &lt;ul&gt;
+      &lt;li&gt;打字机要求”Carriage Return” + “Line Feed”
+        &lt;ul&gt;
+          &lt;li&gt;“Carriage Return”–把打印机头移到最前面&lt;/li&gt;
+          &lt;li&gt;“Line Feed”移到新一行&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=n-eFFd5BmpU&quot;&gt;video&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;eof&quot;&gt;EOF&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;end of file的缩写，表示”文字流”（stream）的结尾。这里的”文字流”，可以是文件（file），也可以是标准输入（stdin）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EOF不是特殊字符，而是一个定义在头文件stdio.h的常量，一般等于-1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;err&quot;&gt;　#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EOF&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;　&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;　&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;　&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fgetc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;　　　　&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//do something&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;from-ascii-to-unicode&quot;&gt;from ascii to unicode&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;不同的国家有不同的字母，因此，哪怕它们都使用256个符号的编码方式，代表的字母却不一样&lt;/li&gt;
+  &lt;li&gt;亚洲国家的文字，使用的符号就更多了，汉字就多达10万左右&lt;/li&gt;
+  &lt;li&gt;世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号&lt;/li&gt;
+  &lt;li&gt;Unicode 当然是一个很大的集合，现在的规模可以容纳100多万个符号。
+    &lt;ul&gt;
+      &lt;li&gt;每个符号的编码都不一样&lt;/li&gt;
+      &lt;li&gt;只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;question-1&quot;&gt;question&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Unicode 是16位编码？&lt;/li&gt;
+  &lt;li&gt;每个字符占用16位？可以表示65,536个字符？&lt;/li&gt;
+  &lt;li&gt;如何才能区别 Unicode 和 ASCII ?&lt;/li&gt;
+  &lt;li&gt;计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;unicode&quot;&gt;unicode&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;windows 通过charmap查询&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;character encodings&lt;/li&gt;
+    &lt;li&gt;providing a unique code point—a number, not a glyph—for each character&lt;/li&gt;
+    &lt;li&gt;leaves the visual rendering (size, shape, font, or style) to other software&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;utf-16&quot;&gt;utf-16&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;起源于UCS-2 (for 2-byte Universal Character Set)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;languages:
+    &lt;ul&gt;
+      &lt;li&gt;java&lt;/li&gt;
+      &lt;li&gt;JavaScript/ECMAScript&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;system:
+    &lt;ul&gt;
+      &lt;li&gt;windows use it often
+        &lt;ul&gt;
+          &lt;li&gt;近两年向UTF-8靠近&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Unix-like systems not like it&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;encoding using 65,536 (216) values&lt;/li&gt;
+  &lt;li&gt;2 bytes (16 bits) per character&lt;/li&gt;
+  &lt;li&gt;不兼容ASCII&lt;/li&gt;
+  &lt;li&gt;on web:
+    &lt;ul&gt;
+      &lt;li&gt;0.005% (less than 1 hundredth of 1 percent) of web pages&lt;/li&gt;
+      &lt;li&gt;UTF-8, by comparison, is used by 97% of all web pages&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;high-endian UCS-2 or low-endian UCS-2&lt;/p&gt;
+
+&lt;h2 id=&quot;utf-8-演进史&quot;&gt;UTF-8 演进史&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20200609160034671.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x5ZkdlZWs=,size_16,color_FFFFFF,t_70&quot; alt=&quot;evolution&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;[ITA 2, FIELDATA]   ---&amp;gt;   ASCII  ----&amp;gt;  GB2313   ----&amp;gt;    Unicode[US-2, UTF-16]  -----&amp;gt;  Unicode[UTF-8]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;utf-8&quot;&gt;UTF-8&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;memory：1-4字节&lt;/li&gt;
+  &lt;li&gt;最流行的编码方式
+    &lt;ul&gt;
+      &lt;li&gt;97% of all web pages&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;兼容ASCII
+    &lt;ul&gt;
+      &lt;li&gt;对于单字节的符号和ASCII一样&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i1.wp.com/convertcodes.com/wp-content/uploads/2018/11/code-point-bit.png?resize=504%2C126&amp;amp;ssl=1&quot; alt=&quot;code point conversion&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;解读&quot;&gt;解读&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;字节
+    &lt;ul&gt;
+      &lt;li&gt;如果一个字节的第一位是0，则这个字节单独就是一个字符；&lt;/li&gt;
+      &lt;li&gt;如果第一位是1，则连续有多少个1，就表示当前字符占用多少个字节&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;对于单字节的符号，字节的第一位设为0&lt;/li&gt;
+  &lt;li&gt;对于n字节的符号（n &amp;gt; 1），
+    &lt;ul&gt;
+      &lt;li&gt;第一个字节的前n位都设为1，&lt;/li&gt;
+      &lt;li&gt;第n + 1位设为0，&lt;/li&gt;
+      &lt;li&gt;后面字节的前两位一律设为10。&lt;/li&gt;
+      &lt;li&gt;剩下的没有提及的二进制位，全部为这个符号的 Unicode 码&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sample&quot;&gt;sample&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;windows打开charmap，搜索一个汉字&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20200609161126959.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x5ZkdlZWs=,size_16,color_FFFFFF,t_70&quot; alt=&quot;convert&quot; width=&quot;1000&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;endianness-of-an-encoding&quot;&gt;endianness of an encoding&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;//对于一个32位整数1，不同的CPU架构会有不同的存储方式：
+00000000 00000000 00000000 00000001
+//或者
+00000001 00000000 00000000 00000000
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://images.squarespace-cdn.com/content/v1/549dcda5e4b0a47d0ae1db1e/1490746414666-EM74IA60AFM16OEH9G22/ke17ZwdGBToddI8pDm48kOMlUb6YZjvz-j7uj5wTIAtZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PICROjhJFkM8GI5jSypQ9qrB6ZUKEpH8g8X8GW3p0wQZI/image-asset.png&quot; alt=&quot;endianness&quot; width=&quot;400&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;大端&quot;&gt;大端&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;高位在前&lt;/li&gt;
+  &lt;li&gt;最低位放在最后一个位置&lt;/li&gt;
+  &lt;li&gt;TCP/IP 协议栈是按照 Big Endian 来设计的，而 X86 机器多按照 Little Endian 来设计的，因而发出去的时候需要做一个转换&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;小端&quot;&gt;小端&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;低位在前&lt;/li&gt;
+  &lt;li&gt;最低位放在第一个位置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;//UTF-8编码是变长的，用8~32位(1~4字节)表示，有固定的位置来表示是几个字节：
+0xxxxxxx
+110xxxxx 10xxxxxx
+1110xxxx 10xxxxxx 10xxxxxx
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+//字节头部识别就是前面的0，110，1110，11110表示字节数
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bom&quot;&gt;BOM&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;BOM也是Unicode标准的一部分，有它特定的适用范围。&lt;/li&gt;
+  &lt;li&gt;通常BOM是用来标示Unicode纯文本字节流的，用来提供一种方便的方法让文本处理程序识别读入的.txt文件是哪个Unicode编码（UTF-8，UTF-16BE，UTF-16LE）&lt;/li&gt;
+  &lt;li&gt;Windows相对对BOM处理比较好，是因为Windows把Unicode识别代码集成进了API里，主要是CreateFile()。打开文本文件时它会自动识别并剔除BOM。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bombyte-order-mark&quot;&gt;bom(byte order mark)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Unicode 不使用 U+FFFE，在文件开头加一个 BOM 即可区分各种不同编码&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;UTF-8 with bom
+https://stackoverflow.com/questions/2223882/whats-the-difference-between-utf-8-and-utf-8-without-bom&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/proxy/_7X9TG6ddYuq-rDKdAb6Tfoo1lyrcJ2PvJhbWnoSqn_J31FFrr_RswtufICuRAk_1L40VFH8mseead1jhnNre4S0JBiIN5lmHyo&quot; alt=&quot;bom&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UTF-32 编码
+    &lt;ul&gt;
+      &lt;li&gt;0x00 00 FE FF, 大端&lt;/li&gt;
+      &lt;li&gt;0xFF FE 00 00, 小端&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;UTF-16
+    &lt;ul&gt;
+      &lt;li&gt;0xFE FF, 大端&lt;/li&gt;
+      &lt;li&gt;0xFF FE, 小端&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;UTF-8
+    &lt;ul&gt;
+      &lt;li&gt;0xEF BB BF –《其实我无所谓》 &lt;img src=&quot;https://language.chinadaily.com.cn/images/attachement/jpg/site1/20150317/a41f726749f61671fee14c.jpg&quot; alt=&quot;convert&quot; width=&quot;100&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;辅助作用?
+        &lt;ul&gt;
+          &lt;li&gt;UTF-8 对BOM无要求
+            &lt;ul&gt;
+              &lt;li&gt;UTF-8没有大小端的困扰&lt;/li&gt;
+              &lt;li&gt;bom可以标识输入流/文本以UTF-8编写，方便推测&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;jni&quot;&gt;JNI&lt;/h2&gt;
+
+&lt;h3 id=&quot;在jni调用中我们经常用到getstringutfchars&quot;&gt;在jni调用中我们经常用到GetStringUTFChars&lt;/h3&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;JNIEXPORT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jobjectArray&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JNICALL&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;Java_com_xxx_symbolkit_symbol_jni_ELFJni_getSymsBySoFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JNIEnv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jclass&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jstring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;so_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetStringUTFChars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;so_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//转码UTF-8&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//do something~~~~~~&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReleaseStringUTFChars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;so_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;字符串操作函数&quot;&gt;字符串操作函数&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;GetStringUTFChars
+    &lt;ul&gt;
+      &lt;li&gt;const char * GetStringUTFChars(JNIEnv *env, jstring string,jboolean *isCopy);&lt;/li&gt;
+      &lt;li&gt;Returns a pointer to an array of bytes representing the string in modified UTF-8 encoding&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;GetStringChars
+    &lt;ul&gt;
+      &lt;li&gt;const char * GetStringChars(JNIEnv *env, jstring string,jboolean *isCopy);&lt;/li&gt;
+      &lt;li&gt;Returns a pointer to the array of Unicode characters of the string
+        &lt;ul&gt;
+          &lt;li&gt;actually UTF-16&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;iscopy参数&quot;&gt;isCopy参数&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JNI_FALSE
+    &lt;ul&gt;
+      &lt;li&gt;指向的是JVM中的同一份数据&lt;/li&gt;
+      &lt;li&gt;不一定会拷贝&lt;/li&gt;
+      &lt;li&gt;本地代码决不能修改字符串的内容，
+  	- 否则JVM中的原始字符串也会被修改，
+  	- 这会打破JAVA语言中字符串不可变的规则&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JNI_TRUE
+    &lt;ul&gt;
+      &lt;li&gt;一定会拷贝&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;一定要调用release
+    &lt;ul&gt;
+      &lt;li&gt;void ReleaseStringUTFChars(JNIEnv *env, jstring string,const char *utf);&lt;/li&gt;
+      &lt;li&gt;void ReleaseStringChars(JNIEnv *env, jstring string, const jchar *chars);&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;不要对jnienv做任何假设&quot;&gt;不要对JNIEnv做任何假设&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.programmersought.com/article/8728233532/&quot;&gt;Java layer objects as opaque references&lt;strong&gt;(pointer&lt;/strong&gt;) passed to the JNI layer&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;jnienv-is-just-interface&quot;&gt;JNIEnv is just interface&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://taoste.github.io/dirtysalt/html/images/jnienv-interface-pointer.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;there-are-some-many-vms&quot;&gt;there are some many vms&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;虚拟机始祖：SunClassic/ExactVM&lt;/li&gt;
+  &lt;li&gt;武林盟主：HotSpotVM&lt;/li&gt;
+  &lt;li&gt;小家碧玉：Mobile/EmbeddedVM&lt;/li&gt;
+  &lt;li&gt;天下第二：BEAJRockit/IBMJ9VM&lt;/li&gt;
+  &lt;li&gt;软硬合璧：BEALiquidVM/AzulVM&lt;/li&gt;
+  &lt;li&gt;挑战者：ApacheHarmony/GoogleAndroidDalvikVM&lt;/li&gt;
+  &lt;li&gt;没有成功，但并非失败：MicrosoftJVM及其他&lt;/li&gt;
+  &lt;li&gt;百家争鸣
+    &lt;ul&gt;
+      &lt;li&gt;JamVM：http://jamvm.sourceforge.net/·&lt;/li&gt;
+      &lt;li&gt;CacaoVM：http://www.cacaovm.org/·&lt;/li&gt;
+      &lt;li&gt;SableVM：http://www.sablevm.org/·&lt;/li&gt;
+      &lt;li&gt;Kaffe：http://www.kaffe.org/·&lt;/li&gt;
+      &lt;li&gt;JelatineJVM：http://jelatine.sourceforge.net/·&lt;/li&gt;
+      &lt;li&gt;NanoVM：http://www.harbaum.org/till/nanovm/index.shtml·&lt;/li&gt;
+      &lt;li&gt;MRP：https://github.com/codehaus/mrp·&lt;/li&gt;
+      &lt;li&gt;MoxieJVM：http://moxie.sourceforge.net/&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;周志明. 深入理解Java虚拟机：JVM高级特性与最佳实践（第3版） (华章原创精品) (Chinese Edition)&lt;/p&gt;
+
+&lt;h2 id=&quot;java-string--c-string-object&quot;&gt;java string &amp;amp;&amp;amp; c++ string object&lt;/h2&gt;
+
+&lt;h3 id=&quot;stirng-literal&quot;&gt;stirng literal&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;actually calling intern() method on String
+    &lt;ul&gt;
+      &lt;li&gt;references internal pool of string objects
+        &lt;ul&gt;
+          &lt;li&gt;运行时常量池，在runtime期间亦可以动态添加&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;if same value exist, no new object could be created&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GeeksForGeeks&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img.javatt.com/6e/6e7d96afc9b175222aa43e3f7ef8eee5.png&quot; alt=&quot;endianness&quot; width=&quot;600&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;string-object&quot;&gt;String object&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JVM is forced to create a new string reference, even if “GeeksForGeeks” is in the reference pool.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;GeeksForGeeks&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;c-c&quot;&gt;c, c++&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;C++98 中有 char 和 wchar_t 两种不同的字符类型，
+    &lt;ul&gt;
+      &lt;li&gt;其中 char 的长度是单字节，&lt;/li&gt;
+      &lt;li&gt;而 wchar_t 的长度不确定。
+        &lt;ul&gt;
+          &lt;li&gt;在 Windows 上它是双字节，只能代表 UTF-16，&lt;/li&gt;
+          &lt;li&gt;而在 Unix 上一般是四字节，可以代表 UTF-32&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;C++11 引入了 char16_t 和 char32_t 两个独立的字符类型（不是类型别名），分别代表 UTF-16 和 UTF-32&lt;/li&gt;
+  &lt;li&gt;C++20 将引入 char8_t 类型，进一步区分了可能使用传统编码的窄字符类型和 UTF-8 字符类型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;java-string-char-to-byte&quot;&gt;java String char to byte&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;为了节约String占用的内存&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;jdk9新特性&lt;/li&gt;
+  &lt;li&gt;在大多数Java程序的堆里，String占用的空间最大，并且绝大多数String只有Latin-1字符，这些Latin-1字符只需要1个字节就够了&lt;/li&gt;
+  &lt;li&gt;before
+    &lt;ul&gt;
+      &lt;li&gt;JDK9之前，JVM因为String使用char数组存储，每个char占2个字节，所以即使字符串只需要1字节/字符，它也要按照2字节/字符进行分配，浪费了一半的内存空间&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;after
+    &lt;ul&gt;
+      &lt;li&gt;JDK9:一个字符串出来的时候判断，它是不是只有Latin-1字符，如果是，就按照1字节/字符的规格进行分配内存，如果不是，就按照2字节/字符的规格进行分配（UTF-16编码），提高了内存使用率&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;gbk-半角全角&quot;&gt;GBK, 半角&amp;amp;&amp;amp;全角&lt;/h2&gt;
+
+&lt;h3 id=&quot;gbk&quot;&gt;GBK&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;最早的中文字符集标准是 1980 年的国标 GB2312，
+    &lt;ul&gt;
+      &lt;li&gt;其中收录了 6763 个常用汉字和 682 个其他符号&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;与 ASCII 兼容
+    &lt;ul&gt;
+      &lt;li&gt;由于 GB2312 中本身也含有 ASCII 中包含的字符，在使用中逐渐就形成了“半角”和“全角”的区别&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;国标字符集后面又有扩展，这个扩展后的字符集就是 GBK
+    &lt;ul&gt;
+      &lt;li&gt;中文版 Windows 使用的标准编码方式&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;原因&quot;&gt;原因&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;历史原因&lt;/li&gt;
+  &lt;li&gt;排版&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;//全角
+ｖａｌ　ｔｅｓｔｉｎｇ　＝　ｔｒｕｅ
+
+//半角
+val testing = true
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;全角与半角两个术语应该都是从日本来的&quot;&gt;「全角」与「半角」两个术语应该都是从日本来的&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JIS X 4051《日本語文書の組版方法》里面，将全角定义为「汉字一文字的外框」，半角定义为「字宽为全角二分之一的文字之外框」&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;at-last-three-button-is-enough&quot;&gt;at last: three button is enough&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/8/89/WACsOperateTeletype.jpg&quot; alt=&quot;teleprinter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://5.imimg.com/data5/SI/LI/FK/SELLER-8118327/gaming-desktop-pc-custom-built-cpu--500x500.jpg&quot; alt=&quot;now&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://deliverassignment.com/wp-content/uploads/2020/06/compute-programmer.jpg&quot; alt=&quot;mac&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;人类社会不断发展，技术日新月异，三个按键足够了&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://149351115.v2.pressablecdn.com/wp-content/uploads/2021/03/the_key_angle-1536x1152.jpeg&quot; alt=&quot;holes&quot; width=&quot;400&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;references&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/12747722/what-is-the-difference-between-a-line-feed-and-a-carriage-return#:~:text=A%20line%20feed%20means%20moving,r%5Cn%20in%20text%20files.&quot;&gt;“line feed” and a “carriage return”?&lt;/a&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/12747722/what-is-the-difference-between-a-line-feed-and-a-carriage-return#:~:text=A%20line%20feed%20means%20moving,r%5Cn%20in%20text%20files.&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://medium.com/@apiltamang/unicode-utf-8-and-ascii-encodings-made-easy-5bfbe3a1c45a&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.ruanyifeng.com/blog/2011/11/eof.html&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Apr 2021 00:00:00 +0800</pubDate>
+        <link>https://thomasliao.cn/2021/04/10/encoding/</link>
+        <guid isPermaLink="true">https://thomasliao.cn/2021/04/10/encoding/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>c++ notes</title>
         <description>&lt;h1 id=&quot;c-notes&quot;&gt;c++ Notes&lt;/h1&gt;
 
 &lt;h2 id=&quot;1编译器&quot;&gt;1.编译器&lt;/h2&gt;
@@ -394,6 +2711,77 @@ and passed as argument, and no change will be visible at the caller side.
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;7c--size-of-int-long-short&quot;&gt;7.C++ , size of int, long, short&lt;/h2&gt;
+
+&lt;h3 id=&quot;decided-by-compiler&quot;&gt;decided by compiler&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;depends on the compiler and only on the compiler.&lt;/li&gt;
+  &lt;li&gt;Hardware/OS is of no importance at all&lt;/li&gt;
+  &lt;li&gt;The compiler is free to implement a hardware abstraction layer of any thickness and emulate absolutely anything&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;char--byte-octet&quot;&gt;char , byte, octet&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;char is always a byte , but it’s not always an octet
+    &lt;ul&gt;
+      &lt;li&gt;byte
+        &lt;ul&gt;
+          &lt;li&gt;A byte is the smallest addressable unit of memory (in most definitions),&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;octet
+        &lt;ul&gt;
+          &lt;li&gt;an octet is 8-bit unit of memory&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sizeof(char) is always 1 for all implementations&lt;/li&gt;
+  &lt;li&gt;CHAR_BIT macro in limits.h
+    &lt;ul&gt;
+      &lt;li&gt;defines the size of a byte for a platform&lt;/li&gt;
+      &lt;li&gt;it is not always 8 bit.
+        &lt;ul&gt;
+          &lt;li&gt;16-bit, 32-bit bytes&lt;/li&gt;
+          &lt;li&gt;others[ex. 7], have to deal with aligned and padding&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;size&quot;&gt;size&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;range
+    &lt;ul&gt;
+      &lt;li&gt;signed char: -127 to 127 (note, not -128 to 127; this accommodates 1’s-complement and sign-and-magnitude platforms)&lt;/li&gt;
+      &lt;li&gt;unsigned char: 0 to 255&lt;/li&gt;
+      &lt;li&gt;“plain” char: same range as signed char or unsigned char, implementation-defined&lt;/li&gt;
+      &lt;li&gt;signed short: -32767 to 32767&lt;/li&gt;
+      &lt;li&gt;unsigned short: 0 to 65535&lt;/li&gt;
+      &lt;li&gt;signed int: -32767 to 32767&lt;/li&gt;
+      &lt;li&gt;unsigned int: 0 to 65535&lt;/li&gt;
+      &lt;li&gt;signed long: -2147483647 to 2147483647&lt;/li&gt;
+      &lt;li&gt;unsigned long: 0 to 4294967295&lt;/li&gt;
+      &lt;li&gt;signed long long: -9223372036854775807 to 9223372036854775807&lt;/li&gt;
+      &lt;li&gt;unsigned long long: 0 to 18446744073709551615&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;rules
+    &lt;ul&gt;
+      &lt;li&gt;char, signed char, and unsigned char are at least 8 bits&lt;/li&gt;
+      &lt;li&gt;signed short, unsigned short, signed int, and unsigned int are at least 16 bits&lt;/li&gt;
+      &lt;li&gt;signed long and unsigned long are at least 32 bits&lt;/li&gt;
+      &lt;li&gt;signed long long and unsigned long long are at least 64 bits&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ref&quot;&gt;ref&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 10 Apr 2021 00:00:00 +0800</pubDate>
         <link>https://thomasliao.cn/2021/04/10/c++-notes/</link>
@@ -2484,336 +4872,6 @@ James Gosling&lt;/p&gt;
         <guid isPermaLink="true">https://thomasliao.cn/2016/12/15/Java-History-Introduction/</guid>
         
         <category>java</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Linux commands</title>
-        <description>&lt;h2 id=&quot;commands&quot;&gt;commands&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;command&lt;/th&gt;
-      &lt;th&gt;description&lt;/th&gt;
-      &lt;th&gt;description2&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;.&lt;/td&gt;
-      &lt;td&gt;代表此层目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;..&lt;/td&gt;
-      &lt;td&gt;代表上一层目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;代表前一个工作目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;~&lt;/td&gt;
-      &lt;td&gt;代表『目前使用者身份』所在的家目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;~account&lt;/td&gt;
-      &lt;td&gt;代表 account 这个使用者的家目录(account是个帐号名称)&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;cd&lt;/td&gt;
-      &lt;td&gt;变换目录 Change Directory&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;pwd&lt;/td&gt;
-      &lt;td&gt;显示目前的目录 Print Working Directory&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;mkdir&lt;/td&gt;
-      &lt;td&gt;创建一个新的目录 make directory&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;rmdir&lt;/td&gt;
-      &lt;td&gt;删除一个空的目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;df -h&lt;/td&gt;
-      &lt;td&gt;查看磁盘空间&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;cat &amp;gt; foo.txt&lt;/td&gt;
-      &lt;td&gt;创建新文件， press CTRL+D to save file&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;cat foo.txt&lt;/td&gt;
-      &lt;td&gt;display the file&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;sudo apt-get install open-vm-tools-lts-trusty&lt;/td&gt;
-      &lt;td&gt;install vm tools&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;sudo apt-get update&lt;/td&gt;
-      &lt;td&gt;downloads the package lists from the repositories and “updates” them to get information on the newest versions of packages and their dependencies.&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;sudo apt-get install open-vm-tools-desktop&lt;/td&gt;
-      &lt;td&gt;install vm tools&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;cd ..&lt;/td&gt;
-      &lt;td&gt;返回上一级目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;print $ANDROID_HOME/&lt;/td&gt;
-      &lt;td&gt;输出环境变量值&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;mkdir my-blog&lt;/td&gt;
-      &lt;td&gt;创建一个my-blog的文件夹&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;mkdocs serve&lt;/td&gt;
-      &lt;td&gt;运行mkdocs&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;apt-cache search linux-source&lt;/td&gt;
-      &lt;td&gt;搜索支持的内核代码&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;cd /&lt;/td&gt;
-      &lt;td&gt;如果root 后 ls没有显示任何东西，切换到根目录&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;useradd cindy&lt;/td&gt;
-      &lt;td&gt;Linux增加用户&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;test –d /home/cindy&lt;/td&gt;
-      &lt;td&gt;为用户创建主文件夹输入命令&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;grep cindy /etc/passwd /etc/shadow /etc/group&lt;/td&gt;
-      &lt;td&gt;在/etc/passwd里面创建一行与账号相关的数据，包括创建UID/GID/主文件夹等。在/etc/shadow里面将此账号的密码相关参数填入。在/etc/group里面加入一个与账号名称一样的组名&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;passwd cindy&lt;/td&gt;
-      &lt;td&gt;确认后会提示输入新的密码，再次确认密码后。若密码一致，提示更改成功。若两次输入密码不一致，提示更改不成功&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;knowledge&quot;&gt;knowledge&lt;/h2&gt;
-
-&lt;h3 id=&quot;编译第一个module&quot;&gt;编译第一个module&lt;/h3&gt;
-&lt;p&gt;http://www.linuxidc.com/Linux/2012-12/75891.htm
-[注意，根据这篇文章，后面要进入已经下载的src再make oldconfig]&lt;/p&gt;
-
-&lt;h3 id=&quot;linux文件属性&quot;&gt;Linux文件属性&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;第一栏代表这个文件的类型与权限(permission)：&lt;/li&gt;
-  &lt;li&gt;第二栏表示有多少档名连结到此节点(i-node)：&lt;/li&gt;
-  &lt;li&gt;第三栏表示这个文件(或目录)的『拥有者账号』&lt;/li&gt;
-  &lt;li&gt;第四栏表示这个文件的所属群组&lt;/li&gt;
-  &lt;li&gt;第五栏为这个文件的容量大小，默认单位为bytes；&lt;/li&gt;
-  &lt;li&gt;第六栏为这个文件的建档日期或者是最近的修改日期：&lt;/li&gt;
-  &lt;li&gt;第七栏为这个文件的档名&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;文档权限&quot;&gt;文档权限&lt;/h3&gt;
-&lt;p&gt;如：[-][rwx][r-x][r–]
-        1  234  567  890&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1 为：代表这个文件名为目录或文件，本例中为文件(-)；
-    &lt;ul&gt;
-      &lt;li&gt;当为[ d ]则是目录，例如上表档名为『.gconf』的那一行；&lt;/li&gt;
-      &lt;li&gt;当为[ - ]则是文件，例如上表档名为『install.log』那一行；&lt;/li&gt;
-      &lt;li&gt;若是[ l ]则表示为连结档(link file)；&lt;/li&gt;
-      &lt;li&gt;若是[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；&lt;/li&gt;
-      &lt;li&gt;若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;234为：拥有者的权限，本例中为可读、可写、可执行(rwx)；&lt;/li&gt;
-  &lt;li&gt;567为：同群组用户权力，本例中为可读可执行(rx)；&lt;/li&gt;
-  &lt;li&gt;890为：其他用户权力，本例中为可读(r)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;linux磁盘与文件管理&quot;&gt;linux磁盘与文件管理&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;ext2 :  Linux second extended file system, ext2fs&lt;/li&gt;
-  &lt;li&gt;superblock: superblock：记彔此 filesystem 癿整体信息，包括 inode/block 癿总量、使用量、剩余量， 以 及文件系统癿格式不相关信息等；&lt;/li&gt;
-  &lt;li&gt;inode：记彔档案癿属性，一个档案占用一个 inode，同时记彔此档案癿数据所在癿 block 号 码；&lt;/li&gt;
-  &lt;li&gt;block：实际记彔档案癿内容，若档案太大时，会占用多个 block 。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 07 Oct 2016 11:41:22 +0800</pubDate>
-        <link>https://thomasliao.cn/linux/2016/10/07/linux-command/</link>
-        <guid isPermaLink="true">https://thomasliao.cn/linux/2016/10/07/linux-command/</guid>
-        
-        <category>Linux</category>
-        
-        
-        <category>Linux</category>
-        
-      </item>
-    
-      <item>
-        <title>React Native环境搭建!</title>
-        <description>&lt;h1 id=&quot;react-native&quot;&gt;React Native&lt;/h1&gt;
-
-&lt;h3 id=&quot;安装好sdk和ndk&quot;&gt;安装好SDK和NDK&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/P1COXhP.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;安装好sdk和ndk-1&quot;&gt;安装好SDK和NDK&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/LnZHLMn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;安装nodejs&quot;&gt;安装node.js&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;https://nodejs.org/en/
-&lt;img src=&quot;http://i.imgur.com/f5ZbbXf.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;安装nrm模块&quot;&gt;安装nrm模块&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;为了方便切换npm源，需要先安装nrm模块&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;cmd:&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install –g nrm&lt;/code&gt;
-  ​&lt;/p&gt;
-    &lt;h3 id=&quot;切换npm源&quot;&gt;切换npm源&lt;/h3&gt;
-  &lt;/li&gt;
-  &lt;li&gt;为了方便切换npm源，切换npm源到taobao—比较快&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NPs3yBL.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;安装rn-cmd-tools&quot;&gt;安装RN cmd tools&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Install the React Native command line tools:&lt;/li&gt;
-  &lt;li&gt;Cmd:   &lt;br /&gt;
-       &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install –g react-native-cli&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;建立project&quot;&gt;建立project&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;1 Init：
-    &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;react-native init HelloWorld&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;2 run:
-   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;react-native run-android&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;3 Start packager:
-  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd HelloWorld&lt;/code&gt;
-  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;react-native start&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;修改indexandroidjs&quot;&gt;修改index.android.js&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/FUEwr9p.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/FQxCYqu.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;特性&quot;&gt;特性&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;learn-once, write-anywhere&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;OTA (over-the-air)
-    &lt;ul&gt;
-      &lt;li&gt;bug fixes and minor updates to apps in the store without resubmitting–IOS&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Web编程
-    &lt;ul&gt;
-      &lt;li&gt;It feels like I’m developing for the web. But I’m writing a real native app, and you seriously can’t tell the difference. &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Fast
-    &lt;ul&gt;
-      &lt;li&gt;runs JavaScript on a separate thread, React Native takes your UI and sends the minimal amount of data to the main thread to render it with native components.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;how
-    &lt;ul&gt;
-      &lt;li&gt;A View is a UIView, for example. The best part is, you don’t have to worry about updating your UI; you declaratively render your UI based on some state, and React uses a diffing algorithm to send the smallest amount of changes necessary over the bridge.&lt;/li&gt;
-      &lt;li&gt;React 有一个观点很明白, 就是以往的编程太多过程式的写法, 他们想要变成声明式的,因为声明式的写法能讲底层逻辑交给可靠的代码, 那么开发者的门槛极大地降低&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
-&lt;h4 id=&quot;在react-native中写js的工程师解决的是将基本组件拼装成可用的react组件的问题写native-code的工程师解决的是提供核心组件提供足够的扩展性灵活性和性能的问题&quot;&gt;在React Native中，写JS的工程师解决的是「将基本组件拼装成可用的React组件」的问题，写Native Code的工程师解决的是「提供核心组件，提供足够的扩展性、灵活性和性能」的问题。&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;1.learn-once, write-anywhere？nor run anywhere&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;2.系统仍然（不得不）依赖原生组件暴露出来的组件和方法&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3.目前相当不完善
-    &lt;ul&gt;
-      &lt;li&gt;Native UI components&lt;/li&gt;
-      &lt;li&gt;native Modules&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;4.由于最外层是React，初次学习成本高&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;only-for-view&quot;&gt;Only for view&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/4MAbfFE.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;data-flow&quot;&gt;Data flow&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;solutions for data flow—flux&lt;/li&gt;
-  &lt;li&gt;React Native 的亮点是解决了在 Native 中使用声明式来开发 UI 的渲染效率问题，而不是软件架构和工程模型的问题
-&lt;img src=&quot;http://i.imgur.com/xYgjaMj.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;summary&quot;&gt;summary&lt;/h3&gt;
-
-&lt;h4 id=&quot;引用httpwwwzhihucomquestion27852694answer38829884&quot;&gt;引用：&lt;a href=&quot;http://www.zhihu.com/question/27852694/answer/38829884&quot; title=&quot;作者：知乎|赵望野&quot;&gt;http://www.zhihu.com/question/27852694/answer/38829884&lt;/a&gt;&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;React 作为一个 View Component 封装解决方案来讲，同 Polymer 以及 AngularJS 中 Directive 并没有本质区别，只是用不同的思路来封装 View 而已，用 React 也不一定非得用 Flux 模型，React 替换 Backbone.View 组件，用纯朴的 MVC 模型来描述也是 okay 的。但是当 component 很多且互相嵌套时，就需要有一个合理的模型来描述通信机制，优雅且高效，那就是 Flux 模型了。前年 React 刚发布，还没有提出 Flux 时，我们在终端产品中开始小范围尝试 React 就遇到了 component 之间通信麻烦或者不合理的问题，当时的解决方案是全局实例化了一个继承 Backbone Event 的对象作为 event hub，所有的 component 都在其上来 reg 和 trigger 事件。现在看来，就是简化版的 Flux 模型。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;my-opinion&quot;&gt;my opinion&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;这是一个大坑！至少目前来说是这样子！&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 29 Mar 2016 00:00:00 +0800</pubDate>
-        <link>https://thomasliao.cn/2016/03/29/ReactNative/</link>
-        <guid isPermaLink="true">https://thomasliao.cn/2016/03/29/ReactNative/</guid>
-        
-        <category>Android</category>
         
         
       </item>

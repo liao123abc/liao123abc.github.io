@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#000000">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="c++ notes” - 廖东明的博客|ThomasLiao Blog">
+    <meta property="og:title" content="c++ notes - 廖东明的博客|ThomasLiao Blog">
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="c++ Notes
@@ -34,7 +34,7 @@
     <meta property="og:url" content="https://thomasliao.cn/2021/04/10/c++-notes/">
     <meta property="og:site_name" content="廖东明的博客|ThomasLiao Blog">
     
-    <title>c++ notes” - 廖东明的博客|ThomasLiao Blog</title>
+    <title>c++ notes - 廖东明的博客|ThomasLiao Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -108,6 +108,8 @@
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -237,7 +239,7 @@
                         <a class="tag" href="/archive/?tag=Anki" title="Anki">Anki</a>
                         
                     </div>
-                    <h1>c++ notes”</h1>
+                    <h1>c++ notes</h1>
                     
                     <h2 class="subheading">c++ notes, from books, keep updating...</h2>
                     <span class="meta">Posted by thomasliao on April 10, 2021</span>
@@ -650,6 +652,77 @@ and passed as argument, and no change will be visible at the caller side.
   </li>
 </ul>
 
+<h2 id="7c--size-of-int-long-short">7.C++ , size of int, long, short</h2>
+
+<h3 id="decided-by-compiler">decided by compiler</h3>
+<ul>
+  <li>depends on the compiler and only on the compiler.</li>
+  <li>Hardware/OS is of no importance at all</li>
+  <li>The compiler is free to implement a hardware abstraction layer of any thickness and emulate absolutely anything</li>
+</ul>
+
+<h3 id="char--byte-octet">char , byte, octet</h3>
+<ul>
+  <li>char is always a byte , but it’s not always an octet
+    <ul>
+      <li>byte
+        <ul>
+          <li>A byte is the smallest addressable unit of memory (in most definitions),</li>
+        </ul>
+      </li>
+      <li>octet
+        <ul>
+          <li>an octet is 8-bit unit of memory</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>sizeof(char) is always 1 for all implementations</li>
+  <li>CHAR_BIT macro in limits.h
+    <ul>
+      <li>defines the size of a byte for a platform</li>
+      <li>it is not always 8 bit.
+        <ul>
+          <li>16-bit, 32-bit bytes</li>
+          <li>others[ex. 7], have to deal with aligned and padding</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="size">size</h3>
+<ul>
+  <li>range
+    <ul>
+      <li>signed char: -127 to 127 (note, not -128 to 127; this accommodates 1’s-complement and sign-and-magnitude platforms)</li>
+      <li>unsigned char: 0 to 255</li>
+      <li>“plain” char: same range as signed char or unsigned char, implementation-defined</li>
+      <li>signed short: -32767 to 32767</li>
+      <li>unsigned short: 0 to 65535</li>
+      <li>signed int: -32767 to 32767</li>
+      <li>unsigned int: 0 to 65535</li>
+      <li>signed long: -2147483647 to 2147483647</li>
+      <li>unsigned long: 0 to 4294967295</li>
+      <li>signed long long: -9223372036854775807 to 9223372036854775807</li>
+      <li>unsigned long long: 0 to 18446744073709551615</li>
+    </ul>
+  </li>
+  <li>rules
+    <ul>
+      <li>char, signed char, and unsigned char are at least 8 bits</li>
+      <li>signed short, unsigned short, signed int, and unsigned int are at least 16 bits</li>
+      <li>signed long and unsigned long are at least 32 bits</li>
+      <li>signed long long and unsigned long long are at least 64 bits</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ref">ref</h3>
+<p><a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a>
+<a href="https://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be"></a>
+<a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a></p>
+
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
@@ -661,6 +734,13 @@ and passed as argument, and no change will be visible at the caller side.
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2021/04/10/encoding/" data-toggle="tooltip" data-placement="top" title="Encoding">
+                        Next<br>
+                        <span>Encoding</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -715,15 +795,25 @@ and passed as argument, and no change will be visible at the caller side.
         
         
         
-                <a data-sort="0007" 
+                <a data-sort="0009" 
                     href="/archive/?tag=Linux"
                     title="Linux"
                     rel="3">Linux</a>
         
-                <a data-sort="0007" 
+                <a data-sort="0009" 
                     href="/archive/?tag=java"
                     title="java"
                     rel="3">java</a>
+        
+                <a data-sort="0010" 
+                    href="/archive/?tag=Anki"
+                    title="Anki"
+                    rel="2">Anki</a>
+        
+                <a data-sort="0010" 
+                    href="/archive/?tag=note"
+                    title="note"
+                    rel="2">note</a>
     </div>
 </section>
 
