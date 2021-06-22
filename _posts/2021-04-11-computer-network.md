@@ -860,3 +860,123 @@ a bad frame that is received is discarded, but any good frames received after it
         - VLANs
     
 ## 5.2.1 the optimality principle
+
+
+
+## 6.1.1 Services Provided to the Upper Layers
+
+### different kinds similar with network service
+- connection-oriented 
+- connectionless,
+
+### why need transport layer
+
+#### make the transport service to be more reliable
+- The transport code runs entirely on the users’ machines, but the network layer mostly runs on the routers
+    - routers operated by the carrier
+    - users have no real control over network layer
+        - cannot solve the problem of poor service by using better routers
+        - cannot putting more error handling in the data link layer
+    - solution: put on top of the network layer another layer--transport layer
+        - packets are lost or mangled in connectionless
+            - transport layer detect the problem and compensate for it by retransmit
+        - in connnection-oriented network, connection is abrutly terminated
+            - set up new network connection
+
+#### hiding the network service behind a set of transport service primitives
+- transport primitives can be implemented as call to library procedures
+    - independent of the network primimitives
+- application programmers can write code according to a standard set of primitives
+    - without having to worry about different network interfaces and reliability
+
+#### transport layer--key position
+- the bottom four layers--transport service provider
+- the upper layers --transport service user
+
+
+## 6.1.2
+
+## 6.1.3 Berkeley Sockets
+
+### what
+- A common transport layer interface
+- another set of transport primitives, 
+- Sockets the de facto standard for abstracting transport services to applications.
+    - often used with the TCP protocol to provide a connection-oriented service called a reliable byte stream
+        - other protocols work as well
+    - used with a connectionless transport service
+
+### parameters of the call specify 
+- the addressing format to be used, 
+- the type of service desired (e.g., reliable byte stream), 
+- and the protocol
+
+### The socket primitives for TCP
+- SOCKET Create a new communication endpoint
+- BIND Associate a local address with a socket
+- LISTEN Announce willingness to accept connections; give queue size
+- ACCEPT Passively establish an incoming connection
+- CONNECT Actively attempt to establish a connection
+- SEND Send some data over the connection
+- RECEIVE Receive some data from the connection
+- CLOSE Release the connection
+
+
+
+
+
+## 6.2 transport protocol vs data link protocol
+
+
+### major difference: operating environment
+
+> data link layer -- communicate directly via a physical channel(wired || wireless)
+
+> transport layer -- communicate via the entire network
+
+#### addressing
+- data link layer:
+    - not necessary for a router to specify which router it wants to talk to 
+- transport layer:
+    - addressing of destinations is required
+
+#### establishing a connection
+- data link layer : simple
+    - the other end is always there
+- transport layer: complicated
+
+#### the potential existence of storage capacity in the network
+- data link layer:
+    - a packet may arrive or be lost
+- transport layer:
+    - delay and duplicate packets
+        - take scenic route
+        - arrive late 
+        - out of expected order
+
+#### degree: buffering and flow control
+- data link layer:
+    - a large and varying number of connections with bandwith that fluctuates
+    - not buffers to each line
+- transport layer:
+    - buffers to each line
+
+
+## 6.2.2 connection establishment
+
+> network can lose, delay, corrupt, duplicate packets
+
+### issues e.g.
+
+- delayed in the network and pop out much later, when the sender thought that they had been lost
+
+###  prevent packets from being duplicated and delayed
+- ...
+    - throwaway transport addresses
+        - more difficult to connect with a process in the first place
+    - give each connection a unique identifier
+        - requires each transport entity to maitain a certain amount of history infomation indefinitely
+- kill off aged packets that hobbling about
+    - restricted network design -- prevents packets from looping
+    - hop counter
+    - timestamping
