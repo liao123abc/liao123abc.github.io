@@ -922,9 +922,6 @@ a bad frame that is received is discarded, but any good frames received after it
 - CLOSE Release the connection
 
 
-
-
-
 ## 6.2 transport protocol vs data link protocol
 
 
