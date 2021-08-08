@@ -184,7 +184,7 @@ One of the task is notifying the waiting threads, So that Thread waiting on jo
 
 - No
 
-![java-thread-group-hierarchy.png](../images/threadgroup.png)
+![java-thread-group-hierarchy.png](/images/threadgroup.png)
 
 
 ## 子线程抛异常，主线程是否会继续运行
@@ -192,7 +192,7 @@ yes， In general, Exception thrown by one thread will not affect another threa
 
 
 ## 线程状态
-![image.png](../images/threadstates.png)
+![image.png](/images/threadstates.png)
 
 
 - BLOCKED 是指线程正在等待获取锁
@@ -222,7 +222,7 @@ synchronized(LOCK) {
 ## 线程状态转换
 
 
-![image.png](../images/thread_state_change.png)
+![image.png](/images/thread_state_change.png)
 
 
 
@@ -291,7 +291,7 @@ current thread must own the object’s monitor, 3 ways--synchronized方法
 ## Multithreading Exceptions
 
 
-![image.png](../images/exceptions_handle.png)
+![image.png](/images/exceptions_handle.png)
 
 
 > Current Thread -> ThreadGroup -> Jvm Level(Global Thread level)
