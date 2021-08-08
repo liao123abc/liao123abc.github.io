@@ -203,6 +203,9 @@ yes， In general, Exception thrown by one thread will not affect another threa
    - 不会释放锁
 - object.wait会释放锁
    - Waiting only releases the lock for the object you call wait() on. It doesn't release any other locks
+
+
+
 ```java
 //You don't actually need to call sleep from within a lock - 
 //locks and wait/notify go hand in hand but locks and sleep are unrelated
