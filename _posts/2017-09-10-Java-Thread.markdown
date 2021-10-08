@@ -5,6 +5,7 @@ date:   2017-09-10 22:18:38 +0800
 catalog: true
 tags:
     - Java
+    - Thread
 ---
 
 “When you bow deeply to the universe, it bows back; when you call out the name of God, it echoes inside you.”
@@ -275,6 +276,8 @@ current thread must own the object’s monitor, 3 ways--synchronized方法
 - 调用某个对象的wait()方法能让当前线程阻塞，并且当前线程必须拥有此对象的monitor（即锁）
 - 调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
 - 调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
+    - o.notifyAll() wakes all of the threads that are blocked in o.wait() calls. 
+    - The threads are only allowed to return from o.wait() one-by-one, but they each will get their turn.
 - 一个线程被唤醒不代表立即获取了对象的monitor，只有等调用完notify()或者notifyAll()并退出synchronized块，释放对象锁后，其余线程才可获得锁执行。
 
 为何这三个不是Thread类声明中的方法，而是Object类中声明的方法（当然由于Thread类继承了Object类，所以Thread也可以调用者三个方法）？
