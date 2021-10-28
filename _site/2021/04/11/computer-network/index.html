@@ -1974,6 +1974,220 @@
 
 <h2 id="521-the-optimality-principle">5.2.1 the optimality principle</h2>
 
+<h2 id="611-services-provided-to-the-upper-layers">6.1.1 Services Provided to the Upper Layers</h2>
+
+<h3 id="different-kinds-similar-with-network-service">different kinds similar with network service</h3>
+<ul>
+  <li>connection-oriented</li>
+  <li>connectionless,</li>
+</ul>
+
+<h3 id="why-need-transport-layer">why need transport layer</h3>
+
+<h4 id="make-the-transport-service-to-be-more-reliable">make the transport service to be more reliable</h4>
+<ul>
+  <li>The transport code runs entirely on the users’ machines, but the network layer mostly runs on the routers
+    <ul>
+      <li>routers operated by the carrier</li>
+      <li>users have no real control over network layer
+        <ul>
+          <li>cannot solve the problem of poor service by using better routers</li>
+          <li>cannot putting more error handling in the data link layer</li>
+        </ul>
+      </li>
+      <li>solution: put on top of the network layer another layer–transport layer
+        <ul>
+          <li>packets are lost or mangled in connectionless
+            <ul>
+              <li>transport layer detect the problem and compensate for it by retransmit</li>
+            </ul>
+          </li>
+          <li>in connnection-oriented network, connection is abrutly terminated
+            <ul>
+              <li>set up new network connection</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="hiding-the-network-service-behind-a-set-of-transport-service-primitives">hiding the network service behind a set of transport service primitives</h4>
+<ul>
+  <li>transport primitives can be implemented as call to library procedures
+    <ul>
+      <li>independent of the network primimitives</li>
+    </ul>
+  </li>
+  <li>application programmers can write code according to a standard set of primitives
+    <ul>
+      <li>without having to worry about different network interfaces and reliability</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="transport-layerkey-position">transport layer–key position</h4>
+<ul>
+  <li>the bottom four layers–transport service provider</li>
+  <li>the upper layers –transport service user</li>
+</ul>
+
+<h2 id="612">6.1.2</h2>
+
+<h2 id="613-berkeley-sockets">6.1.3 Berkeley Sockets</h2>
+
+<h3 id="what">what</h3>
+<ul>
+  <li>A common transport layer interface</li>
+  <li>another set of transport primitives,</li>
+  <li>Sockets the de facto standard for abstracting transport services to applications.
+    <ul>
+      <li>often used with the TCP protocol to provide a connection-oriented service called a reliable byte stream
+        <ul>
+          <li>other protocols work as well</li>
+        </ul>
+      </li>
+      <li>used with a connectionless transport service</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="parameters-of-the-call-specify">parameters of the call specify</h3>
+<ul>
+  <li>the addressing format to be used,</li>
+  <li>the type of service desired (e.g., reliable byte stream),</li>
+  <li>and the protocol</li>
+</ul>
+
+<h3 id="the-socket-primitives-for-tcp">The socket primitives for TCP</h3>
+<ul>
+  <li>SOCKET Create a new communication endpoint</li>
+  <li>BIND Associate a local address with a socket</li>
+  <li>LISTEN Announce willingness to accept connections; give queue size</li>
+  <li>ACCEPT Passively establish an incoming connection</li>
+  <li>CONNECT Actively attempt to establish a connection</li>
+  <li>SEND Send some data over the connection</li>
+  <li>RECEIVE Receive some data from the connection</li>
+  <li>CLOSE Release the connection</li>
+</ul>
+
+<h2 id="62-transport-protocol-vs-data-link-protocol">6.2 transport protocol vs data link protocol</h2>
+
+<h3 id="major-difference-operating-environment">major difference: operating environment</h3>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>data link layer – communicate directly via a physical channel(wired</td>
+        <td> </td>
+        <td>wireless)</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<blockquote>
+  <p>transport layer – communicate via the entire network</p>
+</blockquote>
+
+<h4 id="addressing">addressing</h4>
+<ul>
+  <li>data link layer:
+    <ul>
+      <li>not necessary for a router to specify which router it wants to talk to</li>
+    </ul>
+  </li>
+  <li>transport layer:
+    <ul>
+      <li>addressing of destinations is required</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="establishing-a-connection">establishing a connection</h4>
+<ul>
+  <li>data link layer : simple
+    <ul>
+      <li>the other end is always there</li>
+    </ul>
+  </li>
+  <li>transport layer: complicated</li>
+</ul>
+
+<h4 id="the-potential-existence-of-storage-capacity-in-the-network">the potential existence of storage capacity in the network</h4>
+<ul>
+  <li>data link layer:
+    <ul>
+      <li>a packet may arrive or be lost</li>
+    </ul>
+  </li>
+  <li>transport layer:
+    <ul>
+      <li>delay and duplicate packets
+        <ul>
+          <li>take scenic route</li>
+          <li>arrive late</li>
+          <li>out of expected order</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="degree-buffering-and-flow-control">degree: buffering and flow control</h4>
+<ul>
+  <li>data link layer:
+    <ul>
+      <li>a large and varying number of connections with bandwith that fluctuates</li>
+      <li>not buffers to each line</li>
+    </ul>
+  </li>
+  <li>transport layer:
+    <ul>
+      <li>buffers to each line</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="622-connection-establishment">6.2.2 connection establishment</h2>
+
+<blockquote>
+  <p>network can lose, delay, corrupt, duplicate packets</p>
+</blockquote>
+
+<h3 id="issues-eg">issues e.g.</h3>
+
+<ul>
+  <li>delayed in the network and pop out much later, when the sender thought that they had been lost</li>
+</ul>
+
+<h3 id="prevent-packets-from-being-duplicated-and-delayed">prevent packets from being duplicated and delayed</h3>
+<ul>
+  <li>…
+    <ul>
+      <li>throwaway transport addresses
+        <ul>
+          <li>more difficult to connect with a process in the first place</li>
+        </ul>
+      </li>
+      <li>give each connection a unique identifier
+        <ul>
+          <li>requires each transport entity to maitain a certain amount of history infomation indefinitely</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>kill off aged packets that hobbling about
+    <ul>
+      <li>restricted network design – prevents packets from looping</li>
+      <li>hop counter</li>
+      <li>timestamping</li>
+    </ul>
+  </li>
+</ul>
+
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
@@ -1985,6 +2199,13 @@
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2021/06/02/audio-video/" data-toggle="tooltip" data-placement="top" title="Audio Video">
+                        Next<br>
+                        <span>Audio Video</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -2039,22 +2260,22 @@
         
         
         
-                <a data-sort="0009" 
+                <a data-sort="0011" 
                     href="/archive/?tag=Linux"
                     title="Linux"
                     rel="3">Linux</a>
         
-                <a data-sort="0009" 
+                <a data-sort="0011" 
                     href="/archive/?tag=java"
                     title="java"
                     rel="3">java</a>
         
-                <a data-sort="0010" 
+                <a data-sort="0012" 
                     href="/archive/?tag=Anki"
                     title="Anki"
                     rel="2">Anki</a>
         
-                <a data-sort="0010" 
+                <a data-sort="0012" 
                     href="/archive/?tag=note"
                     title="note"
                     rel="2">note</a>

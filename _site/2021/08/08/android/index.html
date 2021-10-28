@@ -1,0 +1,2622 @@
+<p>,,,,—
+layout: post
+title: “computer system1”
+subtitle: “note”
+date: 2021-08-08
+author: “thomasliao”
+header-img: “img/post-bg-2015.jpg”
+tags:
+    - Android
+    - Anki
+—</p>
+
+<h1 id="android">Android</h1>
+
+<h2 id="contextclass">context:class</h2>
+
+<p><img src="../images/context_class.png" alt="context0.png" /></p>
+
+<h2 id="contextcontext数量">context:context数量</h2>
+<p>一般都认为是：activity数目+Service数目+Application数目。虽然activity和service，application都间接继承context。但是仅仅用来维护其生命周期。内部context的成员变量才是我们想要的上下文对象。</p>
+
+<p><img src="../images/android_activity_class.png" alt="context1.png" /></p>
+
+<h2 id="contextcontext-scope">context:context scope</h2>
+<p><img src="../images/android_context_scope.png" alt="context2.png" /></p>
+
+<h3 id="如果我们用applicationcontext去启动一个launchmode为standard的activity的时候会报错">如果我们用ApplicationContext去启动一个LaunchMode为standard的Activity的时候会报错</h3>
+<p>android.util.AndroidRuntimeException: Calling startActivity from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?</p>
+
+<h3 id="在application和service中去layout-inflate也是合法的但是会使用系统默认的主题样式如果你自定义了某些样式可能不会被使用所以这种方式也不推荐使用">在Application和Service中去layout inflate也是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用。所以这种方式也不推荐使用。</h3>
+
+<p>一句话总结：凡是跟UI相关的，都应该使用Activity做为Context来处理；其他的一些操作，Service,Activity,Application等实例都可以，当然了，注意Context引用的持有，防止内存泄漏。</p>
+
+<h3 id="一般context造成的内存泄漏几乎都是当context销毁的时候却因为被引用导致销毁失败而application的context对象可以理解为随着进程存在的所以我们总结出使用context的正确姿势">一般Context造成的内存泄漏，几乎都是当Context销毁的时候，却因为被引用导致销毁失败，而Application的Context对象可以理解为随着进程存在的，所以我们总结出使用Context的正确姿势：</h3>
+
+<ul>
+  <li>1：当Application的Context能搞定的情况下，并且生命周期长的对象，优先使用Application的Context。</li>
+  <li>2：不要让生命周期长于Activity的对象持有到Activity的引用。</li>
+  <li>3：尽量不要在Activity中使用非静态内部类，因为非静态内部类会隐式持有外部类实例的引用，如果使用静态内部类，将外部实例引用作为弱引用持有。</li>
+</ul>
+
+<h2 id="bitmap">Bitmap</h2>
+<p>Bitmap在android中指的是一张图片，可以是png格式也可以是jpe等其他常用格式</p>
+
+<h3 id="bitmap像素格式">Bitmap像素格式</h3>
+
+<ul>
+  <li>ALPHA_8：颜色信息只由透明度组成，占8位</li>
+  <li>ARGB_4444：颜色信息由透明度与R（Red），G（Green），B（Blue）四部分组成，每个部分都占4位，总共占16位</li>
+  <li>ARGB_8888：颜色信息由透明度与R（Red），G（Green），B（Blue）四部分组成，每个部分都占8位，总共占32位。是Bitmap默认的颜色配置信息，也是最占空间的一种配置</li>
+  <li>RGB_565：颜色信息由R（Red），G（Green），B（Blue）三部分组成，R占5位，G占6位，B占5位，总共占16位</li>
+</ul>
+
+<h3 id="bitmap内存大小计算">Bitmap内存大小计算</h3>
+<p>图片长度 x 图片宽度 x 一个像素点占用的字节数</p>
+
+<h3 id="加载bitmap">加载Bitmap</h3>
+
+<ul>
+  <li>decodeFile
+    <ul>
+      <li>调用了decodeStream</li>
+    </ul>
+  </li>
+  <li>decodeResource
+    <ul>
+      <li>调用了decodeStream</li>
+    </ul>
+  </li>
+  <li>decodeStream</li>
+  <li>decodeByteArray</li>
+</ul>
+
+<h2 id="bitmap高效加载bitmap">Bitmap:高效加载Bitmap</h2>
+
+<ul>
+  <li>通过采样率高效加载
+    <ul>
+      <li>将BitmapFactory.Options的inJustDecodeBounds参数设为true并加载图片
+        <ul>
+          <li>BitmapFactory只会解析图片的原始宽/高信息，并不会去真正地加载图片，所以这个操作是轻量级的</li>
+        </ul>
+      </li>
+      <li>从BitmapFactory.Options中取出图片的原始宽高信息，它们对应于outWidth和outHeight参数</li>
+      <li>根据采样率的规则并结合目标View的所需大小计算出采样率inSampleSize</li>
+      <li>将BitmapFactory.Options的inJustDecodeBounds参数设为false，然后重新加载图片</li>
+    </ul>
+  </li>
+  <li>内存复用
+    <ul>
+      <li>在Bitmap中引入了一个新的字段BitmapFactory.Options.inBitmap，设置此字段为true后，解码方法会尝试复用一张存在的Bitmap</li>
+    </ul>
+  </li>
+  <li>使用缓存
+    <ul>
+      <li>LruCache-LruCache作为Bitmap在内存中的存放容器</li>
+      <li>DiskLruCache-在sd卡则使用DiskLruCache来统一管理磁盘上的图片缓存</li>
+    </ul>
+  </li>
+  <li>内存复用 + 缓存
+    <ul>
+      <li>缓存中即将回收的使用弱引用(内存不足时会GC), 设置inBitmap来复用内存</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bitmap压缩图片">Bitmap:压缩图片</h2>
+<p>先尺寸压缩，后质量压缩，因为尺寸压缩可以设置<code class="language-plaintext highlighter-rouge">options.inJustDecodeBounds = true</code>仅获取 Bitmap 基本信息，几乎不占用应用程序的运行内存</p>
+
+<ul>
+  <li>质量压缩
+    <ul>
+      <li>不改变图片的尺寸</li>
+      <li><code class="language-plaintext highlighter-rouge">Bitmap.compress(CompressFormat format, int quality, OutputStream stream)</code>
+        <ul>
+          <li>通过不断较少 quality 来限制文件大小</li>
+          <li>假如图片特别大，当执行ByteArrayOutputStream.toByteArray() 这行时很可能 OOM</li>
+          <li>所以质量压缩不能先执行</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>尺寸压缩
+    <ul>
+      <li>一般用于生成缩略图</li>
+      <li>通过缩放图片像素来减少图片占用内存大小</li>
+      <li>获取图片的一些属性，例如图片宽高，图片类型等等（inJustDecodeBounds参数设为true）
+        <ul>
+          <li>基于当前的上下文来决定怎么加载图片—完整、压缩、怎么压缩(采样率inSampleSize)
+            <ul>
+              <li>完整图片加载到内存中所使用内存 vs 可分配内存</li>
+              <li>显示图片的控件的大小</li>
+              <li>当前设备的屏幕大小和密度</li>
+            </ul>
+          </li>
+          <li>计算采样率inSampleSize
+            <ul>
+              <li>Android 源码计算方式</li>
+              <li>常规算法</li>
+              <li>luban</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bitmap局部加载">Bitmap:局部加载</h2>
+<p>单个图片非常巨大，并且还不允许压缩。比如显示：世界地图、清明上河图、微博长图等</p>
+
+<ul>
+  <li><a href="https://blog.csdn.net/lmj623565791/article/details/49300989">BitmapRegionDecoder</a></li>
+  <li>根据屏幕大小将这个图切成N多块，要加载时根据屏幕滑动加载，类似于目前常用的谷歌地图方式
+    <ul>
+      <li>还可以实现bitmap复用</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bitmap-getbytecount-vsgetallocationbytecount">Bitmap: <strong>getByteCount vs getAllocationByteCount</strong></h2>
+<h3 id="一般情况下getbytecount和getallocationbytecount是相等的但是bitmap内存如果复用之后两者就不一样了">一般情况下getByteCount()和getAllocationByteCount()是相等的。但是Bitmap内存如果复用之后，两者就不一样了</h3>
+
+<ul>
+  <li>getByteCount()代表存储Bitmap的色素需要的最少内存</li>
+  <li>getAllocationByteCount()代表在内存中为Bitmap分配的内存大小</li>
+</ul>
+
+<h3 id="通过复用bitmap来解码图片如果被复用的bitmap的内存比待分配内存的bitmap大">通过复用Bitmap来解码图片，如果被复用的Bitmap的内存比待分配内存的Bitmap大</h3>
+
+<ul>
+  <li>getByteCount()表示新解码图片占用内存的大小</li>
+  <li>getAllocationByteCount()表示被复用Bitmap真实占用的内存大小</li>
+</ul>
+
+<h2 id="bitmapandroid-bitmap内存分配变化">Bitmap:Android Bitmap内存分配变化</h2>
+
+<ul>
+  <li>Android3.0之前， Bitmap对象放在Java堆，像素数据放在Native内存
+    <ul>
+      <li>手动调用recycle释放</li>
+    </ul>
+  </li>
+  <li>Android3.0–Android7.0 对象和像素数据统一，放到Java堆中
+    <ul>
+      <li>就算不调用recycle，Bitmap内存也会随对象一起被回收</li>
+      <li>Bitmap消耗内存大，所以放在Java堆比较容易导致OOM、大量GC</li>
+    </ul>
+  </li>
+  <li>Android 8.0 重新将 Bitmap 内存放回到 Native 中</li>
+  <li>优化3.0–7.0
+    <ul>
+      <li>通过直接调用 libandroid_runtime.so 中 Bitmap 的构造函数，可以得到一张空的 Bitmap 对象，而它的内存是放到 Native 堆中</li>
+      <li>通过系统的方法创建一张普通的 Java Bitmap</li>
+      <li>将 Java Bitmap 的内容绘制到之前申请的空的 Native Bitmap 中</li>
+      <li>将申请的 Java Bitmap 释放，实现图片内存的“偷龙转凤”。</li>
+      <li>这个“黑科技”有两个主要问题，一个是兼容性问题，另外一个是频繁申请释放 Java Bitmap 容易导致内存抖动</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bitmap减少内存占用">Bitmap:减少内存占用</h2>
+
+<ul>
+  <li>使用采样 + RGB_565
+    <ul>
+      <li><strong>采样之后内存是小了，可是图的尺寸也小了，可以使用矩阵，内存不变，放大图片</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p>**</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1">//canvas</span>
+<span class="nc">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Matrix</span><span class="o">();</span>
+<span class="n">matrix</span><span class="o">.</span><span class="na">preScale</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span> <span class="n">matrix</span><span class="o">,</span> <span class="n">paint</span><span class="o">);</span>
+<span class="c1">//ImageView</span>
+<span class="nc">Matrix</span> <span class="n">matrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Matrix</span><span class="o">();</span>
+<span class="n">matrix</span><span class="o">.</span><span class="na">postScale</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="n">imageView</span><span class="o">.</span><span class="na">setImageMatrix</span><span class="o">(</span><span class="n">matrix</span><span class="o">);</span>
+<span class="n">imageView</span><span class="o">.</span><span class="na">setScaleType</span><span class="o">(</span><span class="nc">ScaleType</span><span class="o">.</span><span class="na">MATRIX</span><span class="o">);</span>
+<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="bitmap内存优化">Bitmap:内存优化</h2>
+
+<ul>
+  <li>去除重复图片
+    <ul>
+      <li>检查图片尺寸+bitmap数组进行hash对比</li>
+    </ul>
+  </li>
+  <li>大图片监控
+    <ul>
+      <li>插桩方式在setBitmap方法后拿到bitmap的宽高和view的宽高做比较</li>
+      <li>定时去获取内存快照中view和bitmap中宽高作比较</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="activity-lifecycle">Activity lifecycle</h2>
+
+<p><img src="../images/activity_lifecycle.png" alt="image.png" /></p>
+
+<blockquote>
+  <p>注意，当系统因为内存不足（优先级更高的应用需要内存，请看上图红框）要回收Activity占用的资源时，Activity在执行完onPause()方法后就会被销毁，有些生命周期方法onStop()，onDestory()就不会执行。当再回到此Activity时，是从onCreate方法开始执行</p>
+</blockquote>
+
+<h2 id="activity-lifecycle生命周期">Activity lifecycle:生命周期</h2>
+
+<ul>
+  <li>onCreate
+    <ul>
+      <li>表示activity正在被创建</li>
+      <li>初始化工作：setContentView、初始化Activity需要的数据</li>
+    </ul>
+  </li>
+  <li>onRestart
+    <ul>
+      <li>表示重新创建</li>
+      <li>Activity从不可见重新变为可见才会调用</li>
+      <li>一般是用户所致，如按下home键</li>
+    </ul>
+  </li>
+  <li>onStart
+    <ul>
+      <li>正在启动</li>
+      <li>Activity在后台–已经可见但是没出现在前台、无法和用户交互</li>
+      <li>可以理解为Activity已经显示出来，但是我们看不到</li>
+    </ul>
+  </li>
+  <li>onResume
+    <ul>
+      <li>已经可见，并且在前台开始活动</li>
+    </ul>
+  </li>
+  <li>onPause
+    <ul>
+      <li>表示Activity正在停止</li>
+      <li>可以做一些存储数据、停止动画等</li>
+      <li>注意不能太耗时，会影响新Activity的显示–onPause必须执行完，新的Activity onResume才会执行</li>
+    </ul>
+  </li>
+  <li>onStop
+    <ul>
+      <li>表示Activity即将停止</li>
+      <li>可以做一些稍微重量级的回收工作，同样不能太耗时</li>
+    </ul>
+  </li>
+  <li>onDestroy
+    <ul>
+      <li>表示Activity即将被销毁</li>
+      <li>回收工作和最终的资源释放</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>onStart和onStop是从Activity是否可见这个角度来回调的，而onResume和onPause是从Activity是否位于前台这个角度来回调的，除了这种区别，在实际使用中没有其他明显区别</p>
+</blockquote>
+
+<h2 id="activity-lifecycle生命周期切换过程">Activity lifecycle:生命周期切换过程</h2>
+
+<ul>
+  <li>针对一个特定的Activity，第一次启动，回调如下：onCreate&gt;onStart&gt;onResume</li>
+  <li>打开新的Activity或者切换到桌面的时候，回调如下：onPause&gt;onStop。
+    <ul>
+      <li>特殊情况：如果新Activity采用了透明主题，那么当前Activity不会回调onStop</li>
+    </ul>
+  </li>
+  <li>当用户再次回到原Activity时，回调如下：onRestart&gt;onStart&gt;onResume</li>
+  <li>当用户按back键回退时，回调如下：onPause&gt;onStop&gt;onDestroy</li>
+  <li>pair
+    <ul>
+      <li>onCreate和onDestroy， 标识Activity的创建和销毁</li>
+      <li>是否可见：onStart和onStop， 随着用户操作和设备屏幕点亮和熄灭，可能调用多次</li>
+      <li>是否在前台: onResume和onPause, 随着用户操作和设备屏幕点亮和熄灭，可能调用多次</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="activity-lifecycleactivity异常结束">Activity lifecycle:Activity异常结束</h2>
+
+<ul>
+  <li>时机
+    <ul>
+      <li>系统回收Activity</li>
+      <li>设备的Configuration改变导致Activity销毁重建
+        <ul>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>必须设置为android:configChanges=”orientation</td>
+                  <td>screenSize”时，不会重走生命周期</td>
+                </tr>
+              </tbody>
+            </table>
+            <ul>
+              <li>只会回调onConfigurationChanged方法</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>流程
+    <ul>
+      <li><strong>onStop之前</strong>回调<strong>onSaveInstanceState</strong>保存数据</li>
+      <li><strong>在onStart之后</strong>回调<strong>onRestoreInstanceState</strong></li>
+      <li>其中Bundle数据会传到onCreate（不一定有数据）和onRestoreInstanceState（一定有数据）</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre>    <span class="cm">/**
+     * saveInstance 不一定有数据
+     * @param saveInstance
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">saveInstance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">saveInstance</span><span class="o">);</span>
+
+        <span class="c1">// Check whether we're recreating a previously destroyed instance</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">saveInstance</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// Restore value of members from saved state</span>
+            <span class="n">mUser</span> <span class="o">=</span> <span class="n">saveInstance</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="no">STATE_USER</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// Probably initialize members with default values for a new instance</span>
+            <span class="n">mUser</span> <span class="o">=</span> <span class="s">"NewUser"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onSaveInstanceState</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">outState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">outState</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="no">STATE_USER</span><span class="o">,</span> <span class="n">mUser</span><span class="o">);</span>
+        <span class="c1">//onStop之前调用</span>
+        <span class="c1">// Always call the superclass so it can save the view hierarchy state</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onSaveInstanceState</span><span class="o">(</span><span class="n">outState</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onRestoreInstanceState</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onRestoreInstanceState</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="c1">//不需要判断savedInstanceState， 在onStart后调用</span>
+        <span class="c1">// Restore value of members from saved state</span>
+        <span class="n">mUser</span> <span class="o">=</span> <span class="n">savedInstanceState</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="no">STATE_USER</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><a href="https://www.jianshu.com/p/dedbae8ffca1">fragment</a></p>
+
+<p><a href="https://www.jianshu.com/p/4c798c91a613">service</a></p>
+
+<h2 id="service-lifecycle">service lifecycle</h2>
+<p><img src="../images/service_lifecycle.png" alt="image.png" /></p>
+
+<h2 id="service-本地远程">Service 本地、远程</h2>
+
+<ul>
+  <li>本地服务
+    <ul>
+      <li>该服务依附在主进程上而不是独立的进程</li>
+      <li>不需要IPC，不需要AIDL</li>
+      <li>应用被杀，service也会被杀</li>
+    </ul>
+  </li>
+  <li>远程服务
+    <ul>
+      <li>独立进程·</li>
+      <li>对应进程名格式为所在包名加上你指定的android:process字符串。一般定义方式 android:process=”:service”</li>
+      <li>Activity所在进程被Kill的时候，该服务依然在运行，不受其他进程影响</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="service状态">Service状态</h2>
+
+<ul>
+  <li>启动状态
+    <ul>
+      <li><strong>通过调用 startService() 启动服务时，</strong>服务即处于“启动”状态</li>
+      <li><strong>一旦启动，服务即可在后台无限期运行，即使启动服务的组件已被销毁也不受影响，除非手动调用才能停止服务</strong></li>
+      <li>如果想要启动一个后台服务长期进行某项任务，那么使用startService</li>
+      <li><em>多次startService不会重复执行onCreate回调，但每次都会执行onStartCommand回调。</em></li>
+      <li> onCreate -&gt; onStartCommand -&gt; onDestory </li>
+      <li>stopService</li>
+    </ul>
+  </li>
+  <li>绑定状态
+    <ul>
+      <li>调用 bindService() 绑定到服务时，服务即处于“绑定”状态</li>
+      <li><strong>绑定服务提供了一个客户端-服务器接口，允许组件与服务进行交互、发送请求、获取结果，甚至是利用进程间通信 (IPC) 跨进程执行这些操作</strong></li>
+      <li>多个组件<strong>可以同时绑定到该服务</strong>，但<strong>全部取消绑定后，该服务即会被销毁</strong></li>
+      <li>如果只是短暂的使用，那么使用bindService。</li>
+      <li>onCreate -&gt; onBind -&gt; onUnbind -&gt; onDestory</li>
+      <li>unbindService</li>
+    </ul>
+  </li>
+  <li>对于既使用startService，又使用bindService的情况,Service的终止，需要unbindService和stopService都调用才行</li>
+</ul>
+
+<h2 id="intentservice">IntentService</h2>
+
+<blockquote>
+  <p>IntentService本质是采用Handler &amp; HandlerThread方式</p>
+</blockquote>
+
+<ul>
+  <li>内部compose了ServiceHandler，并且在onCreate的时候创建新线程</li>
+  <li>重写其中的onHandleIntent(Intent)方法接收一个Intent对象,在适当的时候会停止自己(一般在工作完成的时候).</li>
+  <li>onHandleIntent(Intent)执行在子线程</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">IntentService</span> <span class="kd">extends</span> <span class="nc">Service</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="nc">Looper</span> <span class="n">mServiceLooper</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="nc">ServiceHandler</span> <span class="n">mServiceHandler</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">mName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">mRedelivery</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ServiceHandler</span> <span class="kd">extends</span> <span class="nc">Handler</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">ServiceHandler</span><span class="o">(</span><span class="nc">Looper</span> <span class="n">looper</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">(</span><span class="n">looper</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="nc">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">onHandleIntent</span><span class="o">((</span><span class="nc">Intent</span><span class="o">)</span><span class="n">msg</span><span class="o">.</span><span class="na">obj</span><span class="o">);</span>
+            <span class="n">stopSelf</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">arg1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+        <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO: It would be nice to have an option to hold a partial wakelock</span>
+        <span class="c1">// during processing, and to have a static startService(Context, Intent)</span>
+        <span class="c1">// method that would launch the service &amp; hand off a wakelock.</span>
+
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+        <span class="nc">HandlerThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HandlerThread</span><span class="o">(</span><span class="s">"IntentService["</span> <span class="o">+</span> <span class="n">mName</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
+        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="n">mServiceLooper</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="na">getLooper</span><span class="o">();</span>
+        <span class="n">mServiceHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceHandler</span><span class="o">(</span><span class="n">mServiceLooper</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>//使用IntentService
+    private void testIntentService() {
+        String inputText = editText.getText().toString();
+        Intent inputIntent = new Intent(ServiceActivity.this, MyIntentService.class);
+        inputIntent.putExtra(MyIntentService.TEXT_INPUT, inputText);
+        startService(inputIntent);
+    }
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="android-broadcast">android broadcast</h2>
+
+<p><a href="https://blog.csdn.net/carson_ho/article/details/52973504?utm_medium=distribute.pc_relevant_right.none-task-blog-BlogCommendFromBaidu-1&amp;depth_1-utm_source=distribute.pc_relevant_right.none-task-blog-BlogCommendFromBaidu-1">Broadcast</a></p>
+
+<ul>
+  <li>广播接收者和广播发送者的执行是异步的</li>
+  <li>动态广播是在代码里注册的，静态广播是在AndroidManifest.xml（清单文件）中注册的。
+    <ul>
+      <li>动态广播最好在Activity 的 onResume()注册、onPause()注销。
+        <ul>
+          <li>对于动态广播，有注册就必然得有注销，否则会导致内存泄露</li>
+          <li>不在onCreate() &amp; onDestory() 或 onStart() &amp; onStop()注册、注销
+            <ul>
+              <li>内存不足Activity只跑onPause</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>动态注册广播不是常驻型广播，也就是说广播跟随 Activity 的生命周期
+        <ul>
+          <li> Activity 结束前，移除广播接收器</li>
+          <li>可以根据自己需求特定时刻监听广播</li>
+        </ul>
+      </li>
+      <li>静态注册是常驻型，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行
+        <ul>
+          <li>时刻监听广播</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>有序广播-Ordered Broadcast
+    <ul>
+      <li>按照Priority属性值从大-小排序, Priority属性相同者，动态注册的广播优先</li>
+      <li>先接收的广播接收者可以对广播进行截断，即后接收的广播接收者不再接收到此广播</li>
+      <li>先接收的广播接收者可以对广播进行修改，那么后接收的广播接收者将接收到被修改后的广播</li>
+    </ul>
+  </li>
+  <li>应用内广播
+    <ul>
+      <li>将全局广播改为局部广播
+        <ul>
+          <li>将exported属性设置为false</li>
+          <li>在广播发送和接收时，增设相应权限permission，用于权限验证</li>
+          <li>发送广播时指定该广播接收器所在的包名
+            <ul>
+              <li>通过<strong>intent.setPackage(packageName)</strong>指定报名</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>使用封装好的LocalBroadcastManager类
+        <ul>
+          <li>对于LocalBroadcastManager方式发送的应用内广播，只能通过LocalBroadcastManager动态注册，不能静态注册</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="发送广播">发送广播</h3>
+<ul>
+  <li>Context提供的如下两个方法用于发送广播。
+    <ul>
+      <li>1.sendBroadcast()：发送Normal Broadcast。</li>
+      <li>2.sendOrderedBroadcast()：发送Ordered Broadcast。</li>
+    </ul>
+  </li>
+  <li>Local</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>/**
+* LocalBroadcast receiver used for inter-process communication which provides application security
+* has it doesn’t allow other process to communicate.
+*/
+Intent broadcastIntent = new Intent();
+broadcastIntent.setAction(ServiceActivity.ResponseReceiver.LOCAL_ACTION);
+broadcastIntent.putExtra(TEXT_OUTPUT, outputText);
+LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+localBroadcastManager.sendBroadcast(broadcastIntent);
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="冷启动-vs-热启动">冷启动 vs 热启动</h2>
+<ul>
+  <li>冷启动
+    <ul>
+      <li>后台没有该应用的进程</li>
+      <li>重新创建一个新的进程
+        <ul>
+          <li>先创建和初始化Application类</li>
+          <li>再创建和初始化<code class="language-plaintext highlighter-rouge">MainActivity</code>类（包括一系列的测量、布局、绘制），最后显示在界面上</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>热启动
+    <ul>
+      <li>当应用已经被打开</li>
+      <li>被按下返回键、Home键等按键时回到桌面或者是其他程序覆盖</li>
+      <li>热启动的过程只需要创建和初始化一个<code class="language-plaintext highlighter-rouge">MainActivity</code>就行了，而不必创建和初始化<code class="language-plaintext highlighter-rouge">Application</code>
+        <ul>
+          <li>直接走MainActivity（包括一系列的测量、布局、绘制）</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="冷启动流程">冷启动流程</h2>
+
+<h3 id="zygote进程-和-systemserver进程">Zygote进程 和 SystemServer进程</h3>
+
+<ul>
+  <li>Zygote进程
+    <ul>
+      <li>应用程序进程都是由Zygote进程孵化出来的，而Zygote进程是由Init进程启动的</li>
+      <li>Zygote进程启动
+        <ul>
+          <li>创建一个Dalvik虚拟机实例</li>
+          <li>加载Java运行时库</li>
+          <li>注册一些Android核心类的JNI方法来前面创建的Dalvik虚拟机实例中去</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>SystemServer进程
+    <ul>
+      <li>SystemServer的进程名实际上叫做“system_server”</li>
+      <li>系统中的服务驻留在其中,常见的比如WindowManagerServer（Wms）、ActivityManagerSystemService（AmS）、 PackageManagerServer（PmS）等，
+        <ul>
+          <li>这些系统服务都是以一个线程的方式存在于SystemServer进程中</li>
+        </ul>
+      </li>
+      <li>SS是由Zygote通过Zygote.forkSystemServer函数fork诞生出来的
+        <ul>
+          <li>init1()是native函数,启动了 c++运行时库,如：sqllite,OpenGL ES等,然后把调用线程加入Binder通信中</li>
+          <li>nit2在Java层,就是单独创建一个线程,用以启动系统各项服务:Wms, Ams, Pms等</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="启动流程">启动流程</h3>
+
+<p>Application构造方法 –&gt; <code class="language-plaintext highlighter-rouge">attachBaseContext()</code>–&gt;<code class="language-plaintext highlighter-rouge">onCreate</code> –&gt;Activity构造方法 –&gt; <code class="language-plaintext highlighter-rouge">onCreate()</code> –&gt; 配置主体中的背景等操作 –&gt;<code class="language-plaintext highlighter-rouge">onStart()</code> –&gt; <code class="language-plaintext highlighter-rouge">onResume()</code> –&gt; 测量、布局、绘制显示</p>
+
+<ul>
+  <li>点击app图标，从Zygote进程fork创建新进程给应用
+    <ul>
+      <li>点击桌面App图标，Launcher进程采用Binder IPC向system_server进程发起startActivity请求</li>
+      <li>system_server进程接收到请求后，向zygote进程发送创建进程的请求；</li>
+      <li>Zygote进程fork出新的子进程，即App进程；</li>
+    </ul>
+  </li>
+  <li>依次创建和初始化Application类、创建MainActivity类、加载主题样式Theme中的windowBackground等属性设置给MainActivity以及配置Activity层级上的一些属性
+    <ul>
+      <li>App进程，通过Binder IPC向sytem_server进程发起attachApplication请求；</li>
+      <li>system_server进程在收到请求后，进行一系列准备工作后，再通过binder IPC向App进程发送scheduleLaunchActivity请求</li>
+      <li>App进程的binder线程（ApplicationThread）在收到请求后，通过handler向主线程发送LAUNCH_ACTIVITY消息</li>
+      <li>主线程在收到Message后，通过反射机制创建目标Activity，并回调Activity.onCreate()等方法</li>
+      <li>到此，App便正式启动，开始进入Activity生命周期，执行完onCreate/onStart/onResume方法，UI渲染结束后便可以看到App的主界面</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="activity启动流程">Activity启动流程</h2>
+
+<ul>
+  <li>Activity1调用startActivity，实际会调用Instrumentation类的execStartActivity方法，Instrumentation是系统用来监控Activity运行的一个类，Activity的整个生命周期都有它的影子</li>
+  <li>通过跨进程的binder调用，进入到ActivityManagerService中，其内部会处理Activity栈，通知Activity1 Pause，Activity1 执行Pause 后告知AMS</li>
+  <li>在ActivityManagerService中的startProcessLocked中调用了Process.start()方法。并通过连接调用Zygote的native方法forkAndSpecialize，执行fork任务。之后再通过跨进程调用进入到Activity2所在的<strong>进程</strong>中</li>
+  <li>ApplicationThread是一个binder对象，其运行在binder线程池中，内部包含一个H类，该类继承于类Handler。主线程发起bind Application，AMS 会做一些配置工作，然后让主线程 bind ApplicationThread，ApplicationThread将启动Activity2的信息通过H对象发送给<strong>主线程</strong>。发送的消息是EXECUTE_TRANSACTION，消息体是一个 ClientTransaction，即 LaunchActivityItem。主线程拿到Activity2的信息后，调用Instrumentation类的newActivity方法，其内通过ClassLoader创建Activity2<strong>实例</strong></li>
+  <li>通知Activity2去performCreate</li>
+</ul>
+
+<p>注：现在发送的都是EXECUTE_TRANSACTION ，通过 TransactionExecutor 来执行 ClientTransaction, ClientTransaction 中包含各种 ClientTransactionItem，如 PauseActivityItem、LaunchActivityItem、StopActivityItem、ResumeActivityItem、DestroyActivityItem 等，这些Item的execute方法来处理相应的handle，如handlePauseActivity、handleLaunchActivity等，通知相应的Activity来perform。</p>
+
+<h2 id="serializable-java">Serializable-Java</h2>
+
+<h3 id="cons">cons</h3>
+
+<ul>
+  <li>reflection - slow</li>
+  <li>standard Java interface</li>
+  <li>creates a lot of temporary objects and causes quite a bit of garbage collection</li>
+</ul>
+
+<h3 id="pros">pros</h3>
+
+<ul>
+  <li>easier to implement</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemSerializable</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">address</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ItemSerializable</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getAddress</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!(</span><span class="n">address</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span>
+            <span class="k">return</span> <span class="n">address</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="parcelable">Parcelable</h2>
+<h3 id="cons-1">cons</h3>
+
+<ul>
+  <li>takes more time to implement</li>
+</ul>
+
+<h3 id="pros-1">pros</h3>
+
+<ul>
+  <li>faster</li>
+  <li>array can be passed via Intent in android</li>
+  <li>no reflection, 选择字段读写</li>
+  <li>kotlin有注解</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="nd">@Parcelize</span>
+<span class="kd">data class</span> <span class="nc">Item</span><span class="p">(</span>
+        <span class="kd">val</span> <span class="py">title</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+        <span class="kd">val</span> <span class="py">price</span><span class="p">:</span> <span class="nc">Double</span><span class="p">,</span>
+        <span class="kd">val</span> <span class="py">imageUrl</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span>
+        <span class="kd">val</span> <span class="py">category</span><span class="p">:</span> <span class="nc">Category</span>
+<span class="p">)</span> <span class="p">:</span> <span class="nc">Parcelable</span>
+
+<span class="nd">@Parcelize</span>
+<span class="kd">data class</span> <span class="nc">Category</span><span class="p">(</span>
+        <span class="kd">val</span> <span class="py">tag</span><span class="p">:</span> <span class="nc">String</span>
+<span class="p">)</span> <span class="p">:</span> <span class="nc">Parcelable</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>java编写稍微复杂</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemParcelable</span> <span class="kd">implements</span> <span class="nc">Parcelable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">address</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ItemParcelable</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">ItemParcelable</span><span class="o">(</span><span class="nc">Parcel</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="na">createStringArrayList</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">describeContents</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToParcel</span><span class="o">(</span><span class="nc">Parcel</span> <span class="n">dest</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">dest</span><span class="o">.</span><span class="na">writeInt</span><span class="o">(</span><span class="n">age</span><span class="o">);</span>
+        <span class="n">dest</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="n">dest</span><span class="o">.</span><span class="na">writeStringList</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getAddress</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!(</span><span class="n">address</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span>
+            <span class="k">return</span> <span class="n">address</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Creator</span><span class="o">&lt;</span><span class="nc">ItemParcelable</span><span class="o">&gt;</span> <span class="no">CREATOR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Creator</span><span class="o">&lt;</span><span class="nc">ItemParcelable</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nc">ItemParcelable</span><span class="o">[]</span> <span class="nf">newArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nc">ItemParcelable</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nc">ItemParcelable</span> <span class="nf">createFromParcel</span><span class="o">(</span><span class="nc">Parcel</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">ItemParcelable</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="construct">construct</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="nc">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="nc">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">activity</span><span class="o">);</span>
+<span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">getApplicationContext</span><span class="o">(),</span> <span class="n">clazz</span><span class="o">);</span>
+<span class="nc">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Item</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="mi">888</span><span class="o">,</span> <span class="s">"testing"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Category</span><span class="o">(</span><span class="s">"tag"</span><span class="o">));</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"primitive Int"</span><span class="o">,</span> <span class="mi">888</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"item"</span><span class="o">,</span><span class="n">item</span><span class="o">);</span>
+
+<span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">arrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">arrayList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"dddddddd"</span><span class="o">);</span>
+
+<span class="nc">ItemParcelable</span> <span class="n">mObjects</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ItemParcelable</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">99</span><span class="o">,</span> <span class="n">arrayList</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"itemParcelable"</span><span class="o">,</span><span class="n">mObjects</span><span class="o">);</span>
+
+<span class="nc">ItemSerializable</span> <span class="n">itemSerializable</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ItemSerializable</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">99</span><span class="o">,</span> <span class="n">arrayList</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"itemSerializable"</span><span class="o">,</span> <span class="n">itemSerializable</span><span class="o">);</span>
+
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="getdata">getdata</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>        <span class="kd">val</span> <span class="py">item</span> <span class="p">=</span> <span class="n">intent</span><span class="p">.</span><span class="n">getParcelableExtra</span><span class="p">&lt;</span><span class="nc">Item</span><span class="p">&gt;(</span><span class="s">"item"</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="py">java</span> <span class="p">=</span> <span class="n">intent</span><span class="p">.</span><span class="n">getParcelableExtra</span><span class="p">&lt;</span><span class="nc">ItemParcelable</span><span class="p">&gt;(</span><span class="s">"itemParcelable"</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="py">itemSerializable</span> <span class="p">=</span> <span class="n">intent</span><span class="p">.</span><span class="nf">getSerializableExtra</span><span class="p">(</span><span class="s">"itemSerializable"</span><span class="p">)</span> <span class="k">as</span> <span class="nc">ItemSerializable</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="view-structure">View: structure</h2>
+<p><img src="../images/activity_view.png" alt="image.png" /></p>
+
+<ul>
+  <li>DecorView是一个应用窗口的根容器，它本质上是一个FrameLayout</li>
+  <li>DecorView有唯一一个子View，它是一个垂直LinearLayout，包含两个子元素，
+    <ul>
+      <li>一个是TitleView（ActionBar的容器），</li>
+      <li>另一个是ContentView（窗口内容的容器）</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="activitysetcontentview">Activity.setContentView</h2>
+<p>这个方法只是完成了Activity的ContentView的创建，而并没有执行View的绘制流程。</p>
+
+<ul>
+  <li>实际上调用到了PhoneWindow的setContentView()方法。</li>
+  <li>PhoneWindow的setContentView()方法中
+    <ul>
+      <li>调用了LayoutInflater的inflate()方法来填充布局</li>
+      <li>传入了decorView作为LayoutInflater.inflate()的root参数</li>
+      <li>最终调用的是inflate(XmlPullParser, ViewGroup, boolean)方法来填充布局
+        <ul>
+          <li>单独处理merge标签</li>
+          <li>调用rInflate()方法来递归填充布局
+            <ul>
+              <li>inflate()和rInflate()方法中都调用了rInflateChildren()方法</li>
+              <li>rInflateChildren()方法实际上调用了rInflate()方法</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="view-inflate方法总结">View: inflate方法总结</h2>
+
+<ul>
+  <li>XML中保存了ViewTree的结构和View的相关标签信息（包括View的类型和一些属性值）
+    <ul>
+      <li>这些信息会在后面通过反射的方式（如果没有Factory2和Factory的话）创建实例对象
+        <ul>
+          <li>如果创建的是ViewGroup，则会对它的子View遍历重复创建步骤</li>
+          <li>创建完View对象后，会add到对应的ViewGroup中</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>inflate-&gt;rInflate-&gt;createViewFromTag-&gt;createView</li>
+</ul>
+
+<h2 id="view-view绘制的起点">View: view绘制的起点</h2>
+
+<ul>
+  <li>View的绘制是由ViewRoot来负责的。每个应用程序窗口的decorView都有一个与之关联的ViewRoot对象，这种关联关系是由WindowManager来维护的。</li>
+  <li>当建立好了decorView与ViewRoot的关联后，ViewRoot类的requestLayout()方法会被调用，以完成应用程序用户界面的初次布局。实际被调用的是ViewRootImpl类的requestLayout()方法
+    <ul>
+      <li>setContentView() 只是把 View 添加到 DecorView 上</li>
+      <li>onResume() 中 ViewRootImpl 和 DecorView 做了关联</li>
+      <li>requestLayout() 和 invalidate() 会触发 ViewRootImpl 绘制 View</li>
+      <li>在 Activity 的 onResume() 方法执行后，DecorView 会被添加带 ViewRootImpl 中。然后执行 requestlayout()
+```java
+//H:Handler-&gt;handleMessage(RESUME_ACTIVITY)-&gt;handleResumeActivity-&gt;windowmanager.addView
+public void addView(View view, ViewGroup.LayoutParams params,
+   Display display, Window parentWindow) {
+  ……</li>
+    </ul>
+
+    <p>ViewRootImpl root;
+  View panelParentView = null;</p>
+
+    <p>synchronized (mLock) {
+      ……
+      root = new ViewRootImpl(view.getContext(), display);</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>  view.setLayoutParams(wparams);
+
+  mViews.add(view);
+  mRoots.add(root);
+  mParams.add(wparams);   }
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p>// do this last because it fires off messages to start doing things
+  try {
+      root.setView(view, wparams, panelParentView); //invoke requestLayout
+  } ……
+}
+```</p>
+  </li>
+</ul>
+
+<h2 id="view-measurespec">View: MeasureSpec</h2>
+<blockquote>
+  <p>exactly优先，at_most次之</p>
+</blockquote>
+
+<p>MeasureSpec代表一个32位int值，</p>
+
+<ul>
+  <li>高2位代表SpecMode，SpecMode是指测量模式，
+    <ul>
+      <li>UNSPECIFIED, 指父容器不对view有任何限制，要多大给多大，一般用于系统内部，表示测量的状态</li>
+      <li>EXACTLY, 父容器检测出view需要的精确大小，view的最终大小就是SpecSize的大小。对应LayoutParams中的match_parent模式</li>
+      <li>AT_MOST,父容器指定了一个SpecSize, view的大小不能大于这个值, 对应LayoutParams.wrap_content模式</li>
+    </ul>
+  </li>
+  <li>低30位代表SpecSize，而SpecSize是指在某种测量模式下的规格大小</li>
+  <li>MeasureSpec 不是 唯一 由 LayoutParams 决定 的， LayoutParams 需 要和 父 容器 一起 才能 决定 View 的 MeasureSpec， 从而 进一步 决定 View 的 宽/ 高
+    <ul>
+      <li>if(view固定宽/高)– 不受父容器，View的MeasureSpec==EXACTLY，并且大小遵循LayoutParams中的大小</li>
+      <li>if(view宽/高是match_parent)
+        <ul>
+          <li>if 父容器是EXACTLY, view=EXACTLY，大小是父类的剩余空间</li>
+          <li>if 父容器是AT_MOST，view=AT_MOST，不能超过父容器的剩余空间</li>
+        </ul>
+      </li>
+      <li>if(view宽/高是wrap_content),不受父容器影响，view=AT_MOST，不能超过父容器的剩余空间
+        <blockquote>
+
+          <p>UNSPECIFIED-主要 用于 系统 内部 多次 Measure 的 情形， 一般来说， 我们 不需要 关注 此 模式。</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>对于DecorView，其MeasureSpec由窗口的尺寸和其自身的LayoutParams来共同确定</li>
+  <li>对于普通View，其MeasureSpec由父容器的MeasureSpec和自身的LayoutParams来共同决定，MeasureSpec一旦确定后，onMeasure中就可以确定View的测量宽/高</li>
+</ul>
+
+<h2 id="view-三阶段">View: 三阶段</h2>
+<p><img src="../images/view_three_phase.png" alt="image.png" /></p>
+
+<h2 id="view-获取宽高的时机">View: 获取宽高的时机</h2>
+<blockquote>
+  <p>在onCreate、onStart、onResume中均无法正确得到某个View的宽/高信息，这是因为View的measure过程和Activity的生命周期方法不是同步执行的，因此无法保证Activity执行了onCreate、onStart、onResume时某个View已经测量完毕了，如果View还没有测量完毕，那么获得的宽/高就是0</p>
+</blockquote>
+
+<ul>
+  <li>Activity/ View# onWindowFocusChanged, </li>
+  <li>view. post( runnable), </li>
+  <li>ViewTreeObserver, </li>
+  <li>view. measure( int widthMeasureSpec, int heightMeasureSpec), 根据 View 的 LayoutParams 来 分情况，是否有效
+    <ul>
+      <li>match_parent, 直接放弃，无效</li>
+      <li>具体数值(dp/px)–ok</li>
+      <li>wrap_content–ok</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="kd">object</span> <span class="nc">ViewUtil</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     * view的layoutparams指定了宽高，可以通过这个方法来获取真实宽高, 譬如100px
+     */</span>
+    <span class="k">fun</span> <span class="nf">measureViewOfExactly</span><span class="p">(</span><span class="n">view</span><span class="p">:</span> <span class="nc">View</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">widthMeasureSpec</span> <span class="p">=</span> <span class="nc">View</span><span class="p">.</span><span class="nc">MeasureSpec</span><span class="p">.</span><span class="nf">makeMeasureSpec</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nc">EXACTLY</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="py">heightMeasureSpec</span> <span class="p">=</span> <span class="nc">View</span><span class="p">.</span><span class="nc">MeasureSpec</span><span class="p">.</span><span class="nf">makeMeasureSpec</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nc">View</span><span class="p">.</span><span class="nc">MeasureSpec</span><span class="p">.</span><span class="nc">EXACTLY</span><span class="p">)</span>
+        <span class="n">view</span><span class="p">.</span><span class="nf">measure</span><span class="p">(</span><span class="n">widthMeasureSpec</span><span class="p">,</span> <span class="n">heightMeasureSpec</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**
+     * view的layoutparams是wrap_content，可以通过这个方法来获取真实宽高
+     */</span>
+    <span class="k">fun</span> <span class="nf">measureViewOfWrapContent</span><span class="p">(</span><span class="n">view</span><span class="p">:</span> <span class="nc">View</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">widthMeasureSpec</span> <span class="p">=</span> <span class="nc">View</span><span class="p">.</span><span class="nc">MeasureSpec</span><span class="p">.</span><span class="nf">makeMeasureSpec</span><span class="p">((</span><span class="mi">1</span> <span class="n">shl</span> <span class="mi">30</span><span class="p">)</span> <span class="p">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">AT_MOST</span><span class="p">)</span>
+        <span class="c1">//view的 尺寸 使用 30 位 二进制 表示， 也就是说 最大 是 30 个 1（ 即 2^ 30 - 1）， 也就是( 1 &lt;&lt; 30) - 1， 在最 大化 模式 下， 我们 用 View 理论上 能 支持 的 最大值 去 构造 MeasureSpec 是 合理 的。</span>
+        <span class="kd">val</span> <span class="py">heightMeasureSpec</span> <span class="p">=</span> <span class="nc">View</span><span class="p">.</span><span class="nc">MeasureSpec</span><span class="p">.</span><span class="nf">makeMeasureSpec</span><span class="p">((</span><span class="mi">1</span> <span class="n">shl</span>  <span class="mi">30</span><span class="p">)</span> <span class="p">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">AT_MOST</span><span class="p">)</span>
+        <span class="n">view</span><span class="p">.</span><span class="nf">measure</span><span class="p">(</span><span class="n">widthMeasureSpec</span><span class="p">,</span> <span class="n">heightMeasureSpec</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>错误用法关于 View 的 measure， 网络 上有 两个 错误 的 用法。 为什么 说是 错误 的， 首先 其 违背 了 系统 的 内部 实现 规范（ 因为 无法 通过 错误 的 MeasureSpec 去 得出 合法 的 SpecMode， 从而 导致 measure 过程 出错）， 其次 不能 保证 一 定能 measure 出 正确 的 结果。</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">//第一 种 错误 用法： </span>
+<span class="kt">int</span> <span class="n">widthMeasureSpec</span> <span class="o">=</span> <span class="nc">MeasureSpec</span><span class="o">.</span> <span class="nf">makeMeasureSpec</span><span class="o">(-</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">MeasureSpec</span><span class="o">.</span> <span class="no">UNSPECIFIED</span><span class="o">);</span> 
+<span class="kt">int</span> <span class="n">heightMeasureSpec</span> <span class="o">=</span> <span class="nc">MeasureSpec</span><span class="o">.</span> <span class="nf">makeMeasureSpec</span><span class="o">(-</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">MeasureSpec</span><span class="o">.</span> <span class="no">UNSPECIFIED</span><span class="o">);</span> 
+<span class="n">view</span><span class="o">.</span> <span class="nf">measure</span><span class="o">(</span> <span class="n">widthMeasureSpec</span><span class="o">,</span> <span class="n">heightMeasureSpec</span><span class="o">);</span> 
+
+<span class="c1">//第二 种 错误 用法： </span>
+<span class="n">view</span><span class="o">.</span> <span class="nf">measure</span><span class="o">(</span> <span class="nc">LayoutParams</span><span class="o">.</span> <span class="no">WRAP_</span> <span class="no">CONTENT</span><span class="o">,</span> <span class="nc">LayoutParams</span><span class="o">.</span> <span class="no">WRAP_</span> <span class="no">CONTENT</span><span class="o">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="view的测量宽高和最终宽高有什么区别">View的测量宽/高和最终宽/高有什么区别</h3>
+<p>在View的默认实现中，View的测量宽/高和最终宽/高是相等的，只不过测量宽/高形成于View的measure过程，而最终宽/高形成于View的layout过程，即两者的赋值时机不同，测量宽/高的赋值时机稍微早一些。因此，在日常开发中，我们可以认为View的测量宽/高就等于最终宽/高，但是的确存在某些特殊情况会导致两者不一致</p>
+
+<h2 id="view-layout">View: layout</h2>
+
+<ul>
+  <li>当ViewGroup的位置被确定后，它在onLayout中会遍历所有的子元素并调用其layout方法，在layout方法中onLayout方法又会被调用。</li>
+  <li>layout方法确定View本身的位置，而onLayout方法则会确定所有子元素的位置，</li>
+</ul>
+
+<h2 id="view-draw">View: draw</h2>
+
+<ul>
+  <li>view的绘制过程
+    <ul>
+      <li>绘制 背景 background. draw( canvas)</li>
+      <li>绘制 自己（ onDraw）</li>
+      <li>绘制 children（ dispatchDraw）</li>
+      <li>绘制 装饰（ onDrawScrollBars）</li>
+    </ul>
+  </li>
+  <li>invalidate(), 请求重绘 View 树，即 draw 过程，假如视图发生大小没有变化就不会调用<code class="language-plaintext highlighter-rouge">layout()</code>过程，并且只绘制那些调用了<code class="language-plaintext highlighter-rouge">invalidate()</code>方法的 View</li>
+  <li>requestLayout(), 当布局变化的时候，比如方向变化，尺寸的变化，会调用该方法，在自定义的视图中，如果某些情况下希望重新测量尺寸大小，应该手动去调用该方法，它会触发<code class="language-plaintext highlighter-rouge">measure()</code>和<code class="language-plaintext highlighter-rouge">layout()</code>过程，但不会进行 draw。</li>
+</ul>
+
+<h2 id="touch-event点击事件的传递规则">touch event:点击事件的传递规则</h2>
+
+<ul>
+  <li>public boolean dispatchTouchEvent( MotionEvent ev) – 进行事件的分发</li>
+  <li>public boolean onInterceptTouchEvent( MotionEvent event) – 是否拦截事件</li>
+  <li>public boolean onTouchEvent( MotionEvent event) – 处理点击事件</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span> <span class="nc">MotionEvent</span> <span class="n">ev</span><span class="o">)</span> <span class="o">{</span> 
+    <span class="kt">boolean</span> <span class="n">consume</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> 
+    <span class="k">if</span> <span class="o">(</span><span class="n">onInterceptTouchEvent</span><span class="o">(</span> <span class="n">ev</span><span class="o">))</span> <span class="o">{</span> 
+        <span class="n">consume</span> <span class="o">=</span> <span class="n">onTouchEvent</span><span class="o">(</span> <span class="n">ev</span><span class="o">);</span> 
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+        <span class="n">consume</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span> <span class="nf">dispatchTouchEvent</span><span class="o">(</span> <span class="n">ev</span><span class="o">);</span> 
+    <span class="o">}</span> 
+    <span class="k">return</span> <span class="n">consume</span><span class="o">;</span> 
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>ViewGroup
+    <ul>
+      <li>onIntercepTouchEvent返回true，拦截当前事件，事件会交给该ViewGroup处理</li>
+      <li>onIntercepTouchEvent返回false，不拦截当前事件，事件会传递给子元素处理，子元素的dispatchTouchEvent方法会被调用</li>
+    </ul>
+  </li>
+  <li>View
+    <ul>
+      <li>设置了onTouchListener， onTouchListener优先级比onTouchEvent要高
+        <ul>
+          <li>onTouchListener的onTouch返回true， view的onTouchEvent不会被调用</li>
+          <li>onTouchListener的onTouch返回false， view的onTouchEvent会被调用</li>
+        </ul>
+      </li>
+      <li>没有设置onTouchListener，则调用onTouchEvent</li>
+      <li>如果设置了onClickListener，那么会调用其onClick方法–OnClickListener优先级最低，处于事件的末端</li>
+    </ul>
+  </li>
+  <li>传递过程：Activity-&gt;Window-&gt;View。顶级view收到事件后会按照事件分发机制分发事件
+    <ul>
+      <li>如果一个View的onTouchEvent返回false，那么父容器的onTouchEvent将会被调用</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre>  <span class="c1">//重写父类的onTouchEvent </span>
+  <span class="k">override</span> <span class="k">fun</span> <span class="nf">onTouchEvent</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nc">MotionEvent</span><span class="p">?):</span> <span class="nc">Boolean</span> <span class="p">{</span>
+
+        <span class="nc">Log</span><span class="p">.</span><span class="nf">d</span><span class="p">(</span><span class="s">"testing"</span><span class="p">,</span> <span class="s">"just testing"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="k">super</span><span class="p">.</span><span class="nf">onTouchEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="p">}</span>
+  
+  <span class="c1">//setOnTouchListener</span>
+      <span class="k">fun</span> <span class="nf">setOnTouchEventListenerTest</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nf">setOnTouchListener</span><span class="p">(</span><span class="kd">object</span> <span class="err">: </span><span class="nc">OnTouchListener</span> <span class="p">{</span>
+            <span class="k">override</span> <span class="k">fun</span> <span class="nf">onTouch</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="nc">View</span><span class="p">?,</span> <span class="n">event</span><span class="p">:</span> <span class="nc">MotionEvent</span><span class="p">?):</span> <span class="nc">Boolean</span> <span class="p">{</span>
+                <span class="c1">//do something</span>
+
+                <span class="c1">//如果返回true， view的onTouchEvent 就不会被调用，</span>
+                <span class="c1">//可见 OnTouchListener 的 优先级 高于 onTouchEvent， 这样做的好处是方便在外界处理点击 事件。</span>
+                <span class="k">return</span> <span class="k">false</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="touch-event总结11条">touch event:总结11条</h2>
+
+<ul>
+  <li>同一个事件序列是指从手指接触屏幕的那一刻起，到手指离开屏幕的那一刻结束，在这个过程中所产生的一系列事件，这个事件序列以down事件开始，中间含有数量不定的move事件，最终以up事件结束。</li>
+  <li>正常情况下，一个事件序列只能被一个View拦截且消耗。因为一旦一个元素拦截了某此事件，那么同一个事件序列内的所有事件都会直接交给它处理，因此同一个事件序列中的事件不能分别由两个View同时处理，但是通过特殊手段可以做到，比如一个View将本该自己处理的事件通过onTouchEvent强行传递给其他View处理。</li>
+  <li>某个View一旦决定拦截，那么这一个事件序列都只能由它来处理（如果事件序列能够传递给它的话），并且它的onInterceptTouchEvent不会再被调用。</li>
+  <li>某个View一旦开始处理事件，如果它不消耗ACTION_DOWN事件（onTouchEvent返回了false），那么同一事件序列中的其他事件都不会再交给它来处理，并且事件将重新交由它的父元素去处理，即父元素的onTouchEvent会被调用。意思就是事件一旦交给一个View处理，那么它就必须消耗掉，否则同一事件序列中剩下的事件就不再交给它来处理了，这就好比上级交给程序员一件事，如果这件事没有处理好，短期内上级就不敢再把事情交给这个程序员做了，二者是类似的道理。</li>
+  <li>如果View不消耗除ACTION_DOWN以外的其他事件，那么这个点击事件会消失，此时父元素的onTouchEvent并不会被调用，并且当前View可以持续收到后续的事件，最终这些消失的点击事件会传递给Activity处理。</li>
+  <li>ViewGroup默认不拦截任何事件。Android源码中ViewGroup的onInterceptTouch-Event方法默认返回false。</li>
+  <li>View没有onInterceptTouchEvent方法，一旦有点击事件传递给它，那么它的onTouchEvent方法就会被调用。</li>
+  <li>View的onTouchEvent默认都会消耗事件（返回true），除非它是不可点击的（clickable和longClickable同时为false）。View的longClickable属性默认都为false，clickable属性要分情况，比如Button的clickable属性默认为true，而TextView的clickable属性默认为false。</li>
+  <li>View的enable属性不影响onTouchEvent的默认返回值。哪怕一个View是disable状态的，只要它的clickable或者longClickable有一个为true，那么它的onTouchEvent就返回true。</li>
+  <li>onClick会发生的前提是当前View是可点击的，并且它收到了down和up的事件。</li>
+  <li>事件传递过程是由外向内的，即事件总是先传递给父元素，然后再由父元素分发给子View，通过requestDisallowInterceptTouchEvent方法可以在子元素中干预父元素的事件分发过程，但是ACTION_DOWN事件除外</li>
+</ul>
+
+<h2 id="touch-eventaction_cancel事件">touch event:ACTION_CANCEL事件</h2>
+
+<ul>
+  <li>如果上层viewgroup拦截了事件，down事件还是会发到view，这样子view就有机会requestDisallowInterceptTouchEvent</li>
+  <li>如果没有requestDisallowInterceptTouchEvent，只发cancel给view，后续的move/up事件不会再发给view
+```java
+/**</li>
+  <li>Tries to claim the user’s drag motion, and requests disallowing any</li>
+  <li>ancestors from stealing events in the drag.
+ */
+private void attemptClaimDrag() {
+ //mParent = getParent();
+ if (mParent != null) {
+     mParent.requestDisallowInterceptTouchEvent(true);
+ }
+}</li>
+</ul>
+
+<p>@Override
+public boolean onTouchEvent(MotionEvent event) {
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (iWantToKeepThisEventForMyself(event)) {
+            attemptClaimDrag();
+        }
+        //your logic here
+    } else {
+        //your logic here
+    }
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+</pre></td><td class="rouge-code"><pre>
+
+## touch event: 定义
+- Each user touch event is wrapped up as a MotionEvent
+- Describes user's current action:
+   - ACTION_DOWN
+   - ACTION_UP
+   - ACTION_MOVE
+   - ACTION_POINTER_DOWN
+   - ACTION_POINTER_UP
+   - ACTION_CANCEL
+- Event metadaa included
+   - touch location
+   - number of pointers
+   - event time
+- A "gesture" is defined as beginning with ACTION_DOWN and ending with ACTION_UP
+
+
+
+## touch event: 事件传递
+
+
+- envent starts at the activity with dispatchTouchEvent()
+- Events flow top down through views
+   - Parents(ViewGroup) dispatch events to their children
+   - Can intercept events at any time
+- Events flow down the chain (and back up) until consumed
+   - Views must declare interest by consuming ACTION_DOWN
+   - Further events not delivered for efficiency
+- Any unconsumed events end at Activity with onTouchEvent()
+- Optional External OnToucherListener can intercept touches on any View/ViewGroup
+
+
+
+## touch event: View
+
+
+- Activity.dispatchTouchEvent()
+   - Always first to be called
+   - Sends events to root view attached to Window
+   - onTouchEvent()
+      - called if no views consume the event
+      - always last to be called
+- View.dispatchTouchEvent()
+   - Sends envent to listener first, if exist
+      - View.OnTouchListener.onTouch()
+   - If not consumed processes the touch itself
+      - View.onTouchEvent()
+
+
+
+## touch event: ViewGroup
+
+
+- ViewGroup.dispatchTouchEvent()
+   - onInterceptTouchEvent()
+      - check if it should s supersede children
+      - Passes ACTION_CANCEL to active child
+      - return true once consumes all subsequent events
+   - For each child view, in reverse order they were added
+      - if touch is relevant(inside view), child.dispatchTouchEvent()
+      - if not handled by previous , dispatch to next view
+   - if no children handle event, listener gets a chance
+      - OnTouchListener.onTouch()
+   - if no listener, or not handled
+      - onTouchEvent()
+
+
+
+![](../images/touch_event_ignorant.jpeg)
+
+
+![](../images/touch_event_interested.jpeg)
+
+
+![](../images/touch_event_intercept.png)
+
+## touch event:custom touch handling
+
+### Custom Touch Handling
+
+
+- return true with ACTION_DOWN to show interest, even if you aren't interested in ACTION_DOWN , return true;
+- for other events, returning true simply stops further processing
+- Call through to super whenever possible
+- Don't intercept events until you're ready to take them all
+- always handle ACTION_CANCEL
+
+
+
+### multi-touch handling
+
+
+- MotionEvent.getPointerCount() - How many pointers are currently on the screen
+- Use MotionEvent methods that take a pointer index parameter to get data for a specific pointer
+
+
+
+### System Touch Handlers
+
+
+- don't jump right to custom touch handling if you don't have to...
+- simple use:
+   - OnClickListener
+   - OnLongClickListener
+   - OnTouchListener
+   - OnScrollListener/View.onScrollChanged()
+- complex use GestureDetector:
+   - onDown(), onSingleTapUp(), onDoubleTap()
+   - onLongPress()
+   - onScroll()
+   - onFling()
+- complex use ScaleGestureDetector:
+   - onScaleBegin()
+   - onScale()
+   - onScaleEnd()
+
+
+## Activity Launch Mode
+### standard
+&gt; 缺省模式
+
+
+
+## Activity Launch Mode: singleTop
+&gt; single on Top， 如果在栈顶就不新创建了
+
+如新创建一个activity D为例
+
+- 不管栈中有没有D，栈顶没有D就新创建一个D
+- 如果栈中有D， 就调用该D的onNewIntent() ， 不再新创建
+- 一个stack可能有该activity的多个实例(该activity在栈顶后又有别的activity进栈)
+#### singleTop适合接收通知启动的内容显示页面。
+
+- 例如，某个新闻客户端的新闻内容页面，如果收到10个新闻推送，每次都打开一个新闻内容页面是很烦人的，用户在点击返回按键的时候也会导致视觉差异。
+- 登录页面、WXPayEntryActivity、WXEntryActivity 、推送通知栏
+
+
+
+
+
+
+
+## Activity Launch Mode:singleTask
+&gt; single in task
+
+回退栈中没有该类型的Activity，创建Activity，否则，onNewIntent+ClearTop。
+
+
+- 启动的时候，会先在系统中查找属性值affinity等于它的属性值taskAffinity的Task存在
+- 注意会ClearTop
+- 他的上面可以有其他的Activity。这点与singleInstance是有区别的。
+#### singleTask适合作为程序入口点。
+
+- 例如浏览器的主界面。不管从多少个应用启动浏览器，只会启动主界面一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。
+- WebView页面、扫一扫页面、电商中：购物界面，确认订单界面，付款界面
+
+
+
+
+
+## Activity Launch Mode: singleInstance
+
+singleInstance，回退栈中，只有这一个Activity，没有其他Activity。
+
+
+#### singleInstance应用场景：
+
+- 闹铃的响铃界面。返回就是用户上一个应用的界面，而不是闹钟的task 栈的activity
+- 此启动模式和我们使用的浏览器工作原理类似，我们都知道在多个程序中访问浏览器时，如果当前浏览器没有打开，则打开浏览器，否则会在当前打开的浏览器中访问
+- 系统Launcher、锁屏键、来电显示等系统应用
+
+
+
+## Android动画
+- View动画
+- 帧动画
+- 属性动画
+
+
+
+## Android动画: View动画
+#### 简易的动画效果
+
+- 仅仅是动的 View 的绘制地方，View 真正的位置并没有一起动画
+- 一般会用作直接作用页面中的 View 上，实现基本的动画效果：平移、旋转、缩放、透明度、或前几者的交集
+   - 平移动画-TranslateAnimation
+   - 缩放动画-ScaleAnimation
+   - 旋转动画-RotateAnimation
+   - 透明度动画-AlphaAnimation
+
+#### 自定义View动画
+自定义View动画是数学中矩阵变换的细节, 只需要知道自定义View的方法并且在需要的时候参考矩阵变换的细节就可以写出特定的自定义动画
+
+- 集成Animation抽象类
+- 重写initialize方法， 做一些初始化工作
+- 重写applyTransformation方法，进行相对应的矩阵变换
+
+#### View动画的特殊使用场景
+
+- ViewGroup中控制子元素的出场效果
+   - 为子元素定义入场动画-res/anim/anim_item.xml
+```xml
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="300"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:shareInterpolator="true"&gt;
+    &lt;alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0" /&gt;
+    &lt;translate
+        android:fromXDelta="500"
+        android:toXDelta="0.0"/&gt;
+&lt;/set&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>定义LayoutAnimation,-res/anim/anim_layout.xml.   也是view动画，为ViewGroup的子元素加上出场效果
+```xml
+&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</li>
+</ul>
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android" android:delay="0.5" android:animationOrder="normal" android:animation="@anim/anim_item">
+</layoutAnimation>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>
+   - 为ViewGroup来指定android:layoutAnimation属性
+
+```xml
+&lt;ListView
+    //........      
+    android: layoutAnimation="@ anim/ anim_ layout"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>Activity实现不同Activity之间的切换效果， 调用overridePendingTransition(**int **enterAnim, **int **exitAnim)
+    <ul>
+      <li>enterAnim-Activity被打开时，所需的动画资源id</li>
+      <li>exitAnim-Activity被暂停时，所需的动画资源id</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c1">//启动Activity        </span>
+<span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nc">TestActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+<span class="n">overridePendingTransition</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">enter_</span> <span class="n">anim</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">exit_</span> <span class="n">anim</span><span class="o">);</span>
+
+<span class="c1">//退出Activity</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">finish</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">finish</span><span class="o">();</span>
+        <span class="n">overridePendingTransition</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">enter_</span> <span class="n">anim</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">anim</span><span class="o">.</span><span class="na">exit_</span> <span class="n">anim</span><span class="o">);</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>Fragment添加切换动画, 通过FragmentTransaction的setCustomAnimations</li>
+</ul>
+
+<h2 id="android动画-帧动画">Android动画: 帧动画</h2>
+<p>就和看的动画片一样，每一帧代表一个画面动作，当快速逐帧显示时，速度到达人眼无法分辨每一帧时，就达到了动画的效果。使用场景，在开发中使用的真是少之又少：</p>
+
+<ul>
+  <li>设备的开关机动画</li>
+  <li>“复杂” 的动画效果，看似不可能完成的动画
+    <blockquote>
+      <p>其实真正用到帧动画时，更多的时候我们还不如使用 GIF 图片代替，现在几个主流图片加载框架都支持 GIF 图片，同时也能控制 GIF 的播放时机。</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="帧动画使用">帧动画使用</h4>
+
+<ul>
+  <li>通过xml来定义AnimationDrawable</li>
+</ul>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;animation-list</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> <span class="na">android:oneshot=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">"@drawable/account"</span> <span class="na">android:duration=</span><span class="s">"500"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">"@drawable/account_2x"</span> <span class="na">android:duration=</span><span class="s">"500"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:drawable=</span><span class="s">"@drawable/account_3x"</span> <span class="na">android:duration=</span><span class="s">"500"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/animation-list&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>将上述Drawable作为View的背景，并且通过Drawable来播放动画</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>        <span class="nc">Button</span> <span class="n">mButton</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button1</span><span class="o">);</span>
+        <span class="n">mButton</span><span class="o">.</span><span class="na">setBackgroundResource</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">frame_</span> <span class="n">animation</span><span class="o">);</span>
+        <span class="nc">AnimationDrawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="o">(</span><span class="nc">AnimationDrawable</span><span class="o">)</span> <span class="n">mButton</span><span class="o">.</span><span class="na">getBackground</span><span class="o">();</span>
+        <span class="n">drawable</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="android动画-属性动画">Android动画: 属性动画</h2>
+<h4 id="原理">原理</h4>
+<p>属性动画要求动画作用的对象提供该属性的get和set方法，属性动画根据外接传递的该属性的初始值和最终值，以动画的效果多次去调用set方法，每次传递给set方法的值都不一样，确切来说是随着时间的推移，所传递的值越来越接近最终值。对object的属性abc做动画，要让动画生效，需要满足两个条件</p>
+
+<ul>
+  <li>object提供属性的方法
+    <ul>
+      <li>setAbc方法</li>
+      <li>getAbc方法–如果动画没有传递初始值，因为系统要获取属性的初始值，否则会crash</li>
+    </ul>
+  </li>
+  <li>object的属性改变必须能够通过某种方式反映出来， 譬如UI的改变之类，否则就是动画无效果了</li>
+</ul>
+
+<p>否则</p>
+
+<ul>
+  <li>给对象加上get和set方法–前提是有权限</li>
+  <li>用一个类来包装原始对象，间接为其提供get和set方法</li>
+  <li>使用ValueAnimator，监听动画过程，自己实现属性改变</li>
+</ul>
+
+<h4 id="view动画-vs-属性动画">view动画 vs 属性动画</h4>
+
+<ul>
+  <li>View 动画只能为 View 添加动画效果，且不能监听 View 相关属性的变化过程。</li>
+  <li>View 动画提供的动画能力较为单一，目前只支持帧动画、缩放动画、位移动画、旋转动画、透明度动画以及这些动画的集合动画。</li>
+  <li>View动画改变的是 View 的绘制效果，View 的真正位置和相关属性并不会改变，这也就造成了点击事件的触发区域是动画前的位置而不是动画后的位置的原因。</li>
+</ul>
+
+<h4 id="属性动画">属性动画</h4>
+
+<ul>
+  <li>属性动画作用对象不局限在 View 上，而是任何提供了 Getter 和 Setter 方法的对象的属性上。</li>
+  <li>属性动画没有直接改变 View 状态的能力，而是通过动态改变 View 相关属性的方式来改变 View 的显示效果。</li>
+  <li>属性动画使用更方便，可以用更简洁的代码实现相关的动画效果。</li>
+  <li>属性动画上手难度较高，对于 propertyName 需要自己去挖掘，或者自己通过 Wrapper 的方式去自定义 propertyName。</li>
+  <li>属性动画是 Android3.0 以上系统提供的能力，在 3.0 以下需导入 nineoldandroids 三方库解决兼容性问题。</li>
+</ul>
+
+<h3 id="使用动画注意事项">使用动画注意事项</h3>
+
+<ul>
+  <li>OOM–帧动画图片数量多或者较大的时候容易出现OOM</li>
+  <li>内存泄露
+    <ul>
+      <li>属性动画有一类无限循环的动画， 需要在Activity退出的时候及时停止否则会内存泄露</li>
+      <li>View动画不存在该问题</li>
+    </ul>
+  </li>
+  <li>进行动画尽量使用dp，因为px会在不同设备上有不同的效果</li>
+  <li>硬件加速-开启硬件加速会提高动画流畅性</li>
+</ul>
+
+<h2 id="handler">handler</h2>
+
+<p>参考：
+<a href="https://my.oschina.net/u/3863980/blog/1933086">handler&amp;&amp;epoll</a>
+<a href="https://blog.csdn.net/qingtiantianqing/article/details/72783952">https://blog.csdn.net/qingtiantianqing/article/details/72783952</a>
+<a href="https://www.jianshu.com/p/44b322dfc040">https://www.jianshu.com/p/44b322dfc040</a></p>
+
+<h2 id="handlerlooper">Handler:looper</h2>
+
+<ul>
+  <li>每个线程有且最多只能有一个Looper对象，它是一个ThreadLocal</li>
+  <li>Looper内部有一个消息队列，loop()方法调用后线程开始不断从队列中取出消息执行
+    <ul>
+      <li>消息列表采用单链表结构</li>
+    </ul>
+  </li>
+  <li>Looper使一个线程变成Looper线程。</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">HandlerActivity</span> <span class="p">:</span> <span class="nc">AppCompatActivity</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="nc">Bundle</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="nf">setContentView</span><span class="p">(</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">activity_handler</span><span class="p">)</span>
+
+        <span class="nc">Thread</span><span class="p">(</span><span class="nc">SampleTask</span><span class="p">(</span><span class="nc">MyHandler</span><span class="p">())).</span><span class="nf">start</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">fun</span> <span class="nf">updateTextView</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">textView3</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="k">inner</span> <span class="kd">class</span> <span class="nc">MyHandler</span> <span class="p">:</span> <span class="nc">Handler</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">override</span> <span class="k">fun</span> <span class="nf">handleMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">Message</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="nf">getString</span><span class="p">(</span><span class="s">"message"</span><span class="p">)</span>
+            <span class="nf">updateTextView</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>prepareMainLooper方法给主线程创建looper，也提供了getMainLooper方法来获取主线程的Looper</li>
+  <li>Looper提供了两种方法退出
+    <ul>
+      <li>quit–会直接退出Looper</li>
+      <li>quitSafely–只是设定一个退出标志，把消息队列里面的已有消息处理完毕后才安全退出</li>
+      <li>在子线程如果手动创建了Looper，事情完成之后应该调用quit方法终止消息循环
+        <ul>
+          <li>不退出，该子线程会一直处于等待状态</li>
+          <li>退出后线程会立即终止</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Looper最重要的方法是loop方法，只有调用了loop方法之后消息循环系统才会真正起作用
+    <ul>
+      <li>loop方法会调用MessageQueue的next方法来获取新消息，而next是一个阻塞操作，当没有消息时，next方法会一直阻塞在那里，这也导致loop方法一直阻塞在那里</li>
+      <li>如果MessageQueue的next方法返回了新消息，Looper就会处理这条消息</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//...</span>
+        <span class="kd">final</span> <span class="nc">Looper</span> <span class="n">me</span> <span class="o">=</span> <span class="n">myLooper</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">MessageQueue</span> <span class="n">queue</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="na">mQueue</span><span class="o">;</span>
+        <span class="c1">//..</span>
+        <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
+            <span class="nc">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> <span class="c1">// might block</span>
+            <span class="n">msg</span><span class="o">.</span><span class="na">target</span><span class="o">.</span><span class="na">dispatchMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span> <span class="c1">//msg.target是发送这条消息的Handler对象</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Handler.java
+     * Handle system messages here.
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispatchMessage</span><span class="o">(</span><span class="nc">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">callback</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">handleCallback</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">mCallback</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">mCallback</span><span class="o">.</span><span class="na">handleMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">handleMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="handler通过handler引用">Handler:通过handler引用</h2>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">SampleTask</span><span class="p">(</span><span class="kd">val</span> <span class="py">handler</span><span class="p">:</span> <span class="nc">Handler</span><span class="p">)</span> <span class="p">:</span> <span class="nc">Runnable</span> <span class="p">{</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nc">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+            <span class="kd">val</span> <span class="py">msg</span> <span class="p">=</span> <span class="nf">prepareMessage</span><span class="p">(</span><span class="s">"task completed!"</span><span class="p">)</span>
+            <span class="n">handler</span><span class="p">.</span><span class="nf">sendMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="nc">InterruptedException</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nc">Log</span><span class="p">.</span><span class="nf">d</span><span class="p">(</span><span class="nc">TAG</span><span class="p">,</span> <span class="s">"interrupted!"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">prepareMessage</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">Message</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">handler</span><span class="p">.</span><span class="nf">obtainMessage</span><span class="p">()</span>
+        <span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="nc">Bundle</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">.</span><span class="nf">putString</span><span class="p">(</span><span class="s">"message"</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">data</span> <span class="p">=</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="p">}</span>
+
+    <span class="k">companion</span> <span class="k">object</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="kd">val</span> <span class="py">TAG</span> <span class="p">=</span> <span class="s">"SampleTask"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="handlerhandler">Handler:handler</h2>
+
+<ul>
+  <li>handler扮演了往MQ上添加消息和处理消息的角色（只处理由自己发出的消息）</li>
+  <li>通知MQ它要执行一个任务(sendMessage)，并在loop到自己的时候执行该任务(handleMessage)，整个过程是异步的</li>
+  <li>一个线程可以有多个handler， 但是只能有一个looper</li>
+</ul>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">LooperThread</span> <span class="p">:</span> <span class="nc">Thread</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">private</span> <span class="k">lateinit</span> <span class="kd">var</span> <span class="py">handler1</span><span class="p">:</span> <span class="nc">Handler</span>
+    <span class="k">private</span> <span class="k">lateinit</span> <span class="kd">var</span> <span class="py">handler2</span><span class="p">:</span> <span class="nc">Handler</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// 将当前线程初始化为Looper线程</span>
+        <span class="nc">Looper</span><span class="p">.</span><span class="nf">prepare</span><span class="p">()</span>
+
+        <span class="n">handler1</span> <span class="p">=</span> <span class="nc">Handler</span><span class="p">()</span>
+        <span class="n">handler2</span> <span class="p">=</span> <span class="nc">Handler</span><span class="p">()</span>
+
+        <span class="c1">// 开始循环处理消息队列</span>
+        <span class="nc">Looper</span><span class="p">.</span><span class="nf">loop</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="handler-sendconsumecooperate">handler: send/consume/cooperate</h2>
+
+<h3 id="handler可以在任意线程发送消息这些消息会被添加到关联的mq上">handler可以在<strong>任意线程发送消息</strong>，这些消息会被添加到关联的MQ上。</h3>
+<p><img src="../images/handler_send_msg.png" alt="handler1.png" /></p>
+
+<h3 id="handler是在它关联的looper线程中处理消息的">handler是在它<strong>关联的looper线程中处理消息</strong>的。</h3>
+<p><img src="../images/handler_consume_msg.png" alt="handler2.png" /></p>
+
+<h3 id="在activity中创建handler并将其引用传递给worker-threadworker-thread执行完任务后使用handler发送消息通知activity更新ui">在activity中创建handler并将其引用传递给worker thread，worker thread执行完任务后使用handler发送消息通知activity更新UI</h3>
+
+<p><img src="../images/handle_cooperate.png" alt="handler3.png" /></p>
+
+<h2 id="handler-epoll">handler: epoll</h2>
+
+<ul>
+  <li>select、poll、epoll都是IO多路复用
+    <ul>
+      <li>select-select支持的文件描述符数量太小了，默认是1024， 轮询</li>
+      <li>poll- 没有最大连接数，基于链表，轮询</li>
+      <li>epoll- callback</li>
+    </ul>
+  </li>
+  <li>epoll
+    <ul>
+      <li>epoll_create()： 创建一个epoll实例并返回相应的文件描述符</li>
+      <li>epoll_ctl()： 注册相关的文件描述符使用</li>
+      <li>epoll_wait()： 可以用于等待IO事件。如果当前没有可用的事件，这个函数会阻塞调用线程</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="handler-handler创建epoll">handler: handler创建epoll</h2>
+
+<ul>
+  <li>调用关系
+    <ul>
+      <li>MessageQueue初始化-&gt;nativeInit()-&gt;NativeMessageQueue()-&gt;Looper(false)-&gt;epoll_create-&gt;epoll_ctl</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="nl">Looper:</span><span class="o">:</span><span class="nc">Looper</span><span class="o">(</span><span class="n">bool</span> <span class="n">allowNonCallbacks</span><span class="o">)</span> <span class="o">:</span>
+        <span class="n">mAllowNonCallbacks</span><span class="o">(</span><span class="n">allowNonCallbacks</span><span class="o">),</span> <span class="n">mSendingMessage</span><span class="o">(</span><span class="kc">false</span><span class="o">),</span>
+        <span class="n">mResponseIndex</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">mNextMessageUptime</span><span class="o">(</span><span class="no">LLONG_MAX</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">wakeFds</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">(</span><span class="n">wakeFds</span><span class="o">);</span>
+    <span class="no">LOG_ALWAYS_FATAL_IF</span><span class="o">(</span><span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"Could not create wake pipe.  errno=%d"</span><span class="o">,</span> <span class="n">errno</span><span class="o">);</span>
+
+    <span class="n">mWakeReadPipeFd</span> <span class="o">=</span> <span class="n">wakeFds</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="n">mWakeWritePipeFd</span> <span class="o">=</span> <span class="n">wakeFds</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+	<span class="o">...</span>
+    <span class="n">mIdling</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="c1">// Allocate the epoll instance and register the wake pipe.</span>
+    <span class="n">mEpollFd</span> <span class="o">=</span> <span class="n">epoll_create</span><span class="o">(</span><span class="no">EPOLL_SIZE_HINT</span><span class="o">);</span>
+    <span class="no">LOG_ALWAYS_FATAL_IF</span><span class="o">(</span><span class="n">mEpollFd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"Could not create epoll instance.  errno=%d"</span><span class="o">,</span> <span class="n">errno</span><span class="o">);</span>
+
+    <span class="n">struct</span> <span class="n">epoll_event</span> <span class="n">eventItem</span><span class="o">;</span>
+    <span class="n">memset</span><span class="o">(&amp;</span> <span class="n">eventItem</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">sizeof</span><span class="o">(</span><span class="n">epoll_event</span><span class="o">));</span> <span class="c1">// zero out unused members of data field union</span>
+    <span class="n">eventItem</span><span class="o">.</span><span class="na">events</span> <span class="o">=</span> <span class="no">EPOLLIN</span><span class="o">;</span><span class="c1">//监听管道的read()操作</span>
+    <span class="n">eventItem</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">fd</span> <span class="o">=</span> <span class="n">mWakeReadPipeFd</span><span class="o">;</span><span class="c1">//记录管道读端的fd</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">epoll_ctl</span><span class="o">(</span><span class="n">mEpollFd</span><span class="o">,</span> <span class="no">EPOLL_CTL_ADD</span><span class="o">,</span> <span class="n">mWakeReadPipeFd</span><span class="o">,</span> <span class="o">&amp;</span> <span class="n">eventItem</span><span class="o">);</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="handler-handler中looper通过轮询获取message">handler: Handler中looper通过轮询获取message</h2>
+
+<ul>
+  <li>Looper.loop中for循环获取消息
+    <ul>
+      <li>Message msg = queue.next();-&gt;nativePollOnce-&gt;nativeMessageQueue-&gt;pollOnce-&gt;pollInner()</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+</pre></td><td class="rouge-code"><pre><span class="kt">int</span> <span class="nl">Looper:</span><span class="o">:</span><span class="n">pollInner</span><span class="o">(</span><span class="kt">int</span> <span class="n">timeoutMillis</span><span class="o">)</span> <span class="o">{</span>
+	<span class="o">...</span>
+    <span class="c1">// Poll.</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="no">POLL_WAKE</span><span class="o">;</span>
+    <span class="n">mResponses</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    <span class="n">mResponseIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// We are about to idle.</span>
+    <span class="n">mIdling</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+    <span class="n">struct</span> <span class="n">epoll_event</span> <span class="n">eventItems</span><span class="o">[</span><span class="no">EPOLL_MAX_EVENTS</span><span class="o">];</span>
+	<span class="c1">//等待事件发生或者超时，在nativeWake()方法，向管道写端写入字符，则该方法会返回；</span>
+    <span class="kt">int</span> <span class="n">eventCount</span> <span class="o">=</span> <span class="n">epoll_wait</span><span class="o">(</span><span class="n">mEpollFd</span><span class="o">,</span> <span class="n">eventItems</span><span class="o">,</span> <span class="no">EPOLL_MAX_EVENTS</span><span class="o">,</span> <span class="n">timeoutMillis</span><span class="o">);</span>
+
+    <span class="c1">// No longer idling.</span>
+    <span class="n">mIdling</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="c1">// Acquire lock.</span>
+    <span class="n">mLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+	<span class="o">...</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">eventCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">eventItems</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">data</span><span class="o">.</span><span class="na">fd</span><span class="o">;</span>
+        <span class="n">uint32_t</span> <span class="n">epollEvents</span> <span class="o">=</span> <span class="n">eventItems</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">events</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">fd</span> <span class="o">==</span> <span class="n">mWakeReadPipeFd</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">epollEvents</span> <span class="o">&amp;</span> <span class="no">EPOLLIN</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">awoken</span><span class="o">();</span><span class="c1">//</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="no">ALOGW</span><span class="o">(</span><span class="s">"Ignoring unexpected epoll events 0x%x on wake read pipe."</span><span class="o">,</span> <span class="n">epollEvents</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+           <span class="o">...</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="nl">Done:</span> <span class="o">;</span>
+
+  <span class="o">...</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>最终调用awaken</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nl">Looper:</span><span class="o">:</span><span class="n">awoken</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="o">[</span><span class="mi">16</span><span class="o">];</span>
+    <span class="n">ssize_t</span> <span class="n">nRead</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">//不断读取管道数据，目的就是为了清空管道内容</span>
+        <span class="n">nRead</span> <span class="o">=</span> <span class="n">read</span><span class="o">(</span><span class="n">mWakeReadPipeFd</span><span class="o">,</span> <span class="n">buffer</span><span class="o">,</span> <span class="n">sizeof</span><span class="o">(</span><span class="n">buffer</span><span class="o">));</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">((</span><span class="n">nRead</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">errno</span> <span class="o">==</span> <span class="no">EINTR</span><span class="o">)</span> <span class="o">||</span> <span class="n">nRead</span> <span class="o">==</span> <span class="n">sizeof</span><span class="o">(</span><span class="n">buffer</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>总结
+    <ul>
+      <li>Looper::loop中for循环不断调用next()从自己的链表中获取message，但是获取前先nativePollOnce进入阻塞状态，线程会释放资源进入休眠状态，直到下个消息到达或者有事务发生，通过往pipe管道写端写入数据来唤醒主线程工作</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="handler-handler通过sendmessage最终给管道写数据">handler: handler通过sendmessage最终给管道写数据</h2>
+<p>将消息push到MessageQueue中时候，即MessageQueue.enqueueMessages(…)方法中</p>
+
+<ul>
+  <li><strong>handler</strong>.sendMessage(msg)
+    <ul>
+      <li>sendMessageDelayed(msg, 0);
+        <ul>
+          <li>sendMessageAtTime(msg, SystemClock.<em>uptimeMillis</em>() + delayMillis);
+            <ul>
+              <li>enqueueMessage(queue, msg, uptimeMillis)
+                <ul>
+                  <li>queue.enqueueMessage(msg, uptimeMillis);先入列后调用wake
+                    <ul>
+                      <li><em>nativeWake</em>(<strong>mPtr</strong>);—&gt;
+                        <ul>
+                          <li>Looper-&gt;wake
+                            <ul>
+                              <li>write()</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="kt">void</span> <span class="nl">Looper:</span><span class="o">:</span><span class="n">wake</span><span class="o">()</span> <span class="o">{</span>
+<span class="err">#</span><span class="k">if</span> <span class="no">DEBUG_POLL_AND_WAKE</span>
+    <span class="nf">ALOGD</span><span class="o">(</span><span class="s">"%p ~ wake"</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+<span class="err">#</span><span class="n">endif</span>
+
+    <span class="n">ssize_t</span> <span class="n">nWrite</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="n">nWrite</span> <span class="o">=</span> <span class="n">write</span><span class="o">(</span><span class="n">mWakeWritePipeFd</span><span class="o">,</span> <span class="s">"W"</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span><span class="c1">//进行了写操作</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">nWrite</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">errno</span> <span class="o">==</span> <span class="no">EINTR</span><span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">nWrite</span> <span class="o">!=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">errno</span> <span class="o">!=</span> <span class="no">EAGAIN</span><span class="o">)</span> <span class="o">{</span>
+            <span class="no">ALOGW</span><span class="o">(</span><span class="s">"Could not write wake signal, errno=%d"</span><span class="o">,</span> <span class="n">errno</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><strong>handler</strong>.postDelayed(runnable, time)
+    <ul>
+      <li>sendMessageDelayed(<em>getPostMessage</em>(r), delayMillis);
+        <ul>
+          <li>同上</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>handler.postDelay并不是先等待一定的时间再放入到MessageQueue中，而是直接进入MessageQueue，以MessageQueue的时间顺序排列和唤醒的方式结合实现的
+    <ul>
+      <li>MessageQueue的next()方法，会根据其delay时间和链表头的比较，如果更短则，放入链表头，并且看时间是否有delay，
+        <ul>
+          <li>如果有，则block，等待时间到来唤醒执行，
+            <ul>
+              <li> Looper::pollInner(int timeoutMillis)
+                <ul>
+                  <li>epoll_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis);</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>否则将唤醒立即执行。</li>
+        </ul>
+      </li>
+      <li>epoll_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis)
+        <ul>
+          <li>timeoutMillis == -1, causes <strong>epoll_wait</strong>() to block indefinitely,</li>
+          <li>timeoutMillis == 0, cause <strong>epoll_wait</strong>() to return immediately</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>发送消息, MessageQueue.enqueueMessage(Message msg, **long **when)会根据时间把message插入到合适位置
+    <ul>
+      <li>sendMessageAtFrontOfQueue //插入到队列首部
+        <ul>
+          <li>enqueueMessage(queue, msg, 0); //最后的参数uptimeMillis是0，保证了在队首</li>
+        </ul>
+      </li>
+      <li>postDelayed
+        <ul>
+          <li>sendMessageDelayed(<em>getPostMessage</em>(r), delayMillis)
+            <ul>
+              <li>sendMessageAtTime(msg, SystemClock.<em>uptimeMillis</em>() + delayMillis); //boot 2 now+delay
+                <ul>
+                  <li>enqueueMessage(queue, msg, uptimeMillis);</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>sendMessage(Message msg)
+        <ul>
+          <li>sendMessageDelayed(msg, 0)
+            <ul>
+              <li>sendMessageAtTime(msg, SystemClock.<em>uptimeMillis</em>() + delayMillis);
+                <ul>
+                  <li>//同上</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="send总结">send总结</h3>
+<ul>
+  <li>消息是通过MessageQueen中的enqueueMessage()方法加入消息队列中的，并且它在放入中就进行好排序，链表头的延迟时间小，尾部延迟时间最大</li>
+  <li>enqueueMessage–非延迟消息
+    <ul>
+      <li>插入头部，然后唤醒</li>
+    </ul>
+  </li>
+  <li>enqueueMessage–延迟消息
+    <ul>
+      <li>插入合适位置，然后唤醒</li>
+    </ul>
+  </li>
+</ul>

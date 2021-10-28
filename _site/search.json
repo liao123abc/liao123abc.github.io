@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Android",
+      "subtitle" : "",
+      "tags"     : "",
+      "url"      : "/2021/08/08/android/",
+      "date"     : "2021-08-08 00:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Audio Video",
+      "subtitle" : "note",
+      "tags"     : "",
+      "url"      : "/2021/06/02/audio-video/",
+      "date"     : "2021-06-02 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "computer-network",
       "subtitle" : "computer-network",
       "tags"     : "computer network, note, Anki",
@@ -27,7 +43,7 @@
     {
       "title"    : "Thread",
       "subtitle" : "",
-      "tags"     : "Java",
+      "tags"     : "Java, Thread",
       "url"      : "/2017/09/10/Java-Thread/",
       "date"     : "2017-09-10 22:18:38 +0800"
     } ,

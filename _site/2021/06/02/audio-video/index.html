@@ -11,16 +11,27 @@
     <meta name="theme-color" content="#000000">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Archive - 廖东明的博客|ThomasLiao Blog">
+    <meta property="og:title" content="Audio Video - 廖东明的博客|ThomasLiao Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="「time flies」">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="questions
+
+  B帧
+
+">
+    
+    <meta property="article:published_time" content="2021-06-02T00:00:00Z">
+    
+    
+    <meta property="article:author" content="thomasliao">
+    
+    
     
     <meta property="og:image" content="https://thomasliao.cn/img/little-bo.png">
-    <meta property="og:url" content="https://thomasliao.cn/archive/">
+    <meta property="og:url" content="https://thomasliao.cn/2021/06/02/audio-video/">
     <meta property="og:site_name" content="廖东明的博客|ThomasLiao Blog">
     
-    <title>Archive - 廖东明的博客|ThomasLiao Blog</title>
+    <title>Audio Video - 廖东明的博客|ThomasLiao Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -29,7 +40,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://thomasliao.cn/archive/">
+    <link rel="canonical" href="https://thomasliao.cn/2021/06/02/audio-video/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -190,278 +201,422 @@
   </div>
 </div>
 
-    <!-- 
-Credits: this page shamelessly borrowed a lot from:
-https://github.com/kitian616/jekyll-TeXt-theme
--->
-<!-- Page Header -->
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-2015.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-
-<header class="intro-header" style="background-image: url('/img/bg1.png')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading" id="tag-heading">
-        
-          <h1>Archive</h1>
-          <span class="subheading">「time flies」</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>Audio Video</h1>
+                    
+                    <h2 class="subheading">note</h2>
+                    <span class="meta">Posted by thomasliao on June 2, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<!-- Tags (as filter) -->
-			<div id='tag_cloud' class="tags tags-sup js-tags">
-				<a class="tag-button--all" data-encode="">
-					Show All
-					<sup>14</sup>
-				</a>
 
-				
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h2 id="questions">questions</h2>
+<ul>
+  <li>B帧</li>
+</ul>
+
+<h2 id="abbreviation">abbreviation</h2>
+<ul>
+  <li>sps : sequence parameter set</li>
+  <li>pps : picture parameter set</li>
+  <li>IDR帧（Instantaneous Decoding Refresh Picture）</li>
+</ul>
+
+<h2 id="reference">reference</h2>
+
+<p><a href="https://www.huaweicloud.com/articles/bca73e0ba03a22bc004ec3bf695130c2.html">【codecs】音视频编解码开源项目大汇总</a>
+<a href="https://help.aliyun.com/document_detail/99380.html?spm=a2c4g.11186623.6.554.6b175fac3bQeEJ">视频点播</a></p>
+
+<h2 id="帧率">帧率</h2>
+<ul>
+  <li>每一张图片，我们称为一帧。</li>
+  <li>只要每秒钟帧的数据足够多，也即播放得足够快。比如每秒 30 帧，以人的眼睛的敏感程度，是看不出这是一张张独立的图片的</li>
+</ul>
+
+<h2 id="码率码流">码率、码流</h2>
+
+<ul>
+  <li>码率（Bitrate）是指视频文件在单位时间内使用的数据流量，也叫码流或码流率</li>
+  <li>量度单位为“比特每秒”（bit/s或bps），常使用Kbps（每秒多少千个比特）或Mbps</li>
+</ul>
+
+<h2 id="编码">编码</h2>
+
+<blockquote>
+  <p>编码是一个压缩的过程</p>
+</blockquote>
+
+<h2 id="转码">转码</h2>
+<ul>
+  <li>视频转码（Video Transcoding）是指将已经压缩编码的视频码流转换成另一个视频码流，以适应不同的网络带宽、不同的终端处理能力和不同的用户需求。</li>
+  <li>转码本质上是一个先解码、再编码的过程，因此转换前后的码流可能遵循相同的视频编码标准，也可能不遵循相同的视频编码标准。</li>
+</ul>
+
+<h2 id="转封装">转封装</h2>
+<p>转封装指的是将视频或音频的封装格式进行转换，如将AVI的视频转换为MP4</p>
+<ul>
+  <li>其间并不会进行音视频的编码和解码工作，</li>
+  <li>而是直接将视频和音频压缩码流从一种封装格式文件中获取出来然后打包成另一种封装格式的文件
+    <ul>
+      <li>处理速度极快–转封装不需要进行编码和解码</li>
+      <li>音视频质量无损</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="频和图片的压缩过程特点">频和图片的压缩过程特点</h2>
+<ul>
+  <li>空间冗余：
+    <ul>
+      <li>图像的相邻像素之间有较强的相关性，一张图片相邻像素往往是渐变的，不是突变的，没必要每个像素都完整地保存，可以隔几个保存一个，中间的用算法计算出来。</li>
+    </ul>
+  </li>
+  <li>时间冗余：
+    <ul>
+      <li>视频序列的相邻图像之间内容相似。</li>
+      <li>一个视频中连续出现的图片也不是突变的，可以根据已有的图片进行预测和推断。</li>
+    </ul>
+  </li>
+  <li>视觉冗余：
+    <ul>
+      <li>人的视觉系统对某些细节不敏感，因此不会每一个细节都注意到，</li>
+      <li>可以允许丢失一些数据。</li>
+    </ul>
+  </li>
+  <li>编码冗余：
+    <ul>
+      <li>不同像素值出现的概率不同，概率高的用的字节少，概率低的用的字节多，</li>
+      <li>类似霍夫曼编码（Huffman Coding）的思路。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="编码过程">编码过程</h2>
+
+<blockquote>
+  <p>用于编码的算法非常复杂，而且多种多样，但是编码过程其实都是类似的</p>
+</blockquote>
+
+<p><img src="../images/video-encode.webp" alt="video-encode" /></p>
+
+<h2 id="视频编码的两大流派">视频编码的两大流派</h2>
+
+<ul>
+  <li>ITU（International Telecommunications Union）的 VCEG（Video Coding Experts Group）
+    <ul>
+      <li>主要侧重传输</li>
+      <li>H.261、 H.262、H.263、H.264、H.265</li>
+    </ul>
+  </li>
+  <li>ISO（International Standards Organization）的 MPEG（Moving Picture Experts Group）
+    <ul>
+      <li>ISO 旗下的 MPEG，本来是做视频存储的。例如，编码后保存在 VCD 和 DVD 中。当然后来也慢慢侧重视频传输</li>
+      <li>MPEG-1、MPEG-2、MPEG-4、MPEG-7</li>
+    </ul>
+  </li>
+  <li>经过编码之后，生动活泼的一帧一帧的图像，就变成了一串串让人看不懂的二进制
+    <ul>
+      <li>AVI、MPEG、RMVB、MP4、MOV、FLV、WebM、WMV、ASF、MKV
+        <ul>
+          <li>就是视频保存成文件的格式</li>
+          <li>前几个字节是什么意义，后几个字节是什么意义，然后是数据，数据中保存的就是编码好的结果</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>ITU-T（国际电信联盟电信标准化部门，ITU Telecommunication Standardization Sector）与 MPEG 联合制定了 H.264/MPEG-4 AVC</p>
+</blockquote>
+
+<h2 id="视频播放器原理1">视频播放器原理1</h2>
+
+<ul>
+  <li>视频播放器播放一个互联网上的视频文件
+    <ul>
+      <li>解协议，解封装，解码视音频，视音频同步</li>
+    </ul>
+  </li>
+  <li>播放本地文件则不需要解协议
+    <ul>
+      <li>解封装，解码视音频，视音频同步</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://img-blog.csdn.net/20140201120523046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="process" /></p>
+
+<h2 id="视频播放器原理2">视频播放器原理2</h2>
+
+<h3 id="解协议">解协议</h3>
+
+<ul>
+  <li>流媒体协议数据 -&gt; 标准的相应的封装格式数据
+    <ul>
+      <li>e.g.  采用RTMP协议传输的数据，经过解协议操作后，输出FLV格式的数据</li>
+    </ul>
+  </li>
+  <li>各种流媒体协议，例如HTTP，RTMP，或是MMS等等</li>
+</ul>
+
+<h3 id="解封装">解封装</h3>
+
+<ul>
+  <li>封装格式的数据 -&gt; 音频流压缩编码数据 + 视频流压缩编码数据</li>
+  <li>封装格式:
+    <ul>
+      <li>MP4，MKV，RMVB，TS，FLV，AVI等等</li>
+      <li>作用: 将已经压缩编码的视频数据和音频数据按照一定的格式放到一起
+        <ul>
+          <li>e.g. FLV格式的数据 -&gt; H.264编码的视频码流 + AAC编码的音频码流</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="解码">解码</h3>
+
+<ul>
+  <li>视频/音频压缩编码数据 -&gt; 非压缩的视频/音频原始数据</li>
+  <li>编码标准
+    <ul>
+      <li>音频: AAC，MP3，AC-3等等</li>
+      <li>视频: H.264，MPEG2，VC-1等等</li>
+    </ul>
+  </li>
+  <li>解码是整个系统中最重要也是最复杂的一个环节
+    <ul>
+      <li>压缩编码的视频数据-&gt;非压缩的颜色数据，例如YUV420P，RGB等等</li>
+      <li>压缩编码的音频数据-&gt;非压缩的音频抽样数据，例如PCM数据</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="音视频同步">音视频同步</h3>
+<ul>
+  <li>根据解封装模块处理过程中获取到的参数信息，同步解码出来的视频和音频数据</li>
+  <li>将视频音频数据送至系统的显卡和声卡播放出来</li>
+</ul>
+
+<h2 id="rtmp">RTMP</h2>
+
+<h2 id="h264">h.264</h2>
+
+<h2 id="h265">h.265</h2>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/04/11/computer-network/" data-toggle="tooltip" data-placement="top" title="computer-network">
+                        Previous<br>
+                        <span>computer-network</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/08/08/android/" data-toggle="tooltip" data-placement="top" title="Android">
+                        Next<br>
+                        <span>Android</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
         
-				
-				
-				
-				<a data-sort="0011"
-					data-encode="Linux"
-					class="tag-button"
-					title="Linux" rel="3">
-					Linux
-					<sup>3</sup>
-				</a>
-				
-				<a data-sort="0011"
-					data-encode="java"
-					class="tag-button"
-					title="java" rel="3">
-					java
-					<sup>3</sup>
-				</a>
-				
-				<a data-sort="0012"
-					data-encode="Anki"
-					class="tag-button"
-					title="Anki" rel="2">
-					Anki
-					<sup>2</sup>
-				</a>
-				
-				<a data-sort="0012"
-					data-encode="note"
-					class="tag-button"
-					title="note" rel="2">
-					note
-					<sup>2</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="Android"
-					class="tag-button"
-					title="Android" rel="1">
-					Android
-					<sup>1</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="Java"
-					class="tag-button"
-					title="Java" rel="1">
-					Java
-					<sup>1</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="Rxjava"
-					class="tag-button"
-					title="Rxjava" rel="1">
-					Rxjava
-					<sup>1</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="Thread"
-					class="tag-button"
-					title="Thread" rel="1">
-					Thread
-					<sup>1</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="c%2B%2B"
-					class="tag-button"
-					title="c++" rel="1">
-					c++
-					<sup>1</sup>
-				</a>
-				
-				<a data-sort="0013"
-					data-encode="computer+network"
-					class="tag-button"
-					title="computer network" rel="1">
-					computer network
-					<sup>1</sup>
-				</a>
-			</div>
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
 
-            <!-- Article List -->
-			<div class="mini-post-list js-result d-none"><section>
-				<span class="fa listing-seperator">
-					<span class="tag-text">2021</span>
-				</span><div class="post-preview item" data-tags="">
-				    <a href="/2021/08/08/android/">
-				        <h2 class="post-title">
-                            Android
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="">
-				    <a href="/2021/06/02/audio-video/">
-				        <h2 class="post-title">
-                            Audio Video
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            note
-				        </h3>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="computer+network,note,Anki">
-				    <a href="/2021/04/11/computer-network/">
-				        <h2 class="post-title">
-                            computer-network
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            computer-network
-				        </h3>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="">
-				    <a href="/2021/04/10/encoding/">
-				        <h2 class="post-title">
-                            Encoding
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            ascii,Utf8,Unicode…
-				        </h3>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="c%2B%2B,note,Anki">
-				    <a href="/2021/04/10/c++-notes/">
-				        <h2 class="post-title">
-                            c++ notes
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            c++ notes, from books, keep updating...
-				        </h3>
-				        
-				    </a>
-					<hr>
-				</div></section><section>
-				<span class="fa listing-seperator">
-					<span class="tag-text">2017</span>
-				</span><div class="post-preview item" data-tags="Java,Thread">
-				    <a href="/2017/09/10/Java-Thread/">
-				        <h2 class="post-title">
-                            Thread
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="Rxjava">
-				    <a href="/rxjava/2017/09/01/Rxjava-guide-by-Jake-Wharton/">
-				        <h2 class="post-title">
-                            Rxjava Guide By Jake Wharton
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="Linux">
-				    <a href="/linux/2017/08/31/git-commands/">
-				        <h2 class="post-title">
-                            Git Commands
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="Linux">
-				    <a href="/linux/2017/04/23/Understanding-The-Linux-Kernel/">
-				        <h2 class="post-title">
-                            Understanding the linux kernel!
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div></section><section>
-				<span class="fa listing-seperator">
-					<span class="tag-text">2016</span>
-				</span><div class="post-preview item" data-tags="java">
-				    <a href="/java/2016/12/24/Java-polymorphism-and-class-modifier/">
-				        <h2 class="post-title">
-                            Java polymorphism and class modifier!
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="java">
-				    <a href="/2016/12/21/Java-8-Language-new-features/">
-				        <h2 class="post-title">
-                            Java 8 new features!
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="java">
-				    <a href="/2016/12/15/Java-History-Introduction/">
-				        <h2 class="post-title">
-                            Java History Introduction!
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="Linux">
-				    <a href="/linux/2016/10/07/linux-command/">
-				        <h2 class="post-title">
-                            Linux commands
-				        </h2>
-				        
-				    </a>
-					<hr>
-				</div><div class="post-preview item" data-tags="Android">
-				    <a href="/2016/03/29/ReactNative/">
-				        <h2 class="post-title">
-                            React Native环境搭建!
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            React Native预言
-				        </h3>
-				        
-				    </a>
-					<hr>
-				</div></section>
-			</div>
-		</div>
-	</div>
-</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0011" 
+                    href="/archive/?tag=Linux"
+                    title="Linux"
+                    rel="3">Linux</a>
+        
+                <a data-sort="0011" 
+                    href="/archive/?tag=java"
+                    title="java"
+                    rel="3">java</a>
+        
+                <a data-sort="0012" 
+                    href="/archive/?tag=Anki"
+                    title="Anki"
+                    rel="2">Anki</a>
+        
+                <a data-sort="0012" 
+                    href="/archive/?tag=note"
+                    title="note"
+                    rel="2">note</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "thomas_liao";
+    var disqus_identifier = "/2021/06/02/audio-video";
+    var disqus_url = "https://thomasliao.cn/2021/06/02/audio-video/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
@@ -589,18 +744,6 @@ https://github.com/kitian616/jekyll-TeXt-theme
 
 
 
-
-<!-- jquery.tagcloud.js -->
-<script>
-    async('/js/jquery.tagcloud.js', function () {
-        $.fn.tagcloud.defaults = {
-            //size: {start: 1, end: 1, unit: 'em'},
-            color: { start: '#bbbbee', end: '#2f93b4' },
-        };
-        $('#tag_cloud a').tagcloud();
-    })
-</script>
-<script src='/js/archive.js '></script>
 
 
 <!--fastClick.js -->

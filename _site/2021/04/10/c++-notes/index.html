@@ -270,7 +270,7 @@
 
 				<h1 id="c-notes">c++ Notes</h1>
 
-<h2 id="1编译器">1.编译器</h2>
+<h2 id="100-编译器">1.0.0 编译器</h2>
 <ul>
   <li>msvc
     <ul>
@@ -298,7 +298,7 @@
   </li>
 </ul>
 
-<h2 id="2内联函数">2.内联函数</h2>
+<h2 id="101-内联函数">1.0.1 内联函数</h2>
 <ul>
   <li>如果一些函数被频繁调用，不断地有函数入栈，即函数栈，会造成栈空间或栈内存的大量消耗</li>
   <li>关键字inline 必须与函数定义体放在一起才能使函数成为内联，仅将inline 放在函数声明前面不起任何作用</li>
@@ -307,7 +307,7 @@
   <li>最好将内联函数定义放在头文件中</li>
 </ul>
 
-<h2 id="3macro">3.macro</h2>
+<h2 id="102-macro">1.0.2 macro</h2>
 <ul>
   <li>#define 预处理指令用于创建符号常量：#define PI 3.14159
     <ul>
@@ -318,7 +318,7 @@
   <li>“#”置于identifier面前表示将identifier变成字符串字面值，“##”连接</li>
 </ul>
 
-<h2 id="4array">4.array</h2>
+<h2 id="103-array">1.0.3 array</h2>
 
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -396,11 +396,111 @@ Since the arrays are local to the method, they will be placed on the stack.</li>
 <ul>
   <li>use vector instead of array here also, and vector will take care of allocation on the heap.</li>
   <li>As a side note, you should not pass vector by value, as the whole vector will be copied 
-and passed as argument, and no change will be visible at the caller side.
- Use vector<char>&amp; zodis1 instead.</char></li>
+and passed as argument, and no change will be visible at the caller side.</li>
 </ul>
 
-<h2 id="5const">5.const</h2>
+<blockquote>
+  <p>Use vector<char>&amp; zodis1 instead</char></p>
+</blockquote>
+
+<h2 id="104-casting">1.0.4 casting</h2>
+
+<ul>
+  <li>static_cast
+    <ul>
+      <li>any well-defined type conversion, other than those involving low-level const</li>
+    </ul>
+  </li>
+  <li>dynamic_cast
+    <ul>
+      <li>supports the run-time type identification</li>
+      <li>继承</li>
+    </ul>
+  </li>
+  <li>const_cast
+    <ul>
+      <li>changes only a low-level const in its operand</li>
+    </ul>
+  </li>
+  <li>reinterpret_cast
+    <ul>
+      <li>performs a low-level reinterpretation of the bit pattern of its operands</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="105c--size-of-int-long-short">1.0.5.C++ , size of int, long, short</h2>
+
+<h3 id="decided-by-compiler">decided by compiler</h3>
+<ul>
+  <li>depends on the compiler and only on the compiler.</li>
+  <li>Hardware/OS is of no importance at all</li>
+  <li>The compiler is free to implement a hardware abstraction layer of any thickness and emulate absolutely anything</li>
+</ul>
+
+<h3 id="char--byte-octet">char , byte, octet</h3>
+<ul>
+  <li>char is always a byte , but it’s not always an octet
+    <ul>
+      <li>byte
+        <ul>
+          <li>A byte is the smallest addressable unit of memory (in most definitions),</li>
+        </ul>
+      </li>
+      <li>octet
+        <ul>
+          <li>an octet is 8-bit unit of memory</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>sizeof(char) is always 1 for all implementations</li>
+  <li>CHAR_BIT macro in limits.h
+    <ul>
+      <li>defines the size of a byte for a platform</li>
+      <li>it is not always 8 bit.
+        <ul>
+          <li>16-bit, 32-bit bytes</li>
+          <li>others[ex. 7], have to deal with aligned and padding</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="size">size</h3>
+<ul>
+  <li>range
+    <ul>
+      <li>signed char: -127 to 127 (note, not -128 to 127; this accommodates 1’s-complement and sign-and-magnitude platforms)</li>
+      <li>unsigned char: 0 to 255</li>
+      <li>“plain” char: same range as signed char or unsigned char, implementation-defined</li>
+      <li>signed short: -32767 to 32767</li>
+      <li>unsigned short: 0 to 65535</li>
+      <li>signed int: -32767 to 32767</li>
+      <li>unsigned int: 0 to 65535</li>
+      <li>signed long: -2147483647 to 2147483647</li>
+      <li>unsigned long: 0 to 4294967295</li>
+      <li>signed long long: -9223372036854775807 to 9223372036854775807</li>
+      <li>unsigned long long: 0 to 18446744073709551615</li>
+    </ul>
+  </li>
+  <li>rules
+    <ul>
+      <li>char, signed char, and unsigned char are at least 8 bits</li>
+      <li>signed short, unsigned short, signed int, and unsigned int are at least 16 bits</li>
+      <li>signed long and unsigned long are at least 32 bits</li>
+      <li>signed long long and unsigned long long are at least 64 bits</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ref">ref</h3>
+<p><a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a>
+<a href="https://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be"></a>
+<a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a></p>
+
+<h2 id="3constuse-const-whenever-possible">3.const–use const whenever possible</h2>
 
 <h3 id="type-declaration-before-or-after-const-are-the-same">type declaration before or after const are the same</h3>
 
@@ -468,7 +568,7 @@ and passed as argument, and no change will be visible at the caller side.
   </li>
 </ul>
 
-<h2 id="6make-sure-that-objects-are-initialized-before-used">6.make sure that objects are initialized before used</h2>
+<h2 id="4make-sure-that-objects-are-initialized-before-used">4.make sure that objects are initialized before used</h2>
 
 <h3 id="initialized-is-not-guaranteed">initialized is not guaranteed</h3>
 
@@ -571,7 +671,7 @@ and passed as argument, and no change will be visible at the caller side.
         <ul>
           <li>arguments in the initialization list are used as constructor arguments for the various data members
             <ul>
-              <li>For most types, a single call to a copy constructor is more efficient — sometimes much more efficient — than a call to the default constructor followed by a call to the copy assignment operator</li>
+              <li>For most types, a single call to a copy constructor is more efficient — sometimes much more efficient — than a call to the default constructor followed by a call to the copy assignment operator</li>
               <li>for  built-it types, no different between initialization and assignment
                 <ul>
                   <li>for consistency, use member initialization too.</li>
@@ -588,7 +688,7 @@ and passed as argument, and no change will be visible at the caller side.
       </li>
       <li>if too much data members
         <ul>
-          <li>multiple initialization lists introduces undesirable repetition (in the lists) and boredom</li>
+          <li>multiple initialization lists introduces undesirable repetition (in the lists) and boredom</li>
           <li>moving the assignments to a single (typically private) function that all the constructors call</li>
         </ul>
       </li>
@@ -627,101 +727,162 @@ and passed as argument, and no change will be visible at the caller side.
 
 <h4 id="problem">problem</h4>
 <ul>
-  <li>the relative order of initialization of nonlocal static objects defined in different translation units is undefined</li>
+  <li>the relative order of initialization of nonlocal static objects defined in different translation units is undefined</li>
   <li>it’s not only impossible to determine the right order of initialization,</li>
-  <li>it’s typically not even worth looking for special cases where it is possible to determine the right order.</li>
+  <li>it’s typically not even worth looking for special cases where it is possible to determine the right order.</li>
 </ul>
 
 <h4 id="solution-replaced-non-local-static-objects-with-local-static-objects">solution: replaced non-local static objects with local static objects.</h4>
 <ul>
   <li>move each non-local static object into its own function, where it’s declared static
     <ul>
-      <li>Singleton pattern</li>
+      <li>Singleton pattern</li>
     </ul>
   </li>
   <li>This approach is founded on C++’s guarantee that local static objects are initialized when the object’s definition is first encountered during a call to that function.</li>
-  <li>As a bonus, if you never call a function emulating a non-local static object, you never incur the cost of constructing and destructing the object,
+  <li>As a bonus, if you never call a function emulating a non-local static object, you never incur the cost of constructing and destructing the object,
     <ul>
       <li>something that can’t be said for true non-local static objects</li>
     </ul>
   </li>
   <li>might cause multi-theads problem
     <ul>
-      <li>one solution is to manually invoke all the reference-returning functions during the single-threaded startup portion of the program.</li>
+      <li>one solution is to manually invoke all the reference-returning functions during the single-threaded startup portion of the program.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="7c--size-of-int-long-short">7.C++ , size of int, long, short</h2>
-
-<h3 id="decided-by-compiler">decided by compiler</h3>
+<h2 id="5funcitons-c-silently-writes-and-calls">5.funcitons c++ silently writes and calls</h2>
 <ul>
-  <li>depends on the compiler and only on the compiler.</li>
-  <li>Hardware/OS is of no importance at all</li>
-  <li>The compiler is free to implement a hardware abstraction layer of any thickness and emulate absolutely anything</li>
-</ul>
-
-<h3 id="char--byte-octet">char , byte, octet</h3>
-<ul>
-  <li>char is always a byte , but it’s not always an octet
+  <li>default constructor,  copy constructor, destructor,  copy assignment operator(=)
     <ul>
-      <li>byte
+      <li>copy constructor,  =
         <ul>
-          <li>A byte is the smallest addressable unit of memory (in most definitions),</li>
-        </ul>
-      </li>
-      <li>octet
-        <ul>
-          <li>an octet is 8-bit unit of memory</li>
+          <li>simply copy each non-static data member
+            <ul>
+              <li>class for its own copy construtor</li>
+              <li>primitive just copy bits</li>
+            </ul>
+          </li>
+          <li>compiler won’t generate constructor if written constructors manually
+            <ul>
+              <li>neither for others</li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
   </li>
-  <li>sizeof(char) is always 1 for all implementations</li>
-  <li>CHAR_BIT macro in limits.h
+  <li>generated only if they are needed</li>
+</ul>
+
+<h2 id="6explicitly-disallow-the-use-of-compiler-generated-functions-you-do-not-want">6.Explicitly disallow the use of compiler generated functions you do not want</h2>
+
+<blockquote>
+  <p>ex. avoid to copy</p>
+</blockquote>
+
+<ul>
+  <li>the copy constructor and the copy assignment operator are declared private and are not defined</li>
+  <li>change to compile error
     <ul>
-      <li>defines the size of a byte for a platform</li>
-      <li>it is not always 8 bit.
+      <li>use a base class:  Uncopyable</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Uncopyable</span> <span class="p">{</span>
+<span class="nl">protected:</span> <span class="c1">// allow construction</span>
+	<span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// and destruction of</span>
+	<span class="o">~</span><span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// derived objects...</span>
+<span class="nl">private:</span>
+	<span class="n">Uncopyable</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span> <span class="c1">// ...but prevent copying</span>
+	<span class="n">Uncopyable</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="7virtual-destructor">7.virtual destructor</h2>
+<ul>
+  <li>problem: when a derived class object is deleted through a pointer to a base class with a non-virtual destructor, results are undefined.
+    <ul>
+      <li>tipicially, the derived part is never destroyed</li>
+      <li>leading to partialy destroyed object</li>
+    </ul>
+  </li>
+  <li>but
+    <ul>
+      <li>gratuitously[无偿的, 免费的] declaring all destructors virtual is wrong
         <ul>
-          <li>16-bit, 32-bit bytes</li>
-          <li>others[ex. 7], have to deal with aligned and padding</li>
+          <li>increase the size</li>
+        </ul>
+      </li>
+      <li>should not inherent from any class lacking a virtual destructor–<strong>not designed to be used polymorphically</strong>
+        <ul>
+          <li>std::string</li>
+          <li>stl containers: vector, list, set, tr1::unordered_map</li>
+          <li>C++ offers no derivation-prevention mechanism
+            <ul>
+              <li>java final</li>
+              <li>c# sealed class</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>solution:  give the base class a virtual destructor.
+    <ul>
+      <li>destroy the entire object</li>
+      <li>should  provide a body for the destructor</li>
+      <li>how it work:
+        <ul>
+          <li>the most derived classes’s destructor is called first</li>
+          <li>then the destructor of eache base class is called</li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<h3 id="size">size</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>class AWOV { // AWOV = “Abstract w/o Virtuals”
+public:
+virtual ~AWOV() = 0; // declare pure virtual destructor
+};
+
+AWOV::~AWOV() {} // definition of pure virtual dtor
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="8prevent-exceptions-from-leaving-destructors">8.Prevent exceptions from leaving destructors.</h2>
 <ul>
-  <li>range
+  <li>Destructors should never emit exceptions.
     <ul>
-      <li>signed char: -127 to 127 (note, not -128 to 127; this accommodates 1’s-complement and sign-and-magnitude platforms)</li>
-      <li>unsigned char: 0 to 255</li>
-      <li>“plain” char: same range as signed char or unsigned char, implementation-defined</li>
-      <li>signed short: -32767 to 32767</li>
-      <li>unsigned short: 0 to 65535</li>
-      <li>signed int: -32767 to 32767</li>
-      <li>unsigned int: 0 to 65535</li>
-      <li>signed long: -2147483647 to 2147483647</li>
-      <li>unsigned long: 0 to 4294967295</li>
-      <li>signed long long: -9223372036854775807 to 9223372036854775807</li>
-      <li>unsigned long long: 0 to 18446744073709551615</li>
+      <li>swallow it</li>
+      <li>terminate the program: std::abort()</li>
     </ul>
   </li>
-  <li>rules
+  <li>If class clients need to be able to react to exceptions thrown during
+an operation,
     <ul>
-      <li>char, signed char, and unsigned char are at least 8 bits</li>
-      <li>signed short, unsigned short, signed int, and unsigned int are at least 16 bits</li>
-      <li>signed long and unsigned long are at least 32 bits</li>
-      <li>signed long long and unsigned long long are at least 64 bits</li>
+      <li>server swallow the exception, and mark the exception with var</li>
+      <li>client check the var, and continue to solve it</li>
     </ul>
   </li>
 </ul>
 
-<h3 id="ref">ref</h3>
-<p><a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a>
-<a href="https://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be"></a>
-<a href="https://stackoverflow.com/questions/437470/type-to-use-to-represent-a-byte-in-ansi-c89-90-c/437640#437640"></a></p>
 
 
                 <hr style="visibility: hidden;">
@@ -795,22 +956,22 @@ and passed as argument, and no change will be visible at the caller side.
         
         
         
-                <a data-sort="0009" 
+                <a data-sort="0011" 
                     href="/archive/?tag=Linux"
                     title="Linux"
                     rel="3">Linux</a>
         
-                <a data-sort="0009" 
+                <a data-sort="0011" 
                     href="/archive/?tag=java"
                     title="java"
                     rel="3">java</a>
         
-                <a data-sort="0010" 
+                <a data-sort="0012" 
                     href="/archive/?tag=Anki"
                     title="Anki"
                     rel="2">Anki</a>
         
-                <a data-sort="0010" 
+                <a data-sort="0012" 
                     href="/archive/?tag=note"
                     title="note"
                     rel="2">note</a>
