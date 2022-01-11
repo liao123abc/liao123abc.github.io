@@ -10,6 +10,13 @@ tags: []
 ---
 
 # flow
+- ReactiveX
+    - JVM. Rx port for Java called RxJava appeared in 2013. Version 1.0 was released in 2014
+    - back by thread
+- kotlin flow
+    - Kotlin programming language released coroutines in 2018 as a general language feature
+    - back by coroutines
+
 
 ## livedata
 - won't call when view is paused
@@ -101,7 +108,8 @@ val state = shared.distinctUntilChanged() // get StateFlow-like behavior
 - DialogFragment is the exception
 
 
-bad
+> bad
+
 ```kotlin
 lifecycleScope.launchWhenStarted {
     launch {
@@ -116,7 +124,8 @@ lifecycleScope.launchWhenStarted {
 }
 ```
 
-good
+> good
+
 ```kotlin
 viewLifecycleOwner.lifecycleScope.launchWhenResumed {
     launch {
@@ -140,10 +149,92 @@ viewLifecycleOwner.lifecycleScope.launchWhenResumed {
 
 ```kotlin
 
+        // Create a coroutine
+        lifecycleScope.launchWhenStarted {
+            view_message_red_point.visibility = if (mViewModel.queryMessageRedPot()) View.VISIBLE else View.GONE
+
+            launch {
+                mViewModel.channelId.collect {
+                    if (it is Result.Success) {
+                        live_room_id_tv.text = "直播间ID：${it.value}" //fixme
+                    } else {
+                        KLog.i(TAG, "fail to get channel id: ${(it as? Result.Failure)?.errorMessage}")
+                    }
+                }
+            }
+
+            launch {
+                mViewModel.userInfo.collect {
+                    it?.apply {
+                        user_name_tv.text = it.byNickName
+                        anchor_id_tv.text = "主播ID：${it.yyId}" //fixme
+                        avatar_iv.run {
+                            imageService.load(this@PersonalFragment, it.portrait, this)
+                        }
+                    }
+                }
+            }
+
+            launch {
+                mViewModel.userExtInfo.collect {
+                    if (it is Result.Success) {
+                        focus_number_tv.text = it.value.followCount.toString()
+                        fans_number_tv.text = formatFansCount(it.value.fanCount)
+                    } else {
+                        KLog.i(TAG, "fail to user ext info: ${(it as? Result.Failure)?.errorMessage}")
+                    }
+                }
+            }
+        }
+    }
+
 ```
 
 > frequently change data should always use repeatOnLifecycle
 
 ```kotlin
+        // Create a new coroutine since repeatOnLifecycle is a suspend function
+        lifecycleScope.launch {
+            // The block passed to repeatOnLifecycle is executed when the lifecycle
+            // is at least STARTED and is cancelled when the lifecycle is STOPPED.
+            // It automatically restarts the block when the lifecycle is STARTED again.
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Safely collect from locationFlow when the lifecycle is STARTED
+                // and stops collection when the lifecycle is STOPPED
+                locationProvider.locationFlow().collect {
+                    // New location! Update the map
+                }
+            }
+        }
 
 ```
+
+
+
+![wasting resource](https://miro.medium.com/max/2000/1*fmQRBPMPpnO7NAO2bg0GKw.png)
+
+
+
+> configured to skip short resume
+
+```kotlin
+val result: StateFlow<Result<UiState>> = someFlow
+    .stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), 
+        initialValue = Result.Loading
+    )
+```
+
+![best performance](https://miro.medium.com/max/1400/0*AJokESYOHI4uxfWs)
+
+
+## reference
+
+[A safer way to collect flows from Android UIs](https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda)
+
+[Reactive Streams and Kotlin Flows](https://medium.com/@elizarov/reactive-streams-and-kotlin-flows-bfd12772cda4)
+
+[kotlin flow](https://developer.android.com/kotlin/flow)
+
+[Migrating from LiveData to Kotlin’s Flow](https://medium.com/androiddevelopers/migrating-from-livedata-to-kotlins-flow-379292f419fb)
