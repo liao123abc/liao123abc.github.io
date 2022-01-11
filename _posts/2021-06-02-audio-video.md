@@ -9,6 +9,8 @@ published: true
 tags: []
 ---
 
+# audio-video
+
 ## questions
 - B帧
 
@@ -92,7 +94,6 @@ tags: []
 - 播放本地文件则不需要解协议
     - 解封装，解码视音频，视音频同步
 
-![process](https://img-blog.csdn.net/20140201120523046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGVpeGlhb2h1YTEwMjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 视频播放器原理2
 
