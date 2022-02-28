@@ -8,3 +8,7 @@ published: false
 header-img: "img/post-bg-2015.jpg"
 tags: []
 ---
+
+# flow operator
+
+## flatmap

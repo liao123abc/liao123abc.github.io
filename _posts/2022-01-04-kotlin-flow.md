@@ -73,7 +73,11 @@ mMainViewMode.nameLivedata.observeForever(nameObserver)
 
 ## hot and cold
 - flow is cold
+    - code inside flow builder not run until it's collected
+    - is not activated untile any terminal operator(for instance collect)
 - stateflow and sharedflow are hot
+    - hot stream
+    - only one instance of flow runs for all multiple collectors
     - collecting from the flow doesn't trigger any producer code
 
 ## stateflow vs sharedflow
