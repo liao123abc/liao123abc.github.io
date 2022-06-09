@@ -92,6 +92,8 @@ mMainViewMode.nameLivedata.observeForever(nameObserver)
         - shared between multiple collectors
     - has buffer(replay cache)
 - State flow is a shared flow
+- StateFlow does not emit duplicate value.
+    - use sharedFlow
 
 ```kotlin
 // MutableStateFlow(initialValue) is a shared flow with the following parameters:
@@ -102,6 +104,64 @@ val shared = MutableSharedFlow(
 shared.tryEmit(initialValue) // emit the initial value
 val state = shared.distinctUntilChanged() // get StateFlow-like behavior
 ```
+
+```kotlin
+//StateFlow.kt
+    override suspend fun collect(collector: FlowCollector<T>): Nothing {
+        val slot = allocateSlot()
+        try {
+            if (collector is SubscribedFlowCollector) collector.onSubscription()
+            val collectorJob = currentCoroutineContext()[Job]
+            var oldState: Any? = null // previously emitted T!! | NULL (null -- nothing emitted yet)
+            // The loop is arranged so that it starts delivering current value without waiting first
+            while (true) {
+                // Here the coroutine could have waited for a while to be dispatched,
+                // so we use the most recent state here to ensure the best possible conflation of stale values
+                val newState = _state.value
+                // always check for cancellation
+                collectorJob?.ensureActive()
+                // Conflate value emissions using equality
+                if (oldState == null || oldState != newState) {
+                    collector.emit(NULL.unbox(newState))
+                    oldState = newState
+                }
+                // Note: if awaitPending is cancelled, then it bails out of this loop and calls freeSlot
+                if (!slot.takePending()) { // try fast-path without suspending first
+                    slot.awaitPending() // only suspend for new values when needed
+                }
+            }
+        } finally {
+            freeSlot(slot)
+        }
+    }
+```
+
+
+
+```kotlin
+//SharedFlow.kt
+    @Suppress("UNCHECKED_CAST")
+    override suspend fun collect(collector: FlowCollector<T>): Nothing {
+        val slot = allocateSlot()
+        try {
+            if (collector is SubscribedFlowCollector) collector.onSubscription()
+            val collectorJob = currentCoroutineContext()[Job]
+            while (true) {
+                var newValue: Any?
+                while (true) {
+                    newValue = tryTakeValue(slot) // attempt no-suspend fast path first
+                    if (newValue !== NO_VALUE) break
+                    awaitValue(slot) // await signal that the new value is available
+                }
+                collectorJob?.ensureActive()
+                collector.emit(newValue as T)
+            }
+        } finally {
+            freeSlot(slot)
+        }
+    }
+```
+
 
 ## fragment lifecycle and ViewLifeCycle
 - Normal fragments should always use viewLifecycleOwner to trigger UI update
