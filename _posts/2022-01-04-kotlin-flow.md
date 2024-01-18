@@ -84,6 +84,9 @@ mMainViewMode.nameLivedata.observeForever(nameObserver)
 - stateflow--special kind of sharedflow
     - provide its initialState
     - always have value and only have a value
+        - sharedflow doesn't have a current value
+        - stateflow have a current value
+            - read and assign the value property
     - access its current state, like livedata
     - new collector only get the newest state
         - won't get the previous states
